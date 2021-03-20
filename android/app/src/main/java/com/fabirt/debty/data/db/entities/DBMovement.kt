@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.fabirt.debty.data.db.converter.MovementTypeConverter
+import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.MovementType
 
 @Entity(tableName = "movements")
@@ -16,4 +17,24 @@ data class DBMovement(
     val description: String,
     val type: MovementType,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+) {
+    companion object {
+        fun from(movement: Movement) = DBMovement(
+            personId = movement.personId,
+            amount = movement.amount,
+            epochMilli = movement.epochMilli,
+            description = movement.description,
+            type = movement.type,
+            id = movement.id
+        )
+    }
+}
+
+fun DBMovement.toDomainModel() = Movement(
+    id = id,
+    personId = personId,
+    amount = amount,
+    epochMilli = epochMilli,
+    description = description,
+    type = type
 )
