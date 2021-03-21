@@ -17,6 +17,11 @@ class PersonRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun requestPerson(personId: Int): Flow<Person?> =
+        dao.getPerson(personId).map { value ->
+            value?.toDomainModel()
+        }
+
     override suspend fun createPerson(person: Person) = dao.insertPerson(DBPerson.from(person))
 
     override suspend fun updatePerson(person: Person) = dao.updatePerson(DBPerson.from(person))

@@ -1,6 +1,7 @@
 package com.fabirt.debty.domain.repository.movement
 
 import com.fabirt.debty.data.db.dao.MovementDao
+import com.fabirt.debty.data.db.entities.DBMovement
 import com.fabirt.debty.data.db.entities.toDomainModel
 import com.fabirt.debty.domain.model.Movement
 import kotlinx.coroutines.flow.Flow
@@ -14,4 +15,21 @@ class MovementRepositoryImpl @Inject constructor(
     override fun requestAllMovements(): Flow<List<Movement>> = dao.getAll().map { list ->
         list.map { it.toDomainModel() }
     }
+
+    override fun requestPersonMovements(personId: Int): Flow<List<Movement>> {
+        return dao.getPersonMovements(personId).map { value ->
+            value.map { it.toDomainModel() }
+        }
+    }
+
+    override fun requestPersonBalance(personId: Int): Flow<Double?> = dao.getPersonTotal(personId)
+
+    override suspend fun createMovement(movement: Movement) =
+        dao.insertMovement(DBMovement.from(movement))
+
+    override suspend fun updateMovement(movement: Movement) =
+        dao.updateMovement(DBMovement.from(movement))
+
+    override suspend fun deleteMovement(movement: Movement) =
+        dao.deleteMovement(DBMovement.from(movement))
 }

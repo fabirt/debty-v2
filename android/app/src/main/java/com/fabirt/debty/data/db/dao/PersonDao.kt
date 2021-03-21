@@ -11,16 +11,16 @@ interface PersonDao {
     fun getAll(): Flow<List<DBPerson>>
 
     @Query(
-        "SELECT p.id, p.name, SUM(m.amount) AS total FROM persons p INNER JOIN movements m ON p.id = m.person_id GROUP BY p.id, p.name"
+        "SELECT p.id, p.name, p.picture, SUM(m.amount) AS total FROM persons p INNER JOIN movements m ON p.id = m.person_id GROUP BY p.id, p.name, p.picture UNION SELECT id, name, picture, NULL AS total FROM persons WHERE id NOT IN (SELECT person_id FROM movements GROUP BY person_id)"
     )
     fun getAllPersonsWithTotal(): Flow<List<DBPersonWithTotal>>
 
     @Query(
-        "SELECT p.id, p.name, SUM(m.amount) AS total FROM persons p INNER JOIN movements m ON p.id = m.person_id WHERE person_id = :id GROUP BY p.id, p.name"
+        "SELECT * FROM persons WHERE id = :id"
     )
-    fun getPersonWithTotal(id: Int): Flow<DBPersonWithTotal?>
+    fun getPerson(id: Int): Flow<DBPerson?>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertPerson(person: DBPerson)
 
     @Update

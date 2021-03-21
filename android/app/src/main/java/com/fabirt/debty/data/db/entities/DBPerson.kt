@@ -22,7 +22,7 @@ data class DBPerson(
 
 data class DBPersonWithTotal(
     @Embedded val person: DBPerson,
-    val total: Double
+    val total: Double?
 )
 
 fun DBPerson.toDomainModel() = Person(id, name, picture)

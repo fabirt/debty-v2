@@ -13,7 +13,10 @@ interface MovementDao {
     @Query("SELECT * FROM movements WHERE person_id = :personId")
     fun getPersonMovements(personId: Int): Flow<List<DBMovement>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Query("SELECT SUM(amount) FROM movements WHERE person_id = :personId")
+    fun getPersonTotal(personId: Int): Flow<Double?>
+
+    @Insert
     suspend fun insertMovement(value: DBMovement)
 
     @Update

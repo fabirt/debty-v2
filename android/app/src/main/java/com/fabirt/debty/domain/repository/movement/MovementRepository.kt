@@ -6,4 +6,14 @@ import kotlinx.coroutines.flow.Flow
 interface MovementRepository {
 
     fun requestAllMovements(): Flow<List<Movement>>
+
+    fun requestPersonMovements(personId: Int): Flow<List<Movement>>
+
+    fun requestPersonBalance(personId: Int): Flow<Double?>
+
+    suspend fun createMovement(movement: Movement)
+
+    suspend fun updateMovement(movement: Movement)
+
+    suspend fun deleteMovement(movement: Movement)
 }
