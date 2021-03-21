@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
@@ -23,6 +26,16 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var pagerAdapter: HomePagerAdapter
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        onBackPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            _binding?.tabLayout?.getTabAt(0)?.select()
+        }
+
+        onBackPressedCallback.isEnabled = false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +63,7 @@ class HomeFragment : Fragment() {
         }
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            tab.tag = position
             tab.text = when (position) {
                 0 -> getString(R.string.summary)
                 1 -> getString(R.string.people)
@@ -57,6 +71,13 @@ class HomeFragment : Fragment() {
                 else -> ""
             }
         }.attach()
+
+        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                onBackPressedCallback.isEnabled = position != 0
+            }
+        })
     }
 
     override fun onDestroyView() {
