@@ -4,13 +4,11 @@
     <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/montserrat_extra_bold</item>
         <item name="android:textSize">40sp</item>
-        <item name="android:letterSpacing">1.25</item>
     </style>
 
     <style name="TextAppearance.App.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="fontFamily">@font/montserrat_extra_bold</item>
         <item name="android:textSize">36sp</item>
-        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="TextAppearance.App.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
@@ -31,7 +29,6 @@
     <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="fontFamily">@font/montserrat_bold</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:letterSpacing">1.25</item>
         <item name="textAllCaps">true</item>
     </style>
 </resources>
