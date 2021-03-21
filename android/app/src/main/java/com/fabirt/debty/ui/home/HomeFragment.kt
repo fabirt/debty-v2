@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
+import com.fabirt.debty.ui.chart.ChartFragment
+import com.fabirt.debty.ui.people.PeopleFragment
+import com.fabirt.debty.ui.summary.SummaryFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val children = listOf(
-            DemoFragment(), DemoFragment(), DemoFragment()
+            SummaryFragment(), PeopleFragment(), ChartFragment()
         )
         pagerAdapter = HomePagerAdapter(this, children)
 
@@ -39,7 +42,12 @@ class HomeFragment : Fragment() {
         }
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-            tab.text = children[position].name
+            tab.text = when (position) {
+                0 -> getString(R.string.summary)
+                1 -> getString(R.string.people)
+                2 -> getString(R.string.chart)
+                else -> ""
+            }
         }.attach()
     }
 
