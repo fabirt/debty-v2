@@ -1,6 +1,8 @@
 package com.fabirt.debty.ui.people.create
 
 import android.graphics.Bitmap
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.domain.repository.person.PersonRepository
@@ -13,7 +15,8 @@ class CreatePersonViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var name: String? = null
-    private var picture: Bitmap? = null
+    private val _picture: MutableLiveData<Bitmap?> = MutableLiveData()
+    val picture: LiveData<Bitmap?> get() = _picture
 
     fun changeName(value: String?) {
         if (value != null && value.isNotBlank()) {
@@ -22,12 +25,12 @@ class CreatePersonViewModel @Inject constructor(
     }
 
     fun changePicture(value: Bitmap) {
-        picture = value
+        _picture.value = value
     }
 
     suspend fun saveChanges(): Boolean {
         if (name != null) {
-            val person = Person(0, name!!, picture)
+            val person = Person(0, name!!, _picture.value)
             personRepository.createPerson(person)
             return true
         }

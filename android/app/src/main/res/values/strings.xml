@@ -16,4 +16,8 @@
     <string name="name">Name</string>
     <string name="button_transition_name" translatable="false">button</string>
     <string name="invalid_name_error">Please enter a name</string>
+    <string name="permission_alert_title">Permissions</string>
+    <string name="gallery_permission_reason">Please grant permission if you want to select a photo from the gallery.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
