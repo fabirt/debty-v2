@@ -5,6 +5,8 @@ buildscript {
         room_version = "2.2.6"
         hilt_version = "2.33-beta"
         nav_version = "2.3.4"
+        coroutines_version = "1.4.1"
+        lifecycle_version = "2.2.0"
     }
 
     repositories {

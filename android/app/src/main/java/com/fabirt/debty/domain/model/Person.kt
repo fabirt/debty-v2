@@ -7,4 +7,8 @@ data class Person(
     val name: String,
     val picture: Bitmap? = null,
     val total: Double? = null,
-)
+) {
+
+    val indicator: SummaryIndicator
+        get() = SummaryIndicator.from(total)
+}

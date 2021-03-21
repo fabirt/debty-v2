@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/ripple_on_background"
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp">
 
@@ -47,11 +48,26 @@
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.App.Body1"
         android:textColor="?attr/colorOnBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_name"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="$24,000.00" />
 
+    <TextView
+        android:id="@+id/tv_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.App.Body1"
+        android:textColor="@color/colorCustom1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_amount"
+        tools:text="@string/owe_me" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
