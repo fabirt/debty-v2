@@ -28,17 +28,16 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val children = listOf(
+            SummaryFragment(), PeopleFragment(), ChartFragment()
+        )
+        pagerAdapter = HomePagerAdapter(this, children)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val children = listOf(
-            SummaryFragment(), PeopleFragment(), ChartFragment()
-        )
-        pagerAdapter = HomePagerAdapter(this, children)
-
         binding.fab.setOnClickListener { v ->
             val extras = FragmentNavigatorExtras(v to getString(R.string.button_transition_name))
             val action = NavGraphDirections.actionGlobalCreatePersonFragment()

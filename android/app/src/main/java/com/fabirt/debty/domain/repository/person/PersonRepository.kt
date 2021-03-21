@@ -7,6 +7,8 @@ interface PersonRepository {
 
     fun requestAllPersons(): Flow<List<Person>>
 
+    fun requestAllPersonsWithTotal(): Flow<List<Person>>
+
     fun requestPerson(personId: Int): Flow<Person?>
 
     suspend fun createPerson(person: Person)

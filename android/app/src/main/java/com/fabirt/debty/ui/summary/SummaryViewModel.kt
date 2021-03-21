@@ -14,7 +14,7 @@ class SummaryViewModel @Inject constructor(
     private val personRepository: PersonRepository
 ) : ViewModel() {
 
-    val people = personRepository.requestAllPersons().asLiveData()
+    val people = personRepository.requestAllPersonsWithTotal()
 
     fun calculateSummaryData(list: List<Person>): SummaryData {
         var balance = 0.0

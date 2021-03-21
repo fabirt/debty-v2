@@ -11,7 +11,14 @@ import javax.inject.Inject
 class PersonRepositoryImpl @Inject constructor(
     private val dao: PersonDao
 ) : PersonRepository {
+
     override fun requestAllPersons(): Flow<List<Person>> {
+        return dao.getAll().map { data ->
+            data.map { it.toDomainModel() }
+        }
+    }
+
+    override fun requestAllPersonsWithTotal(): Flow<List<Person>> {
         return dao.getAllPersonsWithTotal().map { data ->
             data.map { it.toDomainModel() }
         }

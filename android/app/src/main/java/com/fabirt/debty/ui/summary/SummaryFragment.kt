@@ -13,8 +13,8 @@ import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class SummaryFragment : Fragment() {
@@ -24,11 +24,15 @@ class SummaryFragment : Fragment() {
     private lateinit var personSummaryAdapter: PersonSummaryAdapter
     private val viewModel: SummaryViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        personSummaryAdapter = PersonSummaryAdapter(requireContext(), ::navigateToPersonDetail)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        personSummaryAdapter = PersonSummaryAdapter(requireContext(), ::navigateToPersonDetail)
         _binding = FragmentSummaryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,10 +44,10 @@ class SummaryFragment : Fragment() {
         binding.tvNegativeAmount.text = (0).toCurrencyString()
         binding.tvPositiveAmount.text = (0).toCurrencyString()
 
-        viewModel.people.observe(viewLifecycleOwner) { data ->
-            binding.rvPeople.scheduleLayoutAnimation()
-            binding.rvPeople.isVisible = true
-            lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.people.collect { data ->
+                binding.rvPeople.scheduleLayoutAnimation()
+                binding.rvPeople.isVisible = true
                 personSummaryAdapter.submitList(data)
                 val summaryData = viewModel.calculateSummaryData(data)
                 binding.tvBalanceAmount.animateText(summaryData.balance.toCurrencyString(), "$", 1)

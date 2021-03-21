@@ -1,4 +1,4 @@
-package com.fabirt.debty.ui.summary
+package com.fabirt.debty.ui.people
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -14,18 +14,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PersonSummaryAdapter(
+class PersonAdapter(
     private val context: Context,
     private val onPersonClickListener: PersonClickListener
-) : ListAdapter<Person, PersonSummaryViewHolder>(PersonComparator) {
-
+) : ListAdapter<Person, PersonViewHolder>(PersonComparator) {
     private var defaultAvatar: Bitmap? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonSummaryViewHolder {
-        return PersonSummaryViewHolder.from(parent, context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
+        return PersonViewHolder.from(parent, context)
     }
 
-    override fun onBindViewHolder(holder: PersonSummaryViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         GlobalScope.launch(Dispatchers.Main) {
             val person = getItem(position)
             defaultAvatar = defaultAvatar ?: withContext(Dispatchers.Default) {
