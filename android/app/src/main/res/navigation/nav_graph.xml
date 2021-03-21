@@ -23,8 +23,8 @@
     <action
         android:id="@+id/action_global_createPersonFragment"
         app:destination="@id/createPersonFragment"
-        app:enterAnim="@android:anim/fade_in"
+        app:enterAnim="@anim/page_enter_transition"
         app:exitAnim="@android:anim/fade_out"
         app:popEnterAnim="@android:anim/fade_in"
-        app:popExitAnim="@android:anim/fade_out" />
+        app:popExitAnim="@anim/page_exit_transition" />
 </navigation>
