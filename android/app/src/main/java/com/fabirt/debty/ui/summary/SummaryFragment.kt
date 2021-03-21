@@ -45,25 +45,10 @@ class SummaryFragment : Fragment() {
             binding.rvPeople.isVisible = true
             lifecycleScope.launch {
                 personSummaryAdapter.submitList(data)
-                var balance = 0.0
-                var positive = 0.0
-                var negative = 0.0
-                data.forEach { person ->
-                    val total = person.total
-                    if (total != null) {
-                        balance += total
-
-                        if (total > 0) {
-                            positive += total
-                        } else if (total < 0) {
-                            negative += total.absoluteValue
-                        }
-                    }
-                }
-
-                binding.tvBalanceAmount.text = balance.toCurrencyString()
-                binding.tvNegativeAmount.text = negative.toCurrencyString()
-                binding.tvPositiveAmount.text = positive.toCurrencyString()
+                val summaryData = viewModel.calculateSummaryData(data)
+                binding.tvBalanceAmount.animateText(summaryData.balance.toCurrencyString(), "$", 1)
+                binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
+                binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
             }
         }
     }
