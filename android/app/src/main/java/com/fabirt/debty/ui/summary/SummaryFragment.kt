@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
@@ -38,26 +41,30 @@ class SummaryFragment : Fragment() {
         binding.tvPositiveAmount.text = (0).toCurrencyString()
 
         viewModel.people.observe(viewLifecycleOwner) { data ->
-            personSummaryAdapter.submitList(data)
-            var balance = 0.0
-            var positive = 0.0
-            var negative = 0.0
-            data.forEach { person ->
-                val total = person.total
-                if (total != null) {
-                    balance += total
+            binding.rvPeople.scheduleLayoutAnimation()
+            binding.rvPeople.isVisible = true
+            lifecycleScope.launch {
+                personSummaryAdapter.submitList(data)
+                var balance = 0.0
+                var positive = 0.0
+                var negative = 0.0
+                data.forEach { person ->
+                    val total = person.total
+                    if (total != null) {
+                        balance += total
 
-                    if (total > 0) {
-                        positive += total
-                    } else if (total < 0) {
-                        negative += total.absoluteValue
+                        if (total > 0) {
+                            positive += total
+                        } else if (total < 0) {
+                            negative += total.absoluteValue
+                        }
                     }
                 }
-            }
 
-            binding.tvBalanceAmount.text = balance.toCurrencyString()
-            binding.tvNegativeAmount.text = negative.toCurrencyString()
-            binding.tvPositiveAmount.text = positive.toCurrencyString()
+                binding.tvBalanceAmount.text = balance.toCurrencyString()
+                binding.tvNegativeAmount.text = negative.toCurrencyString()
+                binding.tvPositiveAmount.text = positive.toCurrencyString()
+            }
         }
     }
 
