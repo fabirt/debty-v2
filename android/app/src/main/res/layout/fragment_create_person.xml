@@ -54,6 +54,7 @@
         android:textColorHint="?attr/colorOnBackground"
         app:boxStrokeColor="@color/outlined_stroke_color"
         app:hintTextColor="?attr/colorOnBackground"
+        app:errorTextAppearance="@style/TextAppearance.App.Body1"
         app:layout_constraintTop_toBottomOf="@id/title">
 
         <com.google.android.material.textfield.TextInputEditText
