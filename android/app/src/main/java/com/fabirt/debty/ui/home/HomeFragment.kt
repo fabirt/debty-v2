@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.ui.chart.ChartFragment
@@ -24,7 +27,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,6 +38,12 @@ class HomeFragment : Fragment() {
             SummaryFragment(), PeopleFragment(), ChartFragment()
         )
         pagerAdapter = HomePagerAdapter(this, children)
+
+        binding.fab.setOnClickListener { v ->
+            val extras = FragmentNavigatorExtras(v to getString(R.string.button_transition_name))
+            val action = NavGraphDirections.actionGlobalCreatePersonFragment()
+            findNavController().navigate(action, extras)
+        }
 
         binding.pager.apply {
             adapter = pagerAdapter

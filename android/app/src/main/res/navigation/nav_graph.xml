@@ -10,4 +10,21 @@
         android:name="com.fabirt.debty.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/createPersonFragment"
+        android:name="com.fabirt.debty.ui.people.create.CreatePersonFragment"
+        android:label="fragment_create_person"
+        tools:layout="@layout/fragment_create_person" >
+        <argument
+            android:name="personId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_createPersonFragment"
+        app:destination="@id/createPersonFragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@android:anim/fade_out" />
 </navigation>

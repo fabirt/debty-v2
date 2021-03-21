@@ -10,4 +10,9 @@
     <string name="i_owe">I owe</string>
     <string name="owe_me">Owe me</string>
     <string name="no_movements">No movements</string>
+    <string name="save">Save</string>
+    <string name="new_person">New person</string>
+    <string name="global_text_field_hint">Type here</string>
+    <string name="name">Name</string>
+    <string name="button_transition_name" translatable="false">button</string>
 </resources>
