@@ -23,11 +23,7 @@ class PeopleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = PersonAdapter(requireContext()) {
-            val l = adapter.currentList.toMutableList()
-            l.remove(it)
-            adapter.submitList(l)
-        }
+        adapter = PersonAdapter(requireContext()) { }
     }
 
     override fun onCreateView(
