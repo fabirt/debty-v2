@@ -30,7 +30,7 @@ class CreatePersonViewModel @Inject constructor(
 
     suspend fun saveChanges(): Boolean {
         if (name != null) {
-            val person = Person(0, name!!, _picture.value)
+            val person = Person(0, name!!, picture = _picture.value)
             personRepository.createPerson(person)
             return true
         }

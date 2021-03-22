@@ -9,6 +9,10 @@ import com.fabirt.debty.R
 import com.fabirt.debty.databinding.ViewItemPersonSimpleBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
+import com.fabirt.debty.util.toDateString
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.*
 
 class PersonViewHolder(
     private val binding: ViewItemPersonSimpleBinding,
@@ -27,6 +31,8 @@ class PersonViewHolder(
 
     fun bind(person: Person) {
         binding.tvName.text = person.name
+        binding.tvCreatedAt.text =
+            context.getString(R.string.created_at, person.createdAt.toDateString())
         if (person.picture != null) {
             binding.image.setImageBitmap(person.picture)
         } else {

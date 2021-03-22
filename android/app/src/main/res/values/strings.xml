@@ -21,4 +21,6 @@
     <string name="cancel">Cancel</string>
     <string name="chart_label">Movements</string>
     <string name="new_movement">New movement</string>
+    <string name="empty_summary">You have not registered any movement yet.</string>
+    <string name="created_at">Created at %1$s</string>
 </resources>

@@ -1,10 +1,7 @@
 package com.fabirt.debty.data.db.entities
 
 import android.graphics.Bitmap
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.fabirt.debty.data.db.converter.BitmapConverter
 import com.fabirt.debty.domain.model.Person
 
@@ -12,11 +9,13 @@ import com.fabirt.debty.domain.model.Person
 @TypeConverters(BitmapConverter::class)
 data class DBPerson(
     val name: String,
+    @ColumnInfo(name = "created_at") val createdAt: Long,
     val picture: Bitmap? = null,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 ) {
     companion object {
-        fun from(person: Person) = DBPerson(person.name, person.picture, person.id)
+        fun from(person: Person) =
+            DBPerson(person.name, person.createdAt, person.picture, person.id)
     }
 }
 
@@ -25,6 +24,7 @@ data class DBPersonWithTotal(
     val total: Double?
 )
 
-fun DBPerson.toDomainModel() = Person(id, name, picture)
+fun DBPerson.toDomainModel() = Person(id, name, createdAt, picture)
 
-fun DBPersonWithTotal.toDomainModel() = Person(person.id, person.name, person.picture, total)
+fun DBPersonWithTotal.toDomainModel() =
+    Person(person.id, person.name, person.createdAt, person.picture, total)
