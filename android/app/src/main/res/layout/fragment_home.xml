@@ -32,12 +32,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="@null"
-        android:transitionName="@string/button_transition_name"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/fab_ripple_color"
-        app:srcCompat="@drawable/ic_round_add_24"
+        app:srcCompat="@drawable/ic_round_attach_money_24"
         app:tint="?attr/backgroundColor" />
 
 

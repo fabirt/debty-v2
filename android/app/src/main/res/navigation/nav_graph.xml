@@ -14,15 +14,34 @@
         android:id="@+id/createPersonFragment"
         android:name="com.fabirt.debty.ui.people.create.CreatePersonFragment"
         android:label="fragment_create_person"
-        tools:layout="@layout/fragment_create_person" >
+        tools:layout="@layout/fragment_create_person">
         <argument
-            android:name="personId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:name="person_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <action
         android:id="@+id/action_global_createPersonFragment"
         app:destination="@id/createPersonFragment"
+        app:enterAnim="@anim/page_enter_transition"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@anim/page_exit_transition" />
+    <fragment
+        android:id="@+id/createMovementFragment"
+        android:name="com.fabirt.debty.ui.movement.create.CreateMovementFragment"
+        android:label="fragment_create_movement"
+        tools:layout="@layout/fragment_create_movement">
+        <argument
+            android:name="person_id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_createMovementFragment"
+        app:destination="@id/createMovementFragment"
         app:enterAnim="@anim/page_enter_transition"
         app:exitAnim="@android:anim/fade_out"
         app:popEnterAnim="@android:anim/fade_in"
