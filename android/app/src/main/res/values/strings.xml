@@ -20,4 +20,5 @@
     <string name="gallery_permission_reason">Please grant permission if you want to select a photo from the gallery.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="chart_label">Movements</string>
 </resources>
