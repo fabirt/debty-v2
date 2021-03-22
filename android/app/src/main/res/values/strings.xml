@@ -24,4 +24,7 @@
     <string name="empty_summary">You have not registered any movement yet.</string>
     <string name="created_at">Created at %1$s</string>
     <string name="select_person">Select person</string>
+    <string name="shortcut_movement_long_label">New movement</string>
+    <string name="shortcut_movement_short_label">Movement</string>
+    <string name="shortcut_movement_disabled_message">Movement</string>
 </resources>

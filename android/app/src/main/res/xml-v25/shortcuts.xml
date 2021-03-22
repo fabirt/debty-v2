@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut_movement_round"
+        android:shortcutDisabledMessage="@string/shortcut_movement_disabled_message"
+        android:shortcutId="sc1"
+        android:shortcutLongLabel="@string/shortcut_movement_long_label"
+        android:shortcutShortLabel="@string/shortcut_movement_short_label">
+        <intent
+            android:action="android.intent.action.ASSIST"
+            android:data="debty.movement"
+            android:targetClass="com.fabirt.debty.ui.MainActivity"
+            android:targetPackage="com.fabirt.debty2" />
+
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

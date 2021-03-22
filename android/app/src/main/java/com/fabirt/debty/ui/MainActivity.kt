@@ -3,6 +3,8 @@ package com.fabirt.debty.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.fabirt.debty.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,5 +16,21 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.Theme_App)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
+        handleIntent()
+    }
+
+    private fun handleIntent() {
+        intent?.dataString?.let { data ->
+            when(data) {
+                "debty.movement" -> triggerNewMovementDeepLink()
+            }
+        }
+    }
+
+    private fun triggerNewMovementDeepLink() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.personSearchFragment)
     }
 }
