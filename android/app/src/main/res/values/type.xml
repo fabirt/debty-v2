@@ -21,6 +21,11 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="TextAppearance.App.Body1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/montserrat_light</item>
         <item name="android:textSize">13sp</item>

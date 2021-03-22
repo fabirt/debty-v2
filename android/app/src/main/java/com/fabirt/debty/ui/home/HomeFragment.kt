@@ -52,7 +52,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fab.setOnClickListener { addMovement() }
+        binding.fab.setOnClickListener { navigateToCreateMovement() }
 
         binding.pager.apply {
             adapter = pagerAdapter
@@ -82,21 +82,21 @@ class HomeFragment : Fragment() {
                             requireContext(),
                             R.drawable.ic_round_attach_money_24
                         )
-                        fabClickAction = ::addMovement
+                        fabClickAction = ::navigateToCreateMovement
                     }
                     1 -> {
                         fabDrawable = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_round_person_add_24
                         )
-                        fabClickAction = ::addPerson
+                        fabClickAction = ::navigateToCreatePerson
                     }
                     else -> {
                         fabDrawable = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_round_attach_money_24
                         )
-                        fabClickAction = ::addMovement
+                        fabClickAction = ::navigateToCreateMovement
                     }
                 }
 
@@ -111,13 +111,13 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun addPerson() {
+    private fun navigateToCreatePerson() {
         val action = NavGraphDirections.actionGlobalCreatePersonFragment()
         findNavController().navigate(action)
     }
 
-    private fun addMovement() {
-        val action = NavGraphDirections.actionGlobalCreateMovementFragment()
+    private fun navigateToCreateMovement() {
+        val action = HomeFragmentDirections.actionHomeToPersonSearch()
         findNavController().navigate(action)
     }
 }

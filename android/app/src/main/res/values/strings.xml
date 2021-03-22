@@ -23,4 +23,5 @@
     <string name="new_movement">New movement</string>
     <string name="empty_summary">You have not registered any movement yet.</string>
     <string name="created_at">Created at %1$s</string>
+    <string name="select_person">Select person</string>
 </resources>
