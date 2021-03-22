@@ -65,5 +65,16 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/page_exit_transition"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_personSearch_to_createPerson"
+            app:destination="@id/createPersonFragment"
+            app:enterAnim="@anim/page_enter_transition"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/page_exit_transition"
+            app:popUpTo="@id/homeFragment" >
+            <argument
+                android:name="person_id" />
+        </action>
     </fragment>
 </navigation>

@@ -12,8 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fabirt.debty.databinding.FragmentPersonSearchBinding
 import com.fabirt.debty.domain.model.Person
-import com.fabirt.debty.ui.people.PeopleViewModel
-import com.fabirt.debty.ui.people.PersonAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,12 +21,15 @@ class PersonSearchFragment : Fragment() {
 
     private var _binding: FragmentPersonSearchBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: PersonAdapter
-    private val viewModel: PeopleViewModel by viewModels()
+    private lateinit var adapter: PersonSearchAdapter
+    private val viewModel: PersonSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = PersonAdapter(requireContext(), ::selectPerson)
+        adapter = PersonSearchAdapter(
+            onNewPersonClickListener = ::selectNewPerson,
+            onPersonClickListener = ::selectPerson
+        )
     }
 
     override fun onCreateView(
@@ -59,6 +60,11 @@ class PersonSearchFragment : Fragment() {
     private fun selectPerson(person: Person) {
         val action =
             PersonSearchFragmentDirections.actionPersonSearchToCreateMovement(person.id.toString())
+        findNavController().navigate(action)
+    }
+
+    private fun selectNewPerson() {
+        val action = PersonSearchFragmentDirections.actionPersonSearchToCreatePerson("-1")
         findNavController().navigate(action)
     }
 

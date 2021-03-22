@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fabirt.debty.databinding.FragmentCreateMovementBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CreateMovementFragment : Fragment() {
 
     private var _binding: FragmentCreateMovementBinding? = null
