@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreatePersonBinding
 import com.fabirt.debty.util.clearFocusAndCloseKeyboard
+import com.fabirt.debty.util.requestKeyboardFocus
 import com.fabirt.debty.util.showGeneralDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -53,6 +54,8 @@ class CreatePersonFragment : Fragment() {
         binding.imageCard.setOnClickListener { checkPermissions() }
         binding.btnSave.setOnClickListener(::validate)
 
+        binding.editTextName.requestKeyboardFocus()
+
         viewModel.picture.observe(viewLifecycleOwner) {
             if (it != null) binding.image.setImageBitmap(it)
         }
@@ -64,7 +67,7 @@ class CreatePersonFragment : Fragment() {
     }
 
     private fun validate(v: View) {
-        viewModel.changeName(binding.editTextName.text?.toString())
+        viewModel.changeName(binding.editTextName.text?.toString()?.trim())
         lifecycleScope.launch {
             val success = viewModel.saveChanges()
             if (success) {

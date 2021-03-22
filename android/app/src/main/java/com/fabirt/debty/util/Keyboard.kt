@@ -11,3 +11,11 @@ fun View.clearFocusAndCloseKeyboard() {
     this.clearFocus()
     inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)
 }
+
+fun View.requestKeyboardFocus() {
+    val inputMethodManager = ContextCompat.getSystemService(
+        this.context, InputMethodManager::class.java
+    )
+    this.requestFocus()
+    inputMethodManager?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
