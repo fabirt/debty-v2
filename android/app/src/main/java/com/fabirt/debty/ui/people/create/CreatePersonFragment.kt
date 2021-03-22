@@ -72,7 +72,6 @@ class CreatePersonFragment : Fragment() {
         viewModel.changeName(binding.editTextName.text?.toString()?.trim())
         lifecycleScope.launch {
             if (viewModel.validate()) {
-                v.clearFocusAndCloseKeyboard()
                 val argPersonId = args.personId?.toIntOrNull()
                 val createdPersonId = viewModel.saveChanges()
                 if (argPersonId != null && argPersonId < 0) {
@@ -81,6 +80,7 @@ class CreatePersonFragment : Fragment() {
                     )
                     findNavController().navigate(action)
                 } else {
+                    v.clearFocusAndCloseKeyboard()
                     findNavController().popBackStack()
                 }
             } else {

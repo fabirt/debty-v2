@@ -27,4 +27,6 @@
     <string name="shortcut_movement_long_label">New movement</string>
     <string name="shortcut_movement_short_label">Movement</string>
     <string name="shortcut_movement_disabled_message">Movement</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
 </resources>
