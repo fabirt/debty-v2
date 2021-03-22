@@ -1,10 +1,11 @@
 package com.fabirt.debty.ui.people
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.fabirt.debty.R
 import com.fabirt.debty.databinding.ViewItemPersonSimpleBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
@@ -24,10 +25,16 @@ class PersonViewHolder(
         }
     }
 
-    fun bind(person: Person, defaultAvatar: Bitmap) {
+    fun bind(person: Person) {
         binding.tvName.text = person.name
-        val bitmap = person.picture ?: defaultAvatar
-        binding.image.setImageBitmap(bitmap)
+        if (person.picture != null) {
+            binding.image.setImageBitmap(person.picture)
+        } else {
+            val d =
+                ResourcesCompat.getDrawable(context.resources, R.drawable.avatar_placeholder, null)
+            binding.image.setImageDrawable(d)
+        }
+
         binding.container.setOnClickListener {
             clickListener?.invoke(person)
         }

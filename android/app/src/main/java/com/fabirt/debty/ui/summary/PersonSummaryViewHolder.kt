@@ -1,22 +1,16 @@
 package com.fabirt.debty.ui.summary
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.ViewItemPersonBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
 import com.fabirt.debty.util.toCurrencyString
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class PersonSummaryViewHolder(
     private val binding: ViewItemPersonBinding,
@@ -33,13 +27,19 @@ class PersonSummaryViewHolder(
         }
     }
 
-    fun bind(person: Person, defaultAvatar: Bitmap) {
+    fun bind(person: Person) {
         binding.tvName.text = person.name
         binding.tvAmount.text = if (person.total != null) {
             person.total.toCurrencyString()
         } else context.getString(R.string.no_movements)
-        val bitmap = person.picture ?: defaultAvatar
-        binding.image.setImageBitmap(bitmap)
+
+        if (person.picture != null) {
+            binding.image.setImageBitmap(person.picture)
+        } else {
+            val d =
+                ResourcesCompat.getDrawable(context.resources, R.drawable.avatar_placeholder, null)
+            binding.image.setImageDrawable(d)
+        }
 
         binding.tvIndicator.isVisible = person.total != null
         val indicator = person.indicator
