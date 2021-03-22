@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreatePersonBinding
 import com.fabirt.debty.util.clearFocusAndCloseKeyboard
@@ -35,6 +36,7 @@ class CreatePersonFragment : Fragment() {
     private val imageContent = "image/*"
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var requestContentLauncher: ActivityResultLauncher<String>
+    private val args: CreatePersonFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +71,18 @@ class CreatePersonFragment : Fragment() {
     private fun validate(v: View) {
         viewModel.changeName(binding.editTextName.text?.toString()?.trim())
         lifecycleScope.launch {
-            val success = viewModel.saveChanges()
-            if (success) {
+            if (viewModel.validate()) {
                 v.clearFocusAndCloseKeyboard()
-                findNavController().popBackStack()
+                val argPersonId = args.personId?.toIntOrNull()
+                val createdPersonId = viewModel.saveChanges()
+                if (argPersonId != null && argPersonId < 0) {
+                    val action = CreatePersonFragmentDirections.actionCreatePersonToCreateMovement(
+                        createdPersonId.toString()
+                    )
+                    findNavController().navigate(action)
+                } else {
+                    findNavController().popBackStack()
+                }
             } else {
                 binding.inputLayoutName.error = getString(R.string.invalid_name_error)
             }

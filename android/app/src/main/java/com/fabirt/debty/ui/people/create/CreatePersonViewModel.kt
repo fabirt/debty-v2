@@ -28,12 +28,13 @@ class CreatePersonViewModel @Inject constructor(
         _picture.value = value
     }
 
-    suspend fun saveChanges(): Boolean {
-        if (name != null) {
-            val person = Person(0, name!!, picture = _picture.value)
-            personRepository.createPerson(person)
-            return true
-        }
-        return false
+    fun validate(): Boolean = name != null
+
+    /**
+     * @return The created person ID.
+     */
+    suspend fun saveChanges(): Long {
+        val person = Person(0, name!!, picture = _picture.value)
+        return personRepository.createPerson(person)
     }
 }

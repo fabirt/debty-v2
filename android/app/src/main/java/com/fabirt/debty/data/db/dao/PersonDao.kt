@@ -21,7 +21,7 @@ interface PersonDao {
     fun getPerson(id: Int): Flow<DBPerson?>
 
     @Insert
-    suspend fun insertPerson(person: DBPerson)
+    suspend fun insertPerson(person: DBPerson): Long
 
     @Update
     suspend fun updatePerson(person: DBPerson)

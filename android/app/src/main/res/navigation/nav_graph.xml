@@ -28,6 +28,14 @@
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_createPerson_to_createMovement"
+            app:destination="@id/createMovementFragment"
+            app:enterAnim="@anim/page_enter_transition"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@anim/page_exit_transition"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_createPersonFragment"

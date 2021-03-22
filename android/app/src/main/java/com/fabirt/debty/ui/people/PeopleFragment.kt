@@ -45,7 +45,7 @@ class PeopleFragment : Fragment() {
             }
         })
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.people.collect {
                 adapter.submitList(it)
             }

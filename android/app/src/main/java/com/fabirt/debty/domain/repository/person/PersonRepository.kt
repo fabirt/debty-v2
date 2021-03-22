@@ -11,7 +11,7 @@ interface PersonRepository {
 
     fun requestPerson(personId: Int): Flow<Person?>
 
-    suspend fun createPerson(person: Person)
+    suspend fun createPerson(person: Person): Long
 
     suspend fun updatePerson(person: Person)
 
