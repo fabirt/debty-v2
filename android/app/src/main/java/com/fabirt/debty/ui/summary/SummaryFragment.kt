@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +23,7 @@ class SummaryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var personSummaryAdapter: PersonSummaryAdapter
     private val viewModel: SummaryViewModel by viewModels()
+    private var oneShotAnimated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,19 +43,24 @@ class SummaryFragment : Fragment() {
         binding.rvPeople.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvPeople.adapter = personSummaryAdapter
-        binding.tvBalanceAmount.text = (0).toCurrencyString()
-        binding.tvNegativeAmount.text = (0).toCurrencyString()
-        binding.tvPositiveAmount.text = (0).toCurrencyString()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.people.collect { data ->
-                binding.rvPeople.scheduleLayoutAnimation()
-                binding.rvPeople.isVisible = true
+                if (oneShotAnimated) {
+                    binding.rvPeople.itemAnimator = null
+                } else {
+                    binding.rvPeople.scheduleLayoutAnimation()
+                }
                 personSummaryAdapter.submitList(data)
                 val summaryData = viewModel.calculateSummaryData(data)
-                binding.tvBalanceAmount.animateText(summaryData.balance.toCurrencyString(), "$", 1)
+                if (oneShotAnimated) {
+                    binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
+                } else {
+                    binding.tvBalanceAmount.animateText(summaryData.balance.toCurrencyString(), "$", 1)
+                }
                 binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
                 binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
+                oneShotAnimated = true
             }
         }
     }

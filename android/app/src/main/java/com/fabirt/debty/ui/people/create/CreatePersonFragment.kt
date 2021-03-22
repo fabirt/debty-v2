@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreatePersonBinding
+import com.fabirt.debty.util.clearFocusAndCloseKeyboard
 import com.fabirt.debty.util.showGeneralDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class CreatePersonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.imageCard.setOnClickListener { checkPermissions() }
-        binding.btnSave.setOnClickListener { validate() }
+        binding.btnSave.setOnClickListener(::validate)
 
         viewModel.picture.observe(viewLifecycleOwner) {
             if (it != null) binding.image.setImageBitmap(it)
@@ -62,11 +63,12 @@ class CreatePersonFragment : Fragment() {
         _binding = null
     }
 
-    private fun validate() {
+    private fun validate(v: View) {
         viewModel.changeName(binding.editTextName.text?.toString())
         lifecycleScope.launch {
             val success = viewModel.saveChanges()
             if (success) {
+                v.clearFocusAndCloseKeyboard()
                 findNavController().popBackStack()
             } else {
                 binding.inputLayoutName.error = getString(R.string.invalid_name_error)

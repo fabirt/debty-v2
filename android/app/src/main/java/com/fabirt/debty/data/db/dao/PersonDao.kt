@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PersonDao {
-    @Query("SELECT * FROM persons")
+    @Query("SELECT * FROM persons ORDER BY id DESC")
     fun getAll(): Flow<List<DBPerson>>
 
     @Query(
