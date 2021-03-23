@@ -17,9 +17,11 @@ import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.applyNavigationBarBottomMargin
 import com.fabirt.debty.util.applyStatusBarTopInset
+import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class PersonDetailFragment : Fragment() {
@@ -70,7 +72,11 @@ class PersonDetailFragment : Fragment() {
                     binding.image.setImageBitmap(person.picture)
                 } else {
                     val d =
-                        ResourcesCompat.getDrawable(requireContext().resources, R.drawable.avatar_placeholder, null)
+                        ResourcesCompat.getDrawable(
+                            requireContext().resources,
+                            R.drawable.avatar_placeholder,
+                            null
+                        )
                     binding.image.setImageDrawable(d)
                 }
             }
@@ -79,6 +85,17 @@ class PersonDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.requestMovements(args.personId).collect {
                 adapter.submitList(it)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.requestBalance(args.personId).collect {
+                binding.tvTotal.text = it?.absoluteValue.toCurrencyString()
+                if (it != null) {
+                    binding.tvTotalLabel.text = if (it > 0) {
+                        getString(R.string.owe_me)
+                    } else getString(R.string.i_owe)
+                }
             }
         }
     }
