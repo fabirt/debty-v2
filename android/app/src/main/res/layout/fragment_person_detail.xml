@@ -16,4 +16,33 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_movements"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:listitem="@layout/view_item_movement" />
+
+    <Button
+        android:id="@+id/btn_new_movement"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:focusable="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/new_movement"
+        android:textAppearance="@style/TextAppearance.App.Button"
+        app:elevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.App.LargeComponent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

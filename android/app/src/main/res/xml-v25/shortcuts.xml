@@ -9,7 +9,7 @@
         android:shortcutShortLabel="@string/shortcut_movement_short_label">
         <intent
             android:action="android.intent.action.ASSIST"
-            android:data="debty.movement"
+            android:data="debty.assistant.movement"
             android:targetClass="com.fabirt.debty.ui.MainActivity"
             android:targetPackage="com.fabirt.debty2" />
 

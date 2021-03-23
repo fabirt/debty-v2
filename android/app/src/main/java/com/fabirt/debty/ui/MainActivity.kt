@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntent() {
         intent?.dataString?.let { data ->
             when (data) {
-                "debty.movement" -> triggerNewMovementDeepLink()
+                "debty.assistant.movement" -> triggerNewMovementDeepLink()
             }
         }
     }
