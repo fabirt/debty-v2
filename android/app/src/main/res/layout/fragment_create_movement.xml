@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
                     android:inputType="number"
+                    android:maxLength="10"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.App.Body1"

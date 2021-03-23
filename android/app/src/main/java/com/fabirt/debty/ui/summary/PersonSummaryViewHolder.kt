@@ -43,7 +43,7 @@ class PersonSummaryViewHolder(
 
         binding.tvIndicator.isVisible = person.total != null
         val indicator = person.indicator
-        binding.tvIndicator.setTextColor(context.getColor(indicator.colorId))
+        binding.tvAmount.setTextColor(context.getColor(indicator.colorId))
         binding.tvIndicator.text = context.getString(indicator.stringId)
 
         binding.container.setOnClickListener {

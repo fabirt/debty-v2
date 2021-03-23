@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
+import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.applyNavigationBarBottomMargin
@@ -48,8 +50,6 @@ class PersonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        applyWindowInsets()
-
         binding.rvMovements.adapter = adapter
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
@@ -66,6 +66,13 @@ class PersonDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.requestPerson(args.personId).collect { person ->
                 binding.tvName.text = person?.name ?: ""
+                if (person?.picture != null) {
+                    binding.image.setImageBitmap(person.picture)
+                } else {
+                    val d =
+                        ResourcesCompat.getDrawable(requireContext().resources, R.drawable.avatar_placeholder, null)
+                    binding.image.setImageDrawable(d)
+                }
             }
         }
 
@@ -79,11 +86,5 @@ class PersonDetailFragment : Fragment() {
     private fun navigateToNewMovement() {
         val action = NavGraphDirections.actionGlobalCreateMovementFragment(args.personId.toString())
         findNavController().navigate(action)
-    }
-
-    private fun applyWindowInsets() {
-        binding.tvName.applyStatusBarTopInset()
-        binding.btnNewMovement.applyNavigationBarBottomMargin(16)
-        binding.rvMovements.applyNavigationBarBottomInset(80)
     }
 }

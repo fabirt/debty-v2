@@ -2,18 +2,61 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="16dp">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.App.Body1"
+        android:textColor="@color/low_emphasis_color"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_description"
+        app:layout_constraintEnd_toStartOf="@id/tv_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="11/03/2021" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/TextAppearance.App.Subtitle1"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_movement_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        tools:text="This is a description" />
 
     <TextView
         android:id="@+id/tv_amount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textAppearance="@style/TextAppearance.App.Headline3"
-        android:textColor="?attr/colorOnBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.App.Body1"
+        android:textColor="@color/colorCustom1"
+        app:layout_constraintBottom_toTopOf="@id/tv_movement_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/tv_date"
+        app:layout_constraintStart_toStartOf="@id/tv_movement_type"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="$20,000.00" />
+        tools:text="$20" />
+
+    <TextView
+        android:id="@+id/tv_movement_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.App.Body1"
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_amount"
+        tools:text="Incoming" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

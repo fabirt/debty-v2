@@ -9,4 +9,5 @@
     <color name="colorCustom1">#39A844</color>
     <color name="colorCustom2">#D93C19</color>
     <color name="colorRippleOnBackground">#1FFFFFFF</color>
+    <color name="colorSurfaceCustom">#392652</color>
 </resources>

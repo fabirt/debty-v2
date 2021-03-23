@@ -32,6 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         android:textAppearance="@style/TextAppearance.App.Headline3"
         android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,10 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.App.Body1"
-        android:textColor="?attr/colorOnBackground"
+        android:textColor="@color/colorCustom1"
         app:layout_constraintBottom_toTopOf="@id/tv_indicator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_name"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="$24,000.00" />
@@ -63,11 +64,12 @@
         android:layout_marginTop="4dp"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.App.Body1"
-        android:textColor="@color/colorCustom1"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_amount"
-        tools:text="@string/owe_me" />
+        tools:text="OWE ME" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

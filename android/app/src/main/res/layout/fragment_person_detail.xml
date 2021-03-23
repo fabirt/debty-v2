@@ -5,16 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
+    android:fitsSystemWindows="true"
     tools:context=".ui.people.detail.PersonDetailFragment">
 
     <TextView
         android:id="@+id/tv_name"
-        style="@style/HeadlineTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.App.Headline2"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?colorOnBackground"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_history"
+        app:layout_constraintEnd_toStartOf="@id/image_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@tools:sample/full_names" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/image_card"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/person_image_content_description"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        app:shapeAppearance="@style/ShapeAppearance.App.LargeComponent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/person_image_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar_placeholder"
+            tools:src="@tools:sample/avatars" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tv_history"
+        style="@style/HeadlineTextStyle"
+        android:text="@string/history"
+        android:textAppearance="@style/TextAppearance.App.Headline3"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/rv_movements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="History" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movements"
@@ -23,9 +63,10 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
+        android:paddingBottom="24dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        app:layout_constraintBottom_toTopOf="@id/btn_new_movement"
+        app:layout_constraintTop_toBottomOf="@id/tv_history"
         tools:listitem="@layout/view_item_movement" />
 
     <Button
