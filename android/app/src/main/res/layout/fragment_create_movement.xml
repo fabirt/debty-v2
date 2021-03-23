@@ -89,6 +89,31 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_movement"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/movement_type"
+                android:labelFor="@id/auto_text_view_movement"
+                android:textColorHint="?attr/colorOnBackground"
+                app:boxStrokeColor="@color/outlined_stroke_color"
+                app:endIconTint="@color/outlined_stroke_color"
+                app:errorTextAppearance="@style/TextAppearance.App.Body1"
+                app:hintTextColor="?attr/colorOnBackground">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_text_view_movement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    android:textColor="?attr/colorOnBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_date"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -117,31 +142,6 @@
                     android:textColor="?attr/colorOnBackground"
                     android:textColorHighlight="@color/outlined_stroke_color"
                     app:hintTextAppearance="@style/TextAppearance.App.Body1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_movement"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/movement_type"
-                android:labelFor="@id/auto_text_view_movement"
-                android:textColorHint="?attr/colorOnBackground"
-                app:boxStrokeColor="@color/outlined_stroke_color"
-                app:endIconTint="@color/outlined_stroke_color"
-                app:errorTextAppearance="@style/TextAppearance.App.Body1"
-                app:hintTextColor="?attr/colorOnBackground">
-
-                <AutoCompleteTextView
-                    android:id="@+id/auto_text_view_movement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:textAppearance="@style/TextAppearance.App.Body1"
-                    android:textColor="?attr/colorOnBackground" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

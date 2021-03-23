@@ -80,7 +80,6 @@
         android:text="@string/history"
         android:textAppearance="@style/TextAppearance.App.Headline3"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/rv_movements"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_total"
@@ -97,7 +96,24 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/btn_new_movement"
         app:layout_constraintTop_toBottomOf="@id/tv_history"
-        tools:listitem="@layout/view_item_movement" />
+        tools:listitem="@layout/view_item_movement"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/empty_summary"
+        android:textAppearance="@style/TextAppearance.App.Headline3"
+        android:textColor="@color/low_emphasis_color"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_history"
+        tools:text="You have not registered any movement yet."
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/btn_new_movement"

@@ -83,12 +83,14 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/empty_summary"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.App.Headline3"
         android:textColor="@color/low_emphasis_color"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_positive_amount"
-        tools:text="You have not registered any movement yet." />
+        tools:text="You have not registered any movement yet."
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
