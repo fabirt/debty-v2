@@ -31,4 +31,7 @@
     <string name="description">Description</string>
     <string name="date">Date</string>
     <string name="date_picker_title">Select date</string>
+    <string name="amount_error_text">Please enter the amount</string>
+    <string name="description_error_text">Please enter a description</string>
+    <string name="date_error_text">Please select date</string>
 </resources>

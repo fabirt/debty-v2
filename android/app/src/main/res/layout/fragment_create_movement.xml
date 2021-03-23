@@ -88,6 +88,7 @@
         app:endIconDrawable="@drawable/ic_round_calendar_today_24"
         app:endIconMode="custom"
         app:endIconTint="@color/outlined_stroke_color"
+        app:errorIconDrawable="@drawable/ic_round_calendar_today_24"
         app:errorTextAppearance="@style/TextAppearance.App.Body1"
         app:hintTextColor="?attr/colorOnBackground"
         app:layout_constraintTop_toBottomOf="@id/input_layout_description">
