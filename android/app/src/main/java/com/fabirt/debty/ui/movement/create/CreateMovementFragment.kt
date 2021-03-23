@@ -1,15 +1,19 @@
 package com.fabirt.debty.ui.movement.create
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreateMovementBinding
+import com.fabirt.debty.domain.model.movementTypeOptions
 import com.fabirt.debty.util.clearFocusAndCloseKeyboard
 import com.fabirt.debty.util.requestKeyboardFocus
 import com.fabirt.debty.util.toDateString
@@ -18,6 +22,7 @@ import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+
 
 @AndroidEntryPoint
 class CreateMovementFragment : Fragment() {
@@ -37,6 +42,17 @@ class CreateMovementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.menu_list_item,
+            movementTypeOptions.map { getString(it.name) })
+
+        binding.autoTextViewMovement.setAdapter(adapter)
+
+        binding.autoTextViewMovement.setOnItemClickListener { _, _, position, _ ->
+            viewModel.changeMovementType(movementTypeOptions[position])
+        }
 
         binding.editTextDate.setOnClickListener {
             openDatePicker()
@@ -111,6 +127,13 @@ class CreateMovementFragment : Fragment() {
             binding.inputLayoutDate.error = getString(R.string.date_error_text)
         } else {
             binding.inputLayoutDate.error = null
+        }
+
+        if (!viewModel.validateMovementType()) {
+            isValid = false
+            binding.inputLayoutMovement.error = getString(R.string.movement_type_error_text)
+        } else {
+            binding.inputLayoutMovement.error = null
         }
 
         if (isValid) {

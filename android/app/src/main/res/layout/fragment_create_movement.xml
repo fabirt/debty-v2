@@ -17,97 +17,136 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="New movement" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_amount"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/amount"
-        android:textColorHint="?attr/colorOnBackground"
-        app:boxStrokeColor="@color/outlined_stroke_color"
-        app:errorTextAppearance="@style/TextAppearance.App.Body1"
-        app:hintTextColor="?attr/colorOnBackground"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="24dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/btn_save"
         app:layout_constraintTop_toBottomOf="@id/title">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_amount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            android:textColor="?attr/colorOnBackground"
-            android:textColorHighlight="@color/outlined_stroke_color"
-            app:hintTextAppearance="@style/TextAppearance.App.Body1" />
+            android:layout_marginHorizontal="16dp"
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_amount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/amount"
+                android:textColorHint="?attr/colorOnBackground"
+                app:boxStrokeColor="@color/outlined_stroke_color"
+                app:errorTextAppearance="@style/TextAppearance.App.Body1"
+                app:hintTextColor="?attr/colorOnBackground">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_description"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/description"
-        android:textColorHint="?attr/colorOnBackground"
-        app:boxStrokeColor="@color/outlined_stroke_color"
-        app:errorTextAppearance="@style/TextAppearance.App.Body1"
-        app:hintTextColor="?attr/colorOnBackground"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_amount">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textColorHighlight="@color/outlined_stroke_color"
+                    app:hintTextAppearance="@style/TextAppearance.App.Body1" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text|textCapSentences"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            android:textColor="?attr/colorOnBackground"
-            android:textColorHighlight="@color/outlined_stroke_color"
-            app:hintTextAppearance="@style/TextAppearance.App.Body1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/description"
+                android:textColorHint="?attr/colorOnBackground"
+                app:boxStrokeColor="@color/outlined_stroke_color"
+                app:errorTextAppearance="@style/TextAppearance.App.Body1"
+                app:hintTextColor="?attr/colorOnBackground">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_date"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/date"
-        android:textColorHint="?attr/colorOnBackground"
-        app:boxStrokeColor="@color/outlined_stroke_color"
-        app:endIconDrawable="@drawable/ic_round_calendar_today_24"
-        app:endIconMode="custom"
-        app:endIconTint="@color/outlined_stroke_color"
-        app:errorIconDrawable="@drawable/ic_round_calendar_today_24"
-        app:errorTextAppearance="@style/TextAppearance.App.Body1"
-        app:hintTextColor="?attr/colorOnBackground"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_description">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text|textCapSentences"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textColorHighlight="@color/outlined_stroke_color"
+                    app:hintTextAppearance="@style/TextAppearance.App.Body1" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:focusable="false"
-            android:inputType="none"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            android:textColor="?attr/colorOnBackground"
-            android:textColorHighlight="@color/outlined_stroke_color"
-            app:hintTextAppearance="@style/TextAppearance.App.Body1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/date"
+                android:textColorHint="?attr/colorOnBackground"
+                app:boxStrokeColor="@color/outlined_stroke_color"
+                app:endIconDrawable="@drawable/ic_round_calendar_today_24"
+                app:endIconMode="custom"
+                app:endIconTint="@color/outlined_stroke_color"
+                app:errorIconDrawable="@drawable/ic_round_calendar_today_24"
+                app:errorTextAppearance="@style/TextAppearance.App.Body1"
+                app:hintTextColor="?attr/colorOnBackground">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    android:textColor="?attr/colorOnBackground"
+                    android:textColorHighlight="@color/outlined_stroke_color"
+                    app:hintTextAppearance="@style/TextAppearance.App.Body1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_movement"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/movement_type"
+                android:labelFor="@id/auto_text_view_movement"
+                android:textColorHint="?attr/colorOnBackground"
+                app:boxStrokeColor="@color/outlined_stroke_color"
+                app:endIconTint="@color/outlined_stroke_color"
+                app:errorTextAppearance="@style/TextAppearance.App.Body1"
+                app:hintTextColor="?attr/colorOnBackground">
+
+                <AutoCompleteTextView
+                    android:id="@+id/auto_text_view_movement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textAppearance="@style/TextAppearance.App.Body1"
+                    android:textColor="?attr/colorOnBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_save"

@@ -8,18 +8,18 @@ class MovementTypeConverter {
     @TypeConverter
     fun toMovementType(value: Int): MovementType {
         return when (value) {
-            1 -> MovementType.Get
-            2 -> MovementType.Give
+            1 -> MovementType.Incoming
+            2 -> MovementType.Outgoing
             3 -> MovementType.Balance
-            else -> MovementType.Give
+            else -> MovementType.Outgoing
         }
     }
 
     @TypeConverter
     fun fromMovementType(value: MovementType): Int {
         return when (value) {
-            MovementType.Get -> 1
-            MovementType.Give -> 2
+            MovementType.Incoming -> 1
+            MovementType.Outgoing -> 2
             MovementType.Balance -> 3
         }
     }

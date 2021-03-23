@@ -22,12 +22,18 @@ class CreateMovementViewModel @Inject constructor(
     private val _date: MutableLiveData<Long> = MutableLiveData()
     val date: LiveData<Long> get() = _date
 
+    private var movementType: MovementType? = null
+
     init {
         _date.value = System.currentTimeMillis()
     }
 
     fun changeDate(value: Long) {
         _date.value = value
+    }
+
+    fun changeMovementType(value: MovementType) {
+        movementType = value
     }
 
     fun validateAmount(value: String?): Boolean {
@@ -42,6 +48,10 @@ class CreateMovementViewModel @Inject constructor(
         return _date.value != null
     }
 
+    fun validateMovementType(): Boolean {
+        return movementType != null
+    }
+
     fun createMovement(
         personId: Int,
         amount: String?,
@@ -50,10 +60,10 @@ class CreateMovementViewModel @Inject constructor(
         val data = Movement(
             id = 0,
             personId =  personId,
-            amount =  amount!!.toDouble(),
+            amount =  amount!!.toDouble() * movementType!!.multiplier,
             epochMilli =  _date.value!!,
             description =  description!!,
-            type =  MovementType.Give
+            type =  movementType!!
         )
         viewModelScope.launch {
             repository.createMovement(data)

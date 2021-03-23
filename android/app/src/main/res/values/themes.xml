@@ -5,6 +5,7 @@
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="backgroundColor">@color/colorBackground</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorError">@color/colorCustom2</item>
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -25,8 +26,11 @@
     <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorOnPrimary">@color/colorOnBackground</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.PickerMediumComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">
+            @style/ShapeAppearance.App.PickerMediumComponent
+        </item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
     </style>
 </resources>
