@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentPeopleBinding
+import com.fabirt.debty.domain.model.Person
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,7 +26,7 @@ class PeopleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = PersonAdapter(requireContext()) { }
+        adapter = PersonAdapter(requireContext(), ::navigateToPersonDetail)
     }
 
     override fun onCreateView(
@@ -55,5 +58,10 @@ class PeopleFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToPersonDetail(person: Person) {
+        val action = NavGraphDirections.actionGlobalPersonDetail(person.id)
+        findNavController().navigate(action)
     }
 }

@@ -85,4 +85,20 @@
                 android:name="person_id" />
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/personDetailFragment"
+        android:name="com.fabirt.debty.ui.people.detail.PersonDetailFragment"
+        android:label="fragment_person_detail"
+        tools:layout="@layout/fragment_person_detail" >
+        <argument
+            android:name="person_id"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_personDetail"
+        app:destination="@id/personDetailFragment"
+        app:enterAnim="@anim/page_enter_transition"
+        app:exitAnim="@android:anim/fade_out"
+        app:popEnterAnim="@android:anim/fade_in"
+        app:popExitAnim="@anim/page_exit_transition" />
 </navigation>

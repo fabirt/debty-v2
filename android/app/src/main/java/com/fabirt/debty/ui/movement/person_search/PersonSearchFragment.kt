@@ -1,17 +1,17 @@
 package com.fabirt.debty.ui.movement.person_search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fabirt.debty.databinding.FragmentPersonSearchBinding
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.util.applyNavigationBarBottomInset
+import com.fabirt.debty.util.applyStatusBarTopInset
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -69,22 +69,7 @@ class PersonSearchFragment : Fragment() {
     }
 
     private fun applyWindowInsets() {
-        binding.title.setOnApplyWindowInsetsListener { v, insets ->
-            val statusBarInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
-                .getInsets(WindowInsetsCompat.Type.statusBars())
-
-            v.updatePadding(top = statusBarInsets.top)
-
-            insets
-        }
-
-        binding.rvPeople.setOnApplyWindowInsetsListener { v, insets ->
-            val navigationBarInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
-                .getInsets(WindowInsetsCompat.Type.navigationBars())
-
-            v.updatePadding(bottom = navigationBarInsets.bottom)
-
-            insets
-        }
+        binding.title.applyStatusBarTopInset()
+        binding.rvPeople.applyNavigationBarBottomInset()
     }
 }

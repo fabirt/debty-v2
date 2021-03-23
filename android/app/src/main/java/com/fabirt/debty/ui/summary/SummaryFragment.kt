@@ -9,7 +9,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.util.toCurrencyString
@@ -62,7 +64,11 @@ class SummaryFragment : Fragment() {
                 if (oneShotAnimated) {
                     binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
                 } else {
-                    binding.tvBalanceAmount.animateText(summaryData.balance.toCurrencyString(), "$", 1)
+                    binding.tvBalanceAmount.animateText(
+                        summaryData.balance.toCurrencyString(),
+                        "$",
+                        1
+                    )
                 }
                 binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
                 binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
@@ -77,6 +83,7 @@ class SummaryFragment : Fragment() {
     }
 
     private fun navigateToPersonDetail(person: Person) {
-        Log.i("SummaryFragment", person.toString())
+        val action = NavGraphDirections.actionGlobalPersonDetail(person.id)
+        findNavController().navigate(action)
     }
 }
