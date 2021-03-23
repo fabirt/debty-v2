@@ -29,4 +29,6 @@
     <string name="shortcut_movement_disabled_message">Movement</string>
     <string name="amount">Amount</string>
     <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="date_picker_title">Select date</string>
 </resources>
