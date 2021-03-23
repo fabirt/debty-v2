@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.util.applyNavigationBarBottomInset
@@ -50,6 +51,13 @@ class PersonDetailFragment : Fragment() {
         applyWindowInsets()
 
         binding.rvMovements.adapter = adapter
+
+        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                super.onItemRangeInserted(positionStart, itemCount)
+                if (itemCount == 1) binding.rvMovements.scrollToPosition(0)
+            }
+        })
 
         binding.btnNewMovement.setOnClickListener {
             navigateToNewMovement()

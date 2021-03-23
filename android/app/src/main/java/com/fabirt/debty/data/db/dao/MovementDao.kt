@@ -13,6 +13,9 @@ interface MovementDao {
     @Query("SELECT * FROM movements WHERE person_id = :personId")
     fun getPersonMovements(personId: Int): Flow<List<DBMovement>>
 
+    @Query("SELECT * FROM movements WHERE person_id = :personId ORDER BY epoch_milli DESC")
+    fun getPersonMovementsSortedByDate(personId: Int): Flow<List<DBMovement>>
+
     @Query("SELECT SUM(amount) FROM movements WHERE person_id = :personId")
     fun getPersonTotal(personId: Int): Flow<Double?>
 

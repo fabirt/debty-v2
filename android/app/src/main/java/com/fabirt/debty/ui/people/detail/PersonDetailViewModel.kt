@@ -17,5 +17,5 @@ class PersonDetailViewModel @Inject constructor(
     fun requestPerson(personId: Int) = personRepository.requestPerson(personId)
 
     fun requestMovements(personId: Int): Flow<List<Movement>> =
-        movementRepository.requestPersonMovements(personId)
+        movementRepository.requestPersonMovementsSortedByDate(personId)
 }

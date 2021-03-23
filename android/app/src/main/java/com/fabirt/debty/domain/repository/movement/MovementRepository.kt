@@ -9,6 +9,8 @@ interface MovementRepository {
 
     fun requestPersonMovements(personId: Int): Flow<List<Movement>>
 
+    fun requestPersonMovementsSortedByDate(personId: Int): Flow<List<Movement>>
+
     fun requestPersonBalance(personId: Int): Flow<Double?>
 
     suspend fun createMovement(movement: Movement)
