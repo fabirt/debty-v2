@@ -11,5 +11,14 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="tabStyle">@style/Widget.App.TabLayout</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.PickerMediumComponent</item>
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
     </style>
 </resources>
