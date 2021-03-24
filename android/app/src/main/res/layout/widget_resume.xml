@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_resume_background"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_owe_me_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/owe_me"
+        android:textColor="@color/colorOnBackground"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_owe_me_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorCustom1"
+        android:textSize="16sp"
+        tools:text="$20,000.00" />
+
+    <TextView
+        android:id="@+id/tv_i_owe_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/i_owe"
+        android:textColor="@color/colorOnBackground"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_i_owe_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorCustom2"
+        android:textSize="16sp"
+        tools:text="$20,000.00" />
+</LinearLayout>

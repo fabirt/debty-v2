@@ -2,6 +2,7 @@ package com.fabirt.debty.data.db.dao
 
 import androidx.room.*
 import com.fabirt.debty.data.db.entities.DBMovement
+import com.fabirt.debty.data.db.entities.DBPersonWithTotal
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -30,4 +31,14 @@ interface MovementDao {
 
     @Delete
     suspend fun deleteMovement(value: DBMovement)
+
+    @Query(
+        "SELECT SUM(amount) AS total FROM movements WHERE amount > 0"
+    )
+    suspend fun getTotalOweMe(): Double?
+
+    @Query(
+        "SELECT SUM(amount) AS total FROM movements WHERE amount < 0"
+    )
+    suspend fun getTotalIOwe(): Double?
 }

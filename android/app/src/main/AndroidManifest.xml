@@ -26,6 +26,16 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+
+        <!-- App Widget -->
+        <receiver android:name=".application.ResumeWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/resume_appwidget_info" />
+        </receiver>
     </application>
 
 </manifest>
