@@ -70,7 +70,8 @@ class ChartFragment : Fragment() {
                     setCircleColor(lineColor)
                     circleHoleColor = lineColor
                     this.highLightColor = highlightColor
-                    fillDrawable = ResourcesCompat.getDrawable(resources, R.drawable.chart_fill_gradient, null)
+                    fillDrawable =
+                        ResourcesCompat.getDrawable(resources, R.drawable.chart_fill_gradient, null)
                     this.setDrawFilled(true)
                 }
 
@@ -93,23 +94,27 @@ class ChartFragment : Fragment() {
                         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
                             val count = movements.count()
                             val index = value.toInt()
-                            val movement = movements[index]
-                            val date = Date(movement.epochMilli)
-                            val sf = SimpleDateFormat("MMM dd", Locale.getDefault())
 
-                            if (index == 0) {
-                                return sf.format(date)
-                            }
+                            if (index < 0) return ""
 
-                            if (index == movements.count() - 1) {
-                                return sf.format(date)
-                            }
+                            return movements.getOrNull(index)?.let { movement ->
+                                val date = Date(movement.epochMilli)
+                                val sf = SimpleDateFormat("MMM dd", Locale.getDefault())
 
-                            if (count > 2 && index == count / 2) {
-                                return sf.format(date)
-                            }
+                                if (index == 0) {
+                                    return@let sf.format(date)
+                                }
 
-                            return ""
+                                if (index == movements.count() - 1) {
+                                    return@let sf.format(date)
+                                }
+
+                                if (count > 2 && index == count / 2) {
+                                    return@let sf.format(date)
+                                }
+
+                                return@let ""
+                            } ?: ""
                         }
                     }
 
