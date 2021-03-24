@@ -1,43 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/widget_resume_background"
-    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
     android:padding="8dp">
 
-    <TextView
-        android:id="@+id/tv_owe_me_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/owe_me"
-        android:textColor="@color/colorOnBackground"
-        android:textSize="13sp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_owe_me_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorCustom1"
-        android:textSize="16sp"
-        tools:text="$20,000.00" />
 
-    <TextView
-        android:id="@+id/tv_i_owe_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/i_owe"
-        android:textColor="@color/colorOnBackground"
-        android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tv_owe_me_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/owe_me"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="13sp" />
 
-    <TextView
-        android:id="@+id/tv_i_owe_value"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_owe_me_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorCustom1"
+            android:textSize="16sp"
+            tools:text="$20,000.00" />
+
+        <TextView
+            android:id="@+id/tv_i_owe_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/i_owe"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_i_owe_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorCustom2"
+            android:textSize="16sp"
+            tools:text="$20,000.00" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_refresh_widget"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorCustom2"
-        android:textSize="16sp"
-        tools:text="$20,000.00" />
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_round_refresh_24"
+            app:tint="@color/colorOnBackground" />
+    </FrameLayout>
+
+
 </LinearLayout>
+
