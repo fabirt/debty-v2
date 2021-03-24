@@ -3,12 +3,10 @@ package com.fabirt.debty.ui.movement.create
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.MovementType
 import com.fabirt.debty.domain.repository.movement.MovementRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,7 +51,7 @@ class CreateMovementViewModel @Inject constructor(
         return movementType != null
     }
 
-    fun createMovement(
+    suspend fun createMovement(
         personId: Int,
         amount: String?,
         description: String?,
@@ -66,8 +64,7 @@ class CreateMovementViewModel @Inject constructor(
             description = description!!,
             type = movementType!!
         )
-        viewModelScope.launch {
-            repository.createMovement(data)
-        }
+
+        repository.createMovement(data)
     }
 }

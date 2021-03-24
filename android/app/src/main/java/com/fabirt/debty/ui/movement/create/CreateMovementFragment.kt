@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
@@ -17,6 +18,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
@@ -138,14 +140,20 @@ class CreateMovementFragment : Fragment() {
         }
 
         if (isValid) {
-            viewModel.createMovement(
-                args.personId.toInt(),
-                amount,
-                description
-            )
-
-            v.clearFocusAndCloseKeyboard()
-            findNavController().popBackStack()
+            lifecycleScope.launch {
+                viewModel.createMovement(
+                    args.personId.toInt(),
+                    amount,
+                    description
+                )
+                updateResumeWidget()
+                v.clearFocusAndCloseKeyboard()
+                findNavController().popBackStack()
+            }
         }
+    }
+
+    private fun updateResumeWidget() {
+        requireActivity().sendUpdateResumeWidgetBroadcast()
     }
 }
