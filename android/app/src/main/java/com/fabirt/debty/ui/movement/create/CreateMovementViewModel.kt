@@ -37,7 +37,8 @@ class CreateMovementViewModel @Inject constructor(
     }
 
     fun validateAmount(value: String?): Boolean {
-        return value?.toDoubleOrNull() != null
+        val amount = value?.toDoubleOrNull()
+        return amount != null && amount > 0
     }
 
     fun validateDescription(value: String?): Boolean {
@@ -59,11 +60,11 @@ class CreateMovementViewModel @Inject constructor(
     ) {
         val data = Movement(
             id = 0,
-            personId =  personId,
-            amount =  amount!!.toDouble() * movementType!!.multiplier,
-            epochMilli =  _date.value!!,
-            description =  description!!,
-            type =  movementType!!
+            personId = personId,
+            amount = amount!!.toDouble() * movementType!!.multiplier,
+            epochMilli = _date.value!!,
+            description = description!!,
+            type = movementType!!
         )
         viewModelScope.launch {
             repository.createMovement(data)

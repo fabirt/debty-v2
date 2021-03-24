@@ -55,6 +55,8 @@ class CreateMovementFragment : Fragment() {
 
         binding.editTextAmount.requestKeyboardFocus()
 
+        binding.editTextAmount.addTextChangedListener(CurrencyTextWatcher(binding.editTextAmount))
+
         binding.btnSave.setOnClickListener {
             validateChanges(it)
         }
@@ -104,7 +106,7 @@ class CreateMovementFragment : Fragment() {
     }
 
     private fun validateChanges(v: View) {
-        val amount = binding.editTextAmount.text?.toString()
+        val amount = binding.editTextAmount.text.toString().replace(",", "")
         val description = binding.editTextDescription.text?.toString()
         var isValid = true
         if (!viewModel.validateAmount(amount)) {
