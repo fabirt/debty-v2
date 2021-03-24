@@ -1,12 +1,10 @@
 package com.fabirt.debty.ui.movement.create
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,15 +12,12 @@ import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreateMovementBinding
 import com.fabirt.debty.domain.model.movementTypeOptions
-import com.fabirt.debty.util.clearFocusAndCloseKeyboard
-import com.fabirt.debty.util.requestKeyboardFocus
-import com.fabirt.debty.util.toDateString
+import com.fabirt.debty.util.*
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-
 
 @AndroidEntryPoint
 class CreateMovementFragment : Fragment() {
@@ -75,7 +70,9 @@ class CreateMovementFragment : Fragment() {
     }
 
     private fun openDatePicker() {
-        val initialSelection = viewModel.date.value ?: MaterialDatePicker.todayInUtcMilliseconds()
+        val initialSelection =
+            viewModel.date.value?.toUtcTime() ?: MaterialDatePicker.todayInUtcMilliseconds()
+
         val calendarConstraints =
             CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointBackward.now())
@@ -90,8 +87,10 @@ class CreateMovementFragment : Fragment() {
 
         datePicker.show(childFragmentManager, "mtrl_date_picker")
 
-        datePicker.addOnPositiveButtonClickListener {
-            viewModel.changeDate(it)
+        datePicker.addOnPositiveButtonClickListener { time ->
+            time.utcTimeToLocaleTime()?.let {
+                viewModel.changeDate(it)
+            }
         }
         datePicker.addOnNegativeButtonClickListener {
             // Respond to negative button click.
