@@ -79,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="text|textCapSentences"
+                    android:maxLength="50"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.App.Body1"

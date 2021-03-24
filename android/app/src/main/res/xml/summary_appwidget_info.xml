@@ -4,7 +4,7 @@
     android:minHeight="60dp"
     android:updatePeriodMillis="86400000"
     android:previewImage="@drawable/launch_image"
-    android:initialLayout="@layout/widget_resume"
+    android:initialLayout="@layout/appwidget_summary"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
 </appwidget-provider>

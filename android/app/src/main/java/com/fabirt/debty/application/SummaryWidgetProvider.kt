@@ -18,7 +18,7 @@ import javax.inject.Inject
 import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
-class ResumeWidgetProvider : AppWidgetProvider() {
+class SummaryWidgetProvider : AppWidgetProvider() {
 
     @Inject
     lateinit var dao: MovementDao
@@ -54,7 +54,7 @@ class ResumeWidgetProvider : AppWidgetProvider() {
                 // to the button
                 val views: RemoteViews = RemoteViews(
                     context.packageName,
-                    R.layout.widget_resume
+                    R.layout.appwidget_summary
                 ).apply {
                     setTextViewText(R.id.tv_owe_me_value, totalOweMe.toCurrencyString())
                     setTextViewText(R.id.tv_i_owe_value, totalIOwe.toCurrencyString())
@@ -73,7 +73,7 @@ class ResumeWidgetProvider : AppWidgetProvider() {
         context: Context,
         appWidgetIds: IntArray
     ): PendingIntent {
-        val intent = Intent(context, ResumeWidgetProvider::class.java).apply {
+        val intent = Intent(context, SummaryWidgetProvider::class.java).apply {
             action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
         }

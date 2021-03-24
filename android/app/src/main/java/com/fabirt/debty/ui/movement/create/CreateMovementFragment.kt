@@ -154,6 +154,6 @@ class CreateMovementFragment : Fragment() {
     }
 
     private fun updateResumeWidget() {
-        requireActivity().sendUpdateResumeWidgetBroadcast()
+        requireActivity().sendUpdateAppWidgetBroadcast()
     }
 }
