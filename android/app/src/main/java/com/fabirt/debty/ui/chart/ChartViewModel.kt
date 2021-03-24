@@ -10,5 +10,5 @@ class ChartViewModel @Inject constructor(
     private val movementRepository: MovementRepository
 ) : ViewModel() {
 
-    val movements = movementRepository.requestAllMovements()
+    val movements = movementRepository.requestAllMovementsSortedByDate()
 }

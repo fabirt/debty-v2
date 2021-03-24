@@ -7,6 +7,8 @@ interface MovementRepository {
 
     fun requestAllMovements(): Flow<List<Movement>>
 
+    fun requestAllMovementsSortedByDate(): Flow<List<Movement>>
+
     fun requestPersonMovements(personId: Int): Flow<List<Movement>>
 
     fun requestPersonMovementsSortedByDate(personId: Int): Flow<List<Movement>>

@@ -16,6 +16,11 @@ class MovementRepositoryImpl @Inject constructor(
         list.map { it.toDomainModel() }
     }
 
+    override fun requestAllMovementsSortedByDate(): Flow<List<Movement>> =
+        dao.getAllSortedByDate().map { list ->
+            list.map { it.toDomainModel() }
+        }
+
     override fun requestPersonMovements(personId: Int): Flow<List<Movement>> {
         return dao.getPersonMovements(personId).map { value ->
             value.map { it.toDomainModel() }

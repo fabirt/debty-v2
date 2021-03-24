@@ -10,12 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentChartBinding
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -85,6 +88,31 @@ class ChartFragment : Fragment() {
                     legend.textColor = colorOnBackground
                     legend.typeface = typeface
                     description.text = ""
+                    xAxis.granularity = 1f
+                    xAxis.valueFormatter = object : ValueFormatter() {
+                        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                            val count = movements.count()
+                            val index = value.toInt()
+                            val movement = movements[index]
+                            val date = Date(movement.epochMilli)
+                            val sf = SimpleDateFormat("MMM dd", Locale.getDefault())
+
+                            if (index == 0) {
+                                return sf.format(date)
+                            }
+
+                            if (index == movements.count() - 1) {
+                                return sf.format(date)
+                            }
+
+                            if (count > 2 && index == count / 2) {
+                                return sf.format(date)
+                            }
+
+                            return ""
+                        }
+                    }
+
                     invalidate()
                     // animateX(1000)
                 }

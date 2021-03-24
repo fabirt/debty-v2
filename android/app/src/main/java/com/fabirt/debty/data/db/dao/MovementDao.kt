@@ -10,6 +10,9 @@ interface MovementDao {
     @Query("SELECT * FROM movements")
     fun getAll(): Flow<List<DBMovement>>
 
+    @Query("SELECT * FROM movements ORDER BY epoch_milli ASC")
+    fun getAllSortedByDate(): Flow<List<DBMovement>>
+
     @Query("SELECT * FROM movements WHERE person_id = :personId")
     fun getPersonMovements(personId: Int): Flow<List<DBMovement>>
 
