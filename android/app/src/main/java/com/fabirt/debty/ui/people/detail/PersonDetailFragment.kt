@@ -69,7 +69,7 @@ class PersonDetailFragment : Fragment() {
         binding.rvMovements.adapter = adapter
 
         // Swipe to delete
-        val itemCallback = SwipeItemCallback<Movement>().apply {
+        val itemCallback = SwipeItemCallback<Movement>(requireContext()).apply {
             adapter = this@PersonDetailFragment.adapter
             delegate = viewModel
         }
