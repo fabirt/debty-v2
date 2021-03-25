@@ -26,7 +26,7 @@ class SummaryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var personSummaryAdapter: PersonSummaryAdapter
     private val viewModel: SummaryViewModel by viewModels()
-    private var oneShotAnimated = false
+    private var isRecreatingFragment = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +54,14 @@ class SummaryFragment : Fragment() {
                 binding.rvPeople.isVisible = !isEmpty
                 binding.tvEmpty.isVisible = isEmpty
 
-                if (oneShotAnimated) {
+                if (isRecreatingFragment) {
                     binding.rvPeople.itemAnimator = null
                 } else {
                     binding.rvPeople.scheduleLayoutAnimation()
                 }
                 personSummaryAdapter.submitList(data)
                 val summaryData = viewModel.calculateSummaryData(data)
-                if (oneShotAnimated) {
+                if (isRecreatingFragment) {
                     binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
                 } else {
                     binding.tvBalanceAmount.animateText(
@@ -72,7 +72,7 @@ class SummaryFragment : Fragment() {
                 }
                 binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
                 binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
-                oneShotAnimated = true
+                isRecreatingFragment = true
             }
         }
     }

@@ -72,17 +72,11 @@ class PersonDetailFragment : Fragment() {
             }
         })
 
-        binding.btnNewMovement.setOnClickListener {
-            navigateToNewMovement()
-        }
+        binding.btnNewMovement.setOnClickListener { navigateToNewMovement() }
 
-        binding.iconButtonShare.setOnClickListener {
-            shareSummary()
-        }
+        binding.iconButtonShare.setOnClickListener { shareSummary() }
 
-        binding.iconButtonEdit.setOnClickListener {
-
-        }
+        binding.iconButtonEdit.setOnClickListener { navigateToEditPerson() }
 
         binding.iconButtonDelete.setOnClickListener {
 
@@ -165,9 +159,15 @@ class PersonDetailFragment : Fragment() {
             type = "image/png"
             putExtra(Intent.EXTRA_STREAM, uri)
             clipData = ClipData.newRawUri("label", uri)
-            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    private fun navigateToEditPerson() {
+        val action =
+            PersonDetailFragmentDirections.actionGlobalCreatePersonFragment(args.personId.toString())
+        findNavController().navigate(action)
     }
 }
