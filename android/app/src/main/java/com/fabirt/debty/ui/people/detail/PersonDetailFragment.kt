@@ -18,11 +18,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
+import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,6 +67,13 @@ class PersonDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvMovements.adapter = adapter
+
+        val itemCallback = SwipeItemCallback<Movement>().apply {
+            adapter = this@PersonDetailFragment.adapter
+            delegate = viewModel
+        }
+        val swipeTouchHelper = ItemTouchHelper(itemCallback)
+        swipeTouchHelper.attachToRecyclerView(binding.rvMovements)
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
@@ -112,11 +122,19 @@ class PersonDetailFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.requestBalance(args.personId).collect { balance ->
-                balance?.let {
-                    binding.tvTotal.text = it.absoluteValue.toCurrencyString()
-                    binding.tvTotalLabel.text = if (it > 0) {
-                        getString(R.string.owe_me)
-                    } else getString(R.string.i_owe)
+                binding.tvTotal.text = balance?.absoluteValue.toCurrencyString()
+                if (balance != null) {
+                    binding.tvTotalLabel.text = when {
+                        balance > 0 -> {
+                            getString(R.string.owe_me)
+                        }
+                        balance < 0 -> {
+                            getString(R.string.i_owe)
+                        }
+                        else -> ""
+                    }
+                } else {
+                    binding.tvTotalLabel.text = ""
                 }
             }
         }
