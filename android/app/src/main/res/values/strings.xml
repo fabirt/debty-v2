@@ -40,4 +40,7 @@
     <string name="movement_type">Movement type</string>
     <string name="history">History</string>
     <string name="empty_people">You have not registered any person yet.</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

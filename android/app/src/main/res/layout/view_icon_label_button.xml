@@ -5,13 +5,13 @@
     android:id="@+id/container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_round"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:padding="10dp">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_round_share_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,12 +25,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
+        android:text="@string/share"
+        android:textSize="11sp"
         android:textAppearance="@style/TextAppearance.App.Button"
         android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon"
-        tools:text="Share" />
+        tools:text="Share"
+        tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

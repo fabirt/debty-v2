@@ -66,6 +66,18 @@ class PersonDetailFragment : Fragment() {
             navigateToNewMovement()
         }
 
+        binding.iconButtonShare.setOnClickListener {
+
+        }
+
+        binding.iconButtonEdit.setOnClickListener {
+
+        }
+
+        binding.iconButtonDelete.setOnClickListener {
+
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.requestPerson(args.personId).collect { person ->
                 binding.tvName.text = person?.name ?: ""
