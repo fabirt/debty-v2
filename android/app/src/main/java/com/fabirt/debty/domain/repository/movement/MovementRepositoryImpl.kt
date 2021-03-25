@@ -35,6 +35,8 @@ class MovementRepositoryImpl @Inject constructor(
 
     override fun requestPersonBalance(personId: Int): Flow<Double?> = dao.getPersonTotal(personId)
 
+    override suspend fun requestOneTimeMovement(id: Int) = dao.getMovement(id)?.toDomainModel()
+
     override suspend fun createMovement(movement: Movement) =
         dao.insertMovement(DBMovement.from(movement))
 

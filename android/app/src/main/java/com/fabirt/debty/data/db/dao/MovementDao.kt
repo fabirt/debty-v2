@@ -23,6 +23,9 @@ interface MovementDao {
     @Query("SELECT SUM(amount) FROM movements WHERE person_id = :personId")
     fun getPersonTotal(personId: Int): Flow<Double?>
 
+    @Query("SELECT * FROM movements WHERE id = :id")
+    suspend fun getMovement(id: Int): DBMovement?
+
     @Insert
     suspend fun insertMovement(value: DBMovement)
 

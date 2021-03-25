@@ -24,6 +24,7 @@ import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
@@ -124,8 +125,10 @@ class PersonDetailFragment : Fragment() {
 
     private fun shareSummary() {
         val bitmap = binding.contentContainer.drawToBitmap()
-        cacheBitmap(bitmap)?.let {
-            shareImageUri(it)
+        lifecycleScope.launch(Dispatchers.IO) {
+            cacheBitmap(bitmap)?.let {
+                shareImageUri(it)
+            }
         }
     }
 

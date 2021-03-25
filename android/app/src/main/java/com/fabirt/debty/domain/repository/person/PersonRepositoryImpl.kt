@@ -29,6 +29,8 @@ class PersonRepositoryImpl @Inject constructor(
             value?.toDomainModel()
         }
 
+    override suspend fun requestOneTimePerson(personId: Int) = dao.getPersonOneTime(personId)?.toDomainModel()
+
     override suspend fun createPerson(person: Person) = dao.insertPerson(DBPerson.from(person))
 
     override suspend fun updatePerson(person: Person) = dao.updatePerson(DBPerson.from(person))

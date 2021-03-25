@@ -20,6 +20,11 @@ interface PersonDao {
     )
     fun getPerson(id: Int): Flow<DBPerson?>
 
+    @Query(
+        "SELECT * FROM persons WHERE id = :id"
+    )
+    suspend fun getPersonOneTime(id: Int): DBPerson?
+
     @Insert
     suspend fun insertPerson(person: DBPerson): Long
 
