@@ -1,10 +1,17 @@
 package com.fabirt.debty.ui.people.detail
 
+import android.content.ClipData
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +29,9 @@ import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
@@ -67,7 +77,7 @@ class PersonDetailFragment : Fragment() {
         }
 
         binding.iconButtonShare.setOnClickListener {
-
+            shareSummary()
         }
 
         binding.iconButtonEdit.setOnClickListener {
@@ -119,5 +129,45 @@ class PersonDetailFragment : Fragment() {
     private fun navigateToNewMovement() {
         val action = NavGraphDirections.actionGlobalCreateMovementFragment(args.personId.toString())
         findNavController().navigate(action)
+    }
+
+    private fun shareSummary() {
+        val bitmap = binding.contentContainer.drawToBitmap()
+        cacheBitmap(bitmap)?.let {
+            shareImageUri(it)
+        }
+    }
+
+    private fun cacheBitmap(bitmap: Bitmap): Uri? {
+        val imagePath = File(requireContext().cacheDir, "images")
+        var uri: Uri? = null
+        try {
+            imagePath.mkdirs()
+            val file = File(imagePath, "shared_image.png")
+            val outputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream)
+            outputStream.flush()
+            outputStream.close()
+            uri = FileProvider.getUriForFile(requireContext(), "com.fabirt.fileprovider", file)
+        } catch (e: IOException) {
+            Log.d(
+                "cacheBitmapToGetUri",
+                "IOException while trying to write file for sharing: ${e.message}"
+            );
+        }
+
+        return uri
+    }
+
+    private fun shareImageUri(uri: Uri) {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "image/png"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            clipData = ClipData.newRawUri("label", uri)
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }
