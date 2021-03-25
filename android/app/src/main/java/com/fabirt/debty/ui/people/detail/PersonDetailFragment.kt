@@ -22,9 +22,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
-import com.fabirt.debty.util.applyNavigationBarBottomInset
-import com.fabirt.debty.util.applyNavigationBarBottomMargin
-import com.fabirt.debty.util.applyStatusBarTopInset
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -140,14 +137,12 @@ class PersonDetailFragment : Fragment() {
             val file = File(imagePath, "shared_image.png")
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream)
-            outputStream.flush()
-            outputStream.close()
             uri = FileProvider.getUriForFile(requireContext(), "com.fabirt.fileprovider", file)
         } catch (e: IOException) {
             Log.d(
                 "cacheBitmapToGetUri",
                 "IOException while trying to write file for sharing: ${e.message}"
-            );
+            )
         }
 
         return uri
@@ -158,7 +153,7 @@ class PersonDetailFragment : Fragment() {
             action = Intent.ACTION_SEND
             type = "image/png"
             putExtra(Intent.EXTRA_STREAM, uri)
-            clipData = ClipData.newRawUri("label", uri)
+            clipData = ClipData.newUri(requireContext().contentResolver, null, uri)
             flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
