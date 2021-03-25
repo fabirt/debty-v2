@@ -68,6 +68,7 @@ class PersonDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvMovements.adapter = adapter
 
+        // Swipe to delete
         val itemCallback = SwipeItemCallback<Movement>().apply {
             adapter = this@PersonDetailFragment.adapter
             delegate = viewModel
@@ -75,6 +76,7 @@ class PersonDetailFragment : Fragment() {
         val swipeTouchHelper = ItemTouchHelper(itemCallback)
         swipeTouchHelper.attachToRecyclerView(binding.rvMovements)
 
+        // Scroll to top
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
@@ -82,61 +84,75 @@ class PersonDetailFragment : Fragment() {
             }
         })
 
+        // Actions
         binding.btnNewMovement.setOnClickListener { navigateToNewMovement() }
 
         binding.iconButtonShare.setOnClickListener { shareSummary() }
 
         binding.iconButtonEdit.setOnClickListener { navigateToEditPerson() }
 
+        // Observers
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.requestPerson(args.personId).collect { person ->
-                person?.let {
-                    binding.tvName.text = person.name
-                    binding.iconButtonDelete.setOnClickListener {
-                        showDeleteDialog(person)
-                    }
-                }
-
-                if (person?.picture != null) {
-                    binding.image.setImageBitmap(person.picture)
-                } else {
-                    val d =
-                        ResourcesCompat.getDrawable(
-                            requireContext().resources,
-                            R.drawable.avatar_placeholder,
-                            null
-                        )
-                    binding.image.setImageDrawable(d)
-                }
+            launch {
+                renderPerson()
+            }
+            launch {
+                renderBalance()
+            }
+            launch {
+                renderMovementList()
             }
         }
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.requestMovements(args.personId).collect { data ->
-                val isEmpty = data.isEmpty()
-                binding.rvMovements.isVisible = !isEmpty
-                binding.tvEmpty.isVisible = isEmpty
-                adapter.submitList(data)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.requestBalance(args.personId).collect { balance ->
-                binding.tvTotal.text = balance?.absoluteValue.toCurrencyString()
-                if (balance != null) {
-                    binding.tvTotalLabel.text = when {
-                        balance > 0 -> {
-                            getString(R.string.owe_me)
-                        }
-                        balance < 0 -> {
-                            getString(R.string.i_owe)
-                        }
-                        else -> ""
-                    }
-                } else {
-                    binding.tvTotalLabel.text = ""
+    private suspend fun renderPerson() {
+        viewModel.requestPerson(args.personId).collect { person ->
+            person?.let {
+                binding.tvName.text = person.name
+                binding.iconButtonDelete.setOnClickListener {
+                    showDeleteDialog(person)
                 }
             }
+
+            if (person?.picture != null) {
+                binding.image.setImageBitmap(person.picture)
+            } else {
+                val d =
+                    ResourcesCompat.getDrawable(
+                        requireContext().resources,
+                        R.drawable.avatar_placeholder,
+                        null
+                    )
+                binding.image.setImageDrawable(d)
+            }
+        }
+    }
+
+    private suspend fun renderBalance() {
+        viewModel.requestBalance(args.personId).collect { balance ->
+            binding.tvTotal.text = balance?.absoluteValue.toCurrencyString()
+            if (balance != null) {
+                binding.tvTotalLabel.text = when {
+                    balance > 0 -> {
+                        getString(R.string.owe_me)
+                    }
+                    balance < 0 -> {
+                        getString(R.string.i_owe)
+                    }
+                    else -> ""
+                }
+            } else {
+                binding.tvTotalLabel.text = ""
+            }
+        }
+    }
+
+    private suspend fun renderMovementList() {
+        viewModel.requestMovements(args.personId).collect { data ->
+            val isEmpty = data.isEmpty()
+            binding.rvMovements.isVisible = !isEmpty
+            binding.tvEmpty.isVisible = isEmpty
+            adapter.submitList(data)
         }
     }
 
