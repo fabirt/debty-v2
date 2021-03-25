@@ -13,6 +13,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="tabStyle">@style/Widget.App.TabLayout</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
     </style>
 
     <style name="Theme.App.Launch" parent="Theme.App">
@@ -32,5 +33,17 @@
             @style/ShapeAppearance.App.PickerMediumComponent
         </item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/colorOnSurface</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Dialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Dialog.Button</item>
     </style>
 </resources>

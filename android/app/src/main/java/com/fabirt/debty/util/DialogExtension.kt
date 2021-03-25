@@ -1,9 +1,9 @@
 package com.fabirt.debty.util
 
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.fabirt.debty.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun Fragment.showGeneralDialog(
     @StringRes title: Int,
@@ -13,7 +13,7 @@ fun Fragment.showGeneralDialog(
     onConfirm: (() -> Unit)? = null,
     onCancel: (() -> Unit)? = null
 ) {
-    AlertDialog.Builder(requireContext())
+    MaterialAlertDialogBuilder(requireContext())
         .setTitle(title)
         .setMessage(message)
         .setPositiveButton(positiveText) { _, _ ->
@@ -22,6 +22,5 @@ fun Fragment.showGeneralDialog(
         .setNegativeButton(negativeText) { _, _ ->
             onCancel?.invoke()
         }
-        .create()
         .show()
 }
