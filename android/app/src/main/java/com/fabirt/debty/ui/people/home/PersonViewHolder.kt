@@ -1,4 +1,4 @@
-package com.fabirt.debty.ui.people
+package com.fabirt.debty.ui.people.home
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,8 +10,6 @@ import com.fabirt.debty.databinding.ViewItemPersonSimpleBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
 import com.fabirt.debty.util.toDateString
-import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 
 class PersonViewHolder(

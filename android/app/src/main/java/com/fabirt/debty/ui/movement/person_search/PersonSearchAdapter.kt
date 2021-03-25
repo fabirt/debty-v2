@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.domain.model.SelectablePerson
 import com.fabirt.debty.ui.common.PersonClickListener
-import com.fabirt.debty.ui.people.PersonViewHolder
+import com.fabirt.debty.ui.people.home.PersonViewHolder
 
 class PersonSearchAdapter(
     private val onNewPersonClickListener: () -> Unit,

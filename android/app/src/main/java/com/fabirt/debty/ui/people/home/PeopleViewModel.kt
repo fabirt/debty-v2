@@ -1,4 +1,4 @@
-package com.fabirt.debty.ui.people
+package com.fabirt.debty.ui.people.home
 
 import androidx.lifecycle.ViewModel
 import com.fabirt.debty.domain.repository.person.PersonRepository

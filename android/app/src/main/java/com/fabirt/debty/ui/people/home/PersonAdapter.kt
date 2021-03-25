@@ -1,4 +1,4 @@
-package com.fabirt.debty.ui.people
+package com.fabirt.debty.ui.people.home
 
 import android.content.Context
 import android.view.ViewGroup

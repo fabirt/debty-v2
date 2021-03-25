@@ -16,7 +16,7 @@ import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.ui.chart.ChartFragment
-import com.fabirt.debty.ui.people.PeopleFragment
+import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

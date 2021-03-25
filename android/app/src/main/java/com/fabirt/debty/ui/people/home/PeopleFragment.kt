@@ -1,4 +1,4 @@
-package com.fabirt.debty.ui.people
+package com.fabirt.debty.ui.people.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
