@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
+import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -76,13 +78,15 @@ class PersonDetailFragment : Fragment() {
 
         binding.iconButtonEdit.setOnClickListener { navigateToEditPerson() }
 
-        binding.iconButtonDelete.setOnClickListener {
-
-        }
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.requestPerson(args.personId).collect { person ->
-                binding.tvName.text = person?.name ?: ""
+                person?.let {
+                    binding.tvName.text = person.name
+                    binding.iconButtonDelete.setOnClickListener {
+                        showDeleteDialog(person)
+                    }
+                }
+
                 if (person?.picture != null) {
                     binding.image.setImageBitmap(person.picture)
                 } else {
@@ -107,9 +111,9 @@ class PersonDetailFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.requestBalance(args.personId).collect {
-                binding.tvTotal.text = it?.absoluteValue.toCurrencyString()
-                if (it != null) {
+            viewModel.requestBalance(args.personId).collect { balance ->
+                balance?.let {
+                    binding.tvTotal.text = it.absoluteValue.toCurrencyString()
                     binding.tvTotalLabel.text = if (it > 0) {
                         getString(R.string.owe_me)
                     } else getString(R.string.i_owe)
@@ -167,5 +171,17 @@ class PersonDetailFragment : Fragment() {
         val action =
             PersonDetailFragmentDirections.actionGlobalCreatePersonFragment(args.personId.toString())
         findNavController().navigate(action)
+    }
+
+    private fun showDeleteDialog(person: Person) {
+        showGeneralDialog(
+            R.string.delete,
+            getString(R.string.delete_person, person.name),
+            R.string.delete,
+            onConfirm = {
+                viewModel.deletePerson(person.id)
+                findNavController().popBackStack()
+            }
+        )
     }
 }

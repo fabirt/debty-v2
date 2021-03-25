@@ -20,4 +20,6 @@ class PersonDetailViewModel @Inject constructor(
         movementRepository.requestPersonMovementsSortedByDate(personId)
 
     fun requestBalance(personId: Int) = movementRepository.requestPersonBalance(personId)
+
+    fun deletePerson(personId: Int) {}
 }

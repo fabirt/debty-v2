@@ -44,4 +44,5 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="edit_person">Edit person</string>
+    <string name="delete_person">Are you sure you want to delete %1$s?</string>
 </resources>

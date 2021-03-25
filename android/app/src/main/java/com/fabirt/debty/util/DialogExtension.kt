@@ -3,22 +3,23 @@ package com.fabirt.debty.util
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.fabirt.debty.R
 
 fun Fragment.showGeneralDialog(
-    @StringRes titleId: Int,
+    @StringRes title: Int,
     message: String,
-    @StringRes positiveTextId: Int,
-    @StringRes negativeTextId: Int,
+    @StringRes positiveText: Int,
+    @StringRes negativeText: Int = R.string.cancel,
     onConfirm: (() -> Unit)? = null,
     onCancel: (() -> Unit)? = null
 ) {
     AlertDialog.Builder(requireContext())
-        .setTitle(titleId)
+        .setTitle(title)
         .setMessage(message)
-        .setPositiveButton(positiveTextId) { _, _ ->
+        .setPositiveButton(positiveText) { _, _ ->
             onConfirm?.invoke()
         }
-        .setNegativeButton(negativeTextId) { _, _ ->
+        .setNegativeButton(negativeText) { _, _ ->
             onCancel?.invoke()
         }
         .create()

@@ -119,7 +119,6 @@ class CreatePersonFragment : Fragment() {
                     R.string.permission_alert_title,
                     getString(R.string.gallery_permission_reason),
                     R.string.ok,
-                    R.string.cancel,
                     onConfirm = {
                         requestStoragePermissions()
                     }
@@ -145,7 +144,6 @@ class CreatePersonFragment : Fragment() {
                         R.string.permission_alert_title,
                         getString(R.string.gallery_permission_reason),
                         R.string.ok,
-                        R.string.cancel,
                     )
                 }
             }
