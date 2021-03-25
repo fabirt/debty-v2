@@ -55,11 +55,19 @@ class CreatePersonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.imageCard.setOnClickListener { checkPermissions() }
         binding.btnSave.setOnClickListener(::validate)
-
         binding.editTextName.requestKeyboardFocus()
-
         viewModel.picture.observe(viewLifecycleOwner) {
             if (it != null) binding.image.setImageBitmap(it)
+        }
+        lifecycleScope.launch {
+            viewModel.requestInitialPerson(args.personId)?.let { person ->
+                binding.title.text = getString(R.string.edit_person)
+                binding.editTextName.setText(person.name)
+                binding.editTextName.setSelection(person.name.length)
+                if (person.picture != null) {
+                    viewModel.changePicture(person.picture)
+                }
+            }
         }
     }
 
@@ -71,21 +79,30 @@ class CreatePersonFragment : Fragment() {
     private fun validate(v: View) {
         viewModel.changeName(binding.editTextName.text?.toString()?.trim())
         lifecycleScope.launch {
-            if (viewModel.validate()) {
-                val argPersonId = args.personId?.toIntOrNull()
-                val createdPersonId = viewModel.saveChanges()
-                if (argPersonId != null && argPersonId < 0) {
-                    val action = CreatePersonFragmentDirections.actionCreatePersonToCreateMovement(
-                        createdPersonId.toString()
-                    )
-                    findNavController().navigate(action)
-                } else {
-                    v.clearFocusAndCloseKeyboard()
-                    findNavController().popBackStack()
-                }
-            } else {
+            if (!viewModel.validate()) {
                 binding.inputLayoutName.error = getString(R.string.invalid_name_error)
+                return@launch
+            } else {
+                binding.inputLayoutName.error = null
             }
+
+            val argPersonId = args.personId?.toIntOrNull()
+
+            if (argPersonId != null && argPersonId >= 0) {
+                viewModel.updatePerson(argPersonId)
+            } else if (argPersonId != null && argPersonId < 0) {
+                val createdPersonId = viewModel.createPerson()
+                val action = CreatePersonFragmentDirections.actionCreatePersonToCreateMovement(
+                    createdPersonId.toString()
+                )
+                findNavController().navigate(action)
+                return@launch
+            } else {
+                viewModel.createPerson()
+            }
+
+            v.clearFocusAndCloseKeyboard()
+            findNavController().popBackStack()
         }
     }
 
