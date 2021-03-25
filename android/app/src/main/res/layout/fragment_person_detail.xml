@@ -12,6 +12,7 @@
         android:id="@+id/scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipChildren="false"
         android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@id/btn_new_movement"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,8 +22,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/backgroundColor">
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundColor"
+            android:clipChildren="false">
 
             <TextView
                 android:id="@+id/tv_name"
@@ -139,6 +141,7 @@
                 android:id="@+id/rv_movements"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
