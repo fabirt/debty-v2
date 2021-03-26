@@ -3,8 +3,6 @@
     <string name="summary">Summary</string>
     <string name="people">People</string>
     <string name="chart">Chart</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="balance">Balance</string>
     <string name="person_image_content_description">Person picture</string>
     <string name="i_owe">I owe</string>
@@ -16,7 +14,7 @@
     <string name="name">Name</string>
     <string name="invalid_name_error">Please enter a name</string>
     <string name="permission_alert_title">Permissions</string>
-    <string name="gallery_permission_reason">Please grant permission if you want to select a photo from the gallery.</string>
+    <string name="gallery_permission_reason">Please grant permission if you want to select an image from gallery.</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="chart_label">Movements</string>
@@ -43,6 +41,6 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="edit_person">Edit person</string>
-    <string name="delete_person">Are you sure you want to delete %1$s?</string>
+    <string name="edit_person">Edit</string>
+    <string name="delete_person">Are you sure you want to delete %1$s and all the history? This action can not be undone.</string>
 </resources>
