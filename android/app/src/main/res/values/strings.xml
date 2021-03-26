@@ -46,5 +46,8 @@
     <string name="delete_all">Delete all</string>
     <string name="delete_history_only">Delete history</string>
     <string name="undo">Undo</string>
-    <string name="items_deleted">%1$d deleted</string>
+    <plurals name="items_deleted">
+        <item quantity="one">%d deleted</item>
+        <item quantity="other">%d deleted</item>
+    </plurals>
 </resources>

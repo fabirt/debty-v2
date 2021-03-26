@@ -44,12 +44,13 @@ class PersonDetailViewModel @Inject constructor(
         }
     }
 
-    fun undoItemRemoval() {
+    fun undoItemRemoval(item: Movement) {
         viewModelScope.launch {
-            _lastItemRemoved.value?.let {
-                movementRepository.createMovement(it)
-                _lastItemRemoved.value = null
-            }
+            movementRepository.createMovement(item)
         }
+    }
+
+    fun clearLastRemovedItem() {
+        _lastItemRemoved.value = null
     }
 }

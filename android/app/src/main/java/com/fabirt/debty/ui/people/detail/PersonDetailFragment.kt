@@ -109,11 +109,12 @@ class PersonDetailFragment : Fragment() {
 
         viewModel.lastItemRemoved.observe(viewLifecycleOwner) { item ->
             item?.let {
+                viewModel.clearLastRemovedItem()
                 val contextView = binding.btnNewMovement
-                val message = getString(R.string.items_deleted, 1)
+                val message = resources.getQuantityString(R.plurals.items_deleted, 1, 1)
                 Snackbar.make(contextView, message, Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.undo)) {
-                        viewModel.undoItemRemoval()
+                        viewModel.undoItemRemoval(item)
                     }
                     .show()
             }
@@ -237,7 +238,7 @@ class PersonDetailFragment : Fragment() {
             .setNegativeButton(R.string.delete_history_only) { _, _ ->
                 lifecycleScope.launch {
                     val itemsDeleted = viewModel.deleteHistory(person.id)
-                    val message = getString(R.string.items_deleted, itemsDeleted)
+                    val message = resources.getQuantityString(R.plurals.items_deleted, itemsDeleted, itemsDeleted)
                     Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_LONG).show()
                 }
             }
