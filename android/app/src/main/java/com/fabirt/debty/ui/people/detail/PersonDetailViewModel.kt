@@ -1,5 +1,7 @@
 package com.fabirt.debty.ui.people.detail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fabirt.debty.domain.model.Movement
@@ -17,6 +19,9 @@ class PersonDetailViewModel @Inject constructor(
     private val movementRepository: MovementRepository
 ) : ViewModel(), SwipeToDeleteDelegate<Movement> {
 
+    private val _lastItemRemoved = MutableLiveData<Movement?>()
+    val lastItemRemoved: LiveData<Movement?> get() = _lastItemRemoved
+
     fun requestPerson(personId: Int) = personRepository.requestPerson(personId)
 
     fun requestMovements(personId: Int): Flow<List<Movement>> =
@@ -31,6 +36,16 @@ class PersonDetailViewModel @Inject constructor(
     override fun onSwiped(item: Movement) {
         viewModelScope.launch {
             movementRepository.deleteMovement(item)
+            _lastItemRemoved.value = item
+        }
+    }
+
+    fun undoItemRemoval() {
+        viewModelScope.launch {
+            _lastItemRemoved.value?.let {
+                movementRepository.createMovement(it)
+                _lastItemRemoved.value = null
+            }
         }
     }
 }

@@ -43,4 +43,5 @@
     <string name="edit">Edit</string>
     <string name="edit_person">Edit</string>
     <string name="delete_person">Are you sure you want to delete %1$s and all the history? This action can not be undone.</string>
+    <string name="undo">Undo</string>
 </resources>

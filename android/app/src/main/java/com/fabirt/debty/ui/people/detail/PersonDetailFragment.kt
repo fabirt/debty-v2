@@ -28,6 +28,7 @@ import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -103,6 +104,17 @@ class PersonDetailFragment : Fragment() {
             }
             launch {
                 renderMovementList()
+            }
+        }
+
+        viewModel.lastItemRemoved.observe(viewLifecycleOwner) { item ->
+            item?.let {
+                val contextView = binding.btnNewMovement
+                val sb = Snackbar.make(contextView, "Movement removed", Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.undo)) {
+                        viewModel.undoItemRemoval()
+                    }
+                sb.show()
             }
         }
     }
