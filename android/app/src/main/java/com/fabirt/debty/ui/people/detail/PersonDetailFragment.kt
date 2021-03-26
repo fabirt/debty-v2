@@ -110,11 +110,12 @@ class PersonDetailFragment : Fragment() {
         viewModel.lastItemRemoved.observe(viewLifecycleOwner) { item ->
             item?.let {
                 val contextView = binding.btnNewMovement
-                val sb = Snackbar.make(contextView, "Movement removed", Snackbar.LENGTH_LONG)
+                val message = getString(R.string.items_deleted, 1)
+                Snackbar.make(contextView, message, Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.undo)) {
                         viewModel.undoItemRemoval()
                     }
-                sb.show()
+                    .show()
             }
         }
     }
