@@ -33,6 +33,10 @@ class PersonDetailViewModel @Inject constructor(
         personRepository.deleteAllPersonRelatedData(personId)
     }
 
+    suspend fun deleteHistory(personId: Int): Int {
+        return personRepository.deleteAllPersonRelatedData(personId, false)
+    }
+
     override fun onSwiped(item: Movement) {
         viewModelScope.launch {
             movementRepository.deleteMovement(item)

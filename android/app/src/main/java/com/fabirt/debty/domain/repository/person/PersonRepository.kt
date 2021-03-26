@@ -1,6 +1,7 @@
 package com.fabirt.debty.domain.repository.person
 
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.domain.model.Movement
 import kotlinx.coroutines.flow.Flow
 
 interface PersonRepository {
@@ -40,6 +41,7 @@ interface PersonRepository {
     /**
      * Deletes all data related to the [Person] with the given [id] from the database
      * @param inclusive whether you want to delete the matching [Person] too.
+     * @return The number of [Movement] deleted.
      */
-    suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean = true)
+    suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean = true): Int
 }

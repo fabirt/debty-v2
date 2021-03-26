@@ -26,8 +26,8 @@ import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.SwipeItemCallback
-import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -223,17 +223,24 @@ class PersonDetailFragment : Fragment() {
     }
 
     private fun showDeleteDialog(person: Person) {
-        showGeneralDialog(
-            R.string.delete,
-            getString(R.string.delete_person, person.name),
-            R.string.delete,
-            onConfirm = {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.delete)
+            .setMessage(getString(R.string.delete_person, person.name))
+            .setNeutralButton(R.string.cancel) { _, _ -> }
+            .setPositiveButton(R.string.delete_all) { _, _ ->
                 lifecycleScope.launch {
                     uiListenersJob?.cancel()
                     viewModel.deletePerson(person.id)
                     findNavController().popBackStack()
                 }
             }
-        )
+            .setNegativeButton(R.string.delete_history_only) { _, _ ->
+                lifecycleScope.launch {
+                    val itemsDeleted = viewModel.deleteHistory(person.id)
+                    val message = getString(R.string.items_deleted, itemsDeleted)
+                    Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_LONG).show()
+                }
+            }
+            .show()
     }
 }

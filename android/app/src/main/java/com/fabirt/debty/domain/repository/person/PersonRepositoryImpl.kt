@@ -38,10 +38,10 @@ class PersonRepositoryImpl @Inject constructor(
 
     override suspend fun updatePerson(person: Person) = personDao.updatePerson(DBPerson.from(person))
 
-    override suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean) {
-        movementDao.deleteAllPersonMovements(id)
+    override suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean): Int {
         if (inclusive) {
             personDao.deletePerson(id)
         }
+        return movementDao.deleteAllPersonMovements(id)
     }
 }
