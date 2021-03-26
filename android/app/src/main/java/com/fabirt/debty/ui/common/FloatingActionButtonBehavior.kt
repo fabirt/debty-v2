@@ -1,5 +1,6 @@
 package com.fabirt.debty.ui.common
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
@@ -27,12 +28,21 @@ class FloatingActionButtonBehavior @JvmOverloads constructor(
         dependency: View
     ): Boolean {
         val translationY = min(0F, dependency.translationY - dependency.height)
-        child.translationY = translationY
+        // child.translationY = translationY
+        animateTranslationY(child, translationY)
         return true
     }
 
     override fun onDependentViewRemoved(parent: CoordinatorLayout, child: View, dependency: View) {
         super.onDependentViewRemoved(parent, child, dependency)
-        child.translationY = 0F
+        // child.translationY = 0F
+        animateTranslationY(child, 0F)
+    }
+
+    private fun animateTranslationY(view: View, translation: Float) {
+        ObjectAnimator.ofFloat(view, "translationY", translation).apply {
+            duration = 150 // milliseconds
+            start()
+        }
     }
 }
