@@ -33,6 +33,7 @@
         <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
 
+    <!--  Material Alert Dialog  -->
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
         <item name="shapeAppearance">@style/ShapeAppearance.App.PickerMediumComponent</item>
     </style>
@@ -56,4 +57,18 @@
     <style name="ThemeOverlay.App.Dialog.Button" parent="">
         <item name="colorPrimary">@color/colorOnSurface</item>
     </style>
+
+    <!--  Material SnackBar  -->
+    <style name="ThemeOverlay.App.SnackBar" parent="">
+        <item name="colorPrimary">@color/colorCustom2</item>
+        <item name="colorOnSurface">@color/colorSurface</item>
+        <item name="colorSurface">@color/colorSurface</item>
+    </style>
+
+    <style name="Widget.App.SnackBarText" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Subtitle1</item>
+    </style>
+
 </resources>

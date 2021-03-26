@@ -14,27 +14,30 @@
         <item name="tabStyle">@style/Widget.App.TabLayout</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="snackbarStyle">@style/Widget.App.SnackBar</item>
+        <item name="snackbarButtonStyle">@style/Widget.App.SnackBarButton</item>
+        <item name="snackbarTextViewStyle">@style/Widget.App.SnackBarText</item>
     </style>
 
     <style name="Theme.App.Launch" parent="Theme.App">
         <item name="android:windowBackground">@drawable/launch_image</item>
     </style>
 
+    <!--  Material TabLayout  -->
     <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
     </style>
 
+    <!--  Material DatePicker  -->
     <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorOnPrimary">@color/colorOnBackground</item>
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent
-        </item>
-        <item name="shapeAppearanceMediumComponent">
-            @style/ShapeAppearance.App.PickerMediumComponent
-        </item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.PickerMediumComponent</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
+    <!--  Material Alert Dialog  -->
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorPrimary">@color/colorOnSurface</item>
         <item name="colorSurface">@color/colorSurface</item>
@@ -45,5 +48,17 @@
         <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Dialog.Button</item>
         <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Dialog.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Dialog.Button</item>
+    </style>
+
+    <!--  Material SnackBar  -->
+    <style name="Widget.App.SnackBar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.SnackBar</item>
+        <item name="actionTextColorAlpha">1</item>
+        <item name="animationMode">fade</item>
+    </style>
+
+    <style name="Widget.App.SnackBarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">@color/colorBackground</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
 </resources>
