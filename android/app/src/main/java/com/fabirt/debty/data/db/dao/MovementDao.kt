@@ -35,6 +35,9 @@ interface MovementDao {
     @Delete
     suspend fun deleteMovement(value: DBMovement)
 
+    @Query("DELETE FROM movements WHERE person_id = :personId")
+    suspend fun deleteAllPersonMovements(personId: Int)
+
     @Query(
         "SELECT SUM(amount) AS total FROM movements WHERE amount > 0"
     )

@@ -30,6 +30,7 @@ import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
@@ -45,6 +46,7 @@ class PersonDetailFragment : Fragment() {
     private val args: PersonDetailFragmentArgs by navArgs()
     private val viewModel: PersonDetailViewModel by viewModels()
     private lateinit var adapter: MovementAdapter
+    private var uiListenersJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +94,7 @@ class PersonDetailFragment : Fragment() {
         binding.iconButtonEdit.setOnClickListener { navigateToEditPerson() }
 
         // Observers
-        viewLifecycleOwner.lifecycleScope.launch {
+        uiListenersJob = viewLifecycleOwner.lifecycleScope.launch {
             launch {
                 renderPerson()
             }
@@ -213,8 +215,11 @@ class PersonDetailFragment : Fragment() {
             getString(R.string.delete_person, person.name),
             R.string.delete,
             onConfirm = {
-                viewModel.deletePerson(person.id)
-                findNavController().popBackStack()
+                lifecycleScope.launch {
+                    uiListenersJob?.cancel()
+                    viewModel.deletePerson(person.id)
+                    findNavController().popBackStack()
+                }
             }
         )
     }

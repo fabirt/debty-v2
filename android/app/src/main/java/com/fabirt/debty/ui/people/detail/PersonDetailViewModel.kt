@@ -24,7 +24,9 @@ class PersonDetailViewModel @Inject constructor(
 
     fun requestBalance(personId: Int) = movementRepository.requestPersonBalance(personId)
 
-    fun deletePerson(personId: Int) {}
+    suspend fun deletePerson(personId: Int) {
+        personRepository.deleteAllPersonRelatedData(personId)
+    }
 
     override fun onSwiped(item: Movement) {
         viewModelScope.launch {
