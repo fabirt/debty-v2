@@ -10,4 +10,5 @@
     <color name="colorNegative">#D93C19</color>
     <color name="colorRippleOnBackground">#1FFFFFFF</color>
     <color name="colorSurfaceCustom">#2D2D2D</color>
+    <color name="colorNeutral">#19B7EA</color>
 </resources>
