@@ -16,6 +16,11 @@ interface PersonDao {
     fun getAllPersonsWithTotal(): Flow<List<DBPersonWithTotal>>
 
     @Query(
+        "SELECT p.id, p.name, p.created_at, p.picture, SUM(m.amount) AS total FROM persons p INNER JOIN movements m ON p.id = m.person_id GROUP BY p.id, p.name, p.created_at, p.picture HAVING total != 0 ORDER BY ABS(total) DESC"
+    )
+    suspend fun getAllPersonsWithTotalOneTime(): List<DBPersonWithTotal>
+
+    @Query(
         "SELECT * FROM persons WHERE id = :id"
     )
     fun getPerson(id: Int): Flow<DBPerson?>

@@ -8,20 +8,22 @@ import android.content.Intent
 import android.util.Log
 import android.widget.RemoteViews
 import com.fabirt.debty.R
-import com.fabirt.debty.data.db.dao.MovementDao
+import com.fabirt.debty.domain.repository.person.PersonRepository
 import com.fabirt.debty.ui.MainActivity
+import com.fabirt.debty.util.calculateSummaryData
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class SummaryWidgetProvider : AppWidgetProvider() {
 
     @Inject
-    lateinit var dao: MovementDao
+    lateinit var repository: PersonRepository
 
     override fun onUpdate(
         context: Context,
@@ -29,26 +31,27 @@ class SummaryWidgetProvider : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         Log.i("ResumeWidgetProvider", "onUpdate")
-        // Perform this loop procedure for each App Widget that belongs to this provider
-        appWidgetIds.forEach { appWidgetId ->
-            // Create an Intent to launch MainActivity
-            val intentActivity = Intent(context, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        GlobalScope.launch {
+            val summaryData = withContext(Dispatchers.IO) {
+                val people = repository.oneTimeRequestAllPersonsWithTotal()
+                calculateSummaryData(people)
             }
-            val pendingIntentActivity =
-                PendingIntent.getActivity(
-                    context,
-                    0,
-                    intentActivity,
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                )
 
-            val pendingIntentUpdate = getUpdateSelfPendingIntent(context, appWidgetIds)
+            // Perform this loop procedure for each App Widget that belongs to this provider
+            appWidgetIds.forEach { appWidgetId ->
+                // Create an Intent to launch MainActivity
+                val intentActivity = Intent(context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                val pendingIntentActivity =
+                    PendingIntent.getActivity(
+                        context,
+                        0,
+                        intentActivity,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
 
-            // Do Work
-            GlobalScope.launch {
-                val totalOweMe = dao.getTotalOweMe()?.absoluteValue ?: 0.0
-                val totalIOwe = dao.getTotalIOwe()?.absoluteValue ?: 0.0
+                val pendingIntentUpdate = getUpdateSelfPendingIntent(context, appWidgetIds)
 
                 // Get the layout for the App Widget and attach an on-click listener
                 // to the button
@@ -56,8 +59,14 @@ class SummaryWidgetProvider : AppWidgetProvider() {
                     context.packageName,
                     R.layout.appwidget_summary
                 ).apply {
-                    setTextViewText(R.id.tv_owe_me_value, totalOweMe.toCurrencyString())
-                    setTextViewText(R.id.tv_i_owe_value, totalIOwe.toCurrencyString())
+                    setTextViewText(
+                        R.id.tv_owe_me_value,
+                        summaryData.positive.toCurrencyString()
+                    )
+                    setTextViewText(
+                        R.id.tv_i_owe_value,
+                        summaryData.negative.toCurrencyString()
+                    )
 
                     setOnClickPendingIntent(R.id.container, pendingIntentActivity)
                     setOnClickPendingIntent(R.id.btn_refresh_widget, pendingIntentUpdate)

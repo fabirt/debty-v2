@@ -26,6 +26,14 @@ class PersonRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun oneTimeRequestAllPersonsWithTotal(): List<Person> {
+        val result = runCatching {
+            personDao.getAllPersonsWithTotalOneTime().map { it.toDomainModel() }
+        }
+
+        return result.getOrDefault(listOf())
+    }
+
     override fun requestPerson(personId: Int): Flow<Person?> {
         return personDao.getPerson(personId).map { value ->
             value?.toDomainModel()

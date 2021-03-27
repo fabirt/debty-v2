@@ -16,6 +16,8 @@ interface PersonRepository {
      */
     fun requestAllPersonsWithTotal(): Flow<List<Person>>
 
+    suspend fun oneTimeRequestAllPersonsWithTotal(): List<Person>
+
     /**
      * Search a person by its [personId] and listen changes.
      */

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.util.calculateSummaryData
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -71,7 +72,7 @@ class SummaryFragment : Fragment() {
                 binding.rvPeople.scheduleLayoutAnimation()
             }
             personSummaryAdapter.submitList(data)
-            val summaryData = viewModel.calculateSummaryData(data)
+            val summaryData = calculateSummaryData(data)
             if (isRecreatingFragment) {
                 binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
             } else {
