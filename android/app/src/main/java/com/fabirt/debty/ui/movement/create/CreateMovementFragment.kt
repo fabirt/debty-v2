@@ -118,7 +118,7 @@ class CreateMovementFragment : Fragment() {
         binding.editTextAmount.setText(movement.amount.absoluteValue.toDecimalString())
         binding.editTextDescription.setText(movement.description)
         binding.autoTextViewMovement.setText(getString(movement.type.name), false)
-        viewModel.changeDate(movement.epochMilli)
+        viewModel.changeDate(movement.date)
         viewModel.changeMovementType(movement.type)
     }
 

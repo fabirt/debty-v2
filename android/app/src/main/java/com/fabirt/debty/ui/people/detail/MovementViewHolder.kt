@@ -26,7 +26,7 @@ class MovementViewHolder(
 
     fun bind(movement: Movement, onClickListener: MovementClickListener) {
         val amountColor = ContextCompat.getColor(itemView.context, movement.type.color)
-        binding.tvDate.text = movement.epochMilli.toDateString(SimpleDateFormat.SHORT)
+        binding.tvDate.text = movement.date.toDateString(SimpleDateFormat.SHORT)
         binding.tvAmount.text = movement.amount.absoluteValue.toCurrencyString()
         binding.tvAmount.setTextColor(amountColor)
         binding.tvDescription.text = movement.description

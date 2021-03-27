@@ -13,7 +13,7 @@ import com.fabirt.debty.domain.model.Movement
 data class DBMovement(
     @ColumnInfo(name = "person_id") val personId: Int,
     val amount: Double,
-    @ColumnInfo(name = "epoch_milli") val epochMilli: Long,
+    val date: Long,
     val description: String,
     val type: MovementTypeDto,
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -22,7 +22,7 @@ data class DBMovement(
         fun from(movement: Movement) = DBMovement(
             personId = movement.personId,
             amount = movement.amount,
-            epochMilli = movement.epochMilli,
+            date = movement.date,
             description = movement.description,
             type = MovementTypeDto.from(movement.type),
             id = movement.id
@@ -34,7 +34,7 @@ fun DBMovement.toDomainModel() = Movement(
     id = id,
     personId = personId,
     amount = amount,
-    epochMilli = epochMilli,
+    date = date,
     description = description,
     type = type.toDomainModel()
 )

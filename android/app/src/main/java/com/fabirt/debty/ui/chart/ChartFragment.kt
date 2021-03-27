@@ -98,7 +98,7 @@ class ChartFragment : Fragment() {
                             if (index < 0) return ""
 
                             return movements.getOrNull(index)?.let { movement ->
-                                val date = Date(movement.epochMilli)
+                                val date = Date(movement.date)
                                 val sf = SimpleDateFormat("MMM dd", Locale.getDefault())
 
                                 if (index == 0) {

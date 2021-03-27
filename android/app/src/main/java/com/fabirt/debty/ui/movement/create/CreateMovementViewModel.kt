@@ -63,7 +63,7 @@ class CreateMovementViewModel @Inject constructor(
             id = 0,
             personId = personId,
             amount = amount!!.toDouble() * movementType!!.multiplier,
-            epochMilli = _date.value!!,
+            date = _date.value!!,
             description = description!!,
             type = movementType!!
         )
@@ -81,7 +81,7 @@ class CreateMovementViewModel @Inject constructor(
             id = id,
             personId = personId,
             amount = amount!!.toDouble() * movementType!!.multiplier,
-            epochMilli = _date.value!!,
+            date = _date.value!!,
             description = description!!,
             type = movementType!!
         )
