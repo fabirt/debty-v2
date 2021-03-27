@@ -21,7 +21,7 @@
             android:id="@+id/tv_owe_me_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/owe_me"
+            android:text="@string/they_owe_me"
             android:textColor="@color/colorOnBackground"
             android:textSize="13sp" />
 
