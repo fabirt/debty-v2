@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fabirt.debty.R
+import com.fabirt.debty.constant.K
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntent() {
         intent?.dataString?.let { data ->
             when (data) {
-                "debty.assistant.movement" -> triggerNewMovementDeepLink()
+                K.SHORTCUT_DATA_MOVEMENT_ASSISTANT -> triggerNewMovementDeepLink()
             }
         }
     }

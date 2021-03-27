@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
+import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.Person
@@ -194,7 +195,7 @@ class PersonDetailFragment : Fragment() {
             val file = File(imagePath, "shared_image.png")
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, outputStream)
-            uri = FileProvider.getUriForFile(requireContext(), "com.fabirt.fileprovider", file)
+            uri = FileProvider.getUriForFile(requireContext(), K.FILE_PROVIDER_AUTHORITIES, file)
         } catch (e: IOException) {
             Log.d(
                 "cacheBitmapToGetUri",
