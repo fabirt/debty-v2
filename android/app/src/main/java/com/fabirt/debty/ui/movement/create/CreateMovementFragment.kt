@@ -171,14 +171,9 @@ class CreateMovementFragment : Fragment() {
                         description
                     )
                 }
-                updateResumeWidget()
                 v.clearFocusAndCloseKeyboard()
                 findNavController().popBackStack()
             }
         }
-    }
-
-    private fun updateResumeWidget() {
-        requireActivity().sendUpdateAppWidgetBroadcast()
     }
 }

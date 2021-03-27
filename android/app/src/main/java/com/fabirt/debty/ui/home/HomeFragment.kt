@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -18,8 +20,11 @@ import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.ui.chart.ChartFragment
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
+import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -28,6 +33,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var pagerAdapter: HomePagerAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,7 @@ class HomeFragment : Fragment() {
         }
 
         onBackPressedCallback.isEnabled = false
+        listenMovementChanges()
     }
 
     override fun onCreateView(
@@ -119,6 +126,16 @@ class HomeFragment : Fragment() {
     private fun navigateToCreateMovement() {
         val action = HomeFragmentDirections.actionHomeToPersonSearch()
         findNavController().navigate(action)
+    }
+
+    private fun listenMovementChanges() {
+        lifecycleScope.launch {
+            runCatching {
+                viewModel.movements.collect {
+                    sendUpdateAppWidgetBroadcast()
+                }
+            }
+        }
     }
 }
 
