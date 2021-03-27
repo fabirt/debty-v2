@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.fabirt.debty.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_personSearch"
             app:destination="@id/personSearchFragment"
@@ -52,6 +52,11 @@
         <argument
             android:name="person_id"
             app:argType="string" />
+        <argument
+            android:name="id"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <action
         android:id="@+id/action_global_createMovementFragment"
@@ -64,7 +69,7 @@
         android:id="@+id/personSearchFragment"
         android:name="com.fabirt.debty.ui.movement.person_search.PersonSearchFragment"
         android:label="fragment_person_search"
-        tools:layout="@layout/fragment_person_search" >
+        tools:layout="@layout/fragment_person_search">
         <action
             android:id="@+id/action_personSearch_to_createMovement"
             app:destination="@id/createMovementFragment"
@@ -80,16 +85,15 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@anim/page_exit_transition"
-            app:popUpTo="@id/homeFragment" >
-            <argument
-                android:name="person_id" />
+            app:popUpTo="@id/homeFragment">
+            <argument android:name="person_id" />
         </action>
     </fragment>
     <fragment
         android:id="@+id/personDetailFragment"
         android:name="com.fabirt.debty.ui.people.detail.PersonDetailFragment"
         android:label="fragment_person_detail"
-        tools:layout="@layout/fragment_person_detail" >
+        tools:layout="@layout/fragment_person_detail">
         <argument
             android:name="person_id"
             app:argType="integer" />

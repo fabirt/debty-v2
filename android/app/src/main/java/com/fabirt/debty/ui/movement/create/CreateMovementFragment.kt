@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreateMovementBinding
+import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.movementTypeOptions
 import com.fabirt.debty.util.*
 import com.google.android.material.datepicker.CalendarConstraints
@@ -20,6 +21,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class CreateMovementFragment : Fragment() {
@@ -40,12 +42,12 @@ class CreateMovementFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ArrayAdapter(
+        val dropdownAdapter = ArrayAdapter(
             requireContext(),
             R.layout.menu_list_item,
             movementTypeOptions.map { getString(it.name) })
 
-        binding.autoTextViewMovement.setAdapter(adapter)
+        binding.autoTextViewMovement.setAdapter(dropdownAdapter)
 
         binding.autoTextViewMovement.setOnItemClickListener { _, _, position, _ ->
             viewModel.changeMovementType(movementTypeOptions[position])
@@ -55,7 +57,7 @@ class CreateMovementFragment : Fragment() {
             openDatePicker()
         }
 
-        binding.editTextAmount.requestKeyboardFocus()
+        if (args.id == null) binding.editTextAmount.requestKeyboardFocus()
 
         binding.editTextAmount.addTextChangedListener(CurrencyTextWatcher(binding.editTextAmount))
 
@@ -65,6 +67,10 @@ class CreateMovementFragment : Fragment() {
 
         viewModel.date.observe(viewLifecycleOwner) {
             binding.editTextDate.setText(it.toDateString(SimpleDateFormat.SHORT))
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.requestInitialMovement(args.id)?.let(::setInitialData)
         }
     }
 
@@ -107,6 +113,15 @@ class CreateMovementFragment : Fragment() {
         }
     }
 
+    private fun setInitialData(movement: Movement) {
+        binding.title.text = getString(R.string.edit)
+        binding.editTextAmount.setText(movement.amount.absoluteValue.toDecimalString())
+        binding.editTextDescription.setText(movement.description)
+        binding.autoTextViewMovement.setText(getString(movement.type.name), false)
+        viewModel.changeDate(movement.epochMilli)
+        viewModel.changeMovementType(movement.type)
+    }
+
     private fun validateChanges(v: View) {
         val amount = binding.editTextAmount.text.toString().replace(",", "")
         val description = binding.editTextDescription.text?.toString()
@@ -141,11 +156,21 @@ class CreateMovementFragment : Fragment() {
 
         if (isValid) {
             lifecycleScope.launch {
-                viewModel.createMovement(
-                    args.personId.toInt(),
-                    amount,
-                    description
-                )
+                val mId = args.id?.toIntOrNull()
+                if (mId != null) {
+                    viewModel.updateMovement(
+                        mId,
+                        args.personId.toInt(),
+                        amount,
+                        description
+                    )
+                } else {
+                    viewModel.createMovement(
+                        args.personId.toInt(),
+                        amount,
+                        description
+                    )
+                }
                 updateResumeWidget()
                 v.clearFocusAndCloseKeyboard()
                 findNavController().popBackStack()

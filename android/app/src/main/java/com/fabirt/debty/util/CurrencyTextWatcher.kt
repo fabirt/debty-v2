@@ -23,7 +23,7 @@ class CurrencyTextWatcher(
             val cleanString = stringText.replace(",", "")
             val parsed = cleanString.toDoubleOrNull()
             if (parsed != null) {
-                val formatted = DecimalFormat("#,##0").format(parsed)
+                val formatted = parsed.toDecimalString()
                 current = formatted
                 editText.setText(formatted)
                 editText.setSelection(formatted.length)

@@ -52,7 +52,7 @@ class PersonDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MovementAdapter()
+        adapter = MovementAdapter(::navigateToEditMovement)
     }
 
     override fun onCreateView(
@@ -239,10 +239,23 @@ class PersonDetailFragment : Fragment() {
             .setNegativeButton(R.string.delete_history_only) { _, _ ->
                 lifecycleScope.launch {
                     val itemsDeleted = viewModel.deleteHistory(person.id)
-                    val message = resources.getQuantityString(R.plurals.items_deleted, itemsDeleted, itemsDeleted)
+                    val message = resources.getQuantityString(
+                        R.plurals.items_deleted,
+                        itemsDeleted,
+                        itemsDeleted
+                    )
                     Snackbar.make(binding.coordinatorLayout, message, Snackbar.LENGTH_LONG).show()
                 }
             }
             .show()
+    }
+
+    private fun navigateToEditMovement(movement: Movement) {
+        val action =
+            PersonDetailFragmentDirections.actionGlobalCreateMovementFragment(
+                args.personId.toString(),
+                movement.id.toString()
+            )
+        findNavController().navigate(action)
     }
 }

@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/backgroundColor"
+    android:background="@drawable/background_movement_item"
     android:paddingHorizontal="16dp"
     android:paddingVertical="16dp">
 

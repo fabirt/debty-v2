@@ -14,9 +14,6 @@ class CreateMovementViewModel @Inject constructor(
     private val repository: MovementRepository
 ) : ViewModel() {
 
-    private val _movement: MutableLiveData<Movement> = MutableLiveData()
-    val movement: LiveData<Movement> get() = _movement
-
     private val _date: MutableLiveData<Long> = MutableLiveData()
     val date: LiveData<Long> get() = _date
 
@@ -24,6 +21,12 @@ class CreateMovementViewModel @Inject constructor(
 
     init {
         _date.value = System.currentTimeMillis()
+    }
+
+    suspend fun requestInitialMovement(id: String?): Movement? {
+        return id?.toIntOrNull()?.let {
+            repository.requestOneTimeMovement(it)
+        }
     }
 
     fun changeDate(value: Long) {
@@ -66,5 +69,23 @@ class CreateMovementViewModel @Inject constructor(
         )
 
         repository.createMovement(data)
+    }
+
+    suspend fun updateMovement(
+        id: Int,
+        personId: Int,
+        amount: String?,
+        description: String?,
+    ) {
+        val data = Movement(
+            id = id,
+            personId = personId,
+            amount = amount!!.toDouble() * movementType!!.multiplier,
+            epochMilli = _date.value!!,
+            description = description!!,
+            type = movementType!!
+        )
+
+        repository.updateMovement(data)
     }
 }
