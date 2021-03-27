@@ -40,7 +40,7 @@ class ChartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val colorOnBackground = requireContext().getColor(R.color.colorOnBackground)
-        val lineColor = requireContext().getColor(R.color.colorCustom1)
+        val lineColor = requireContext().getColor(R.color.colorPositive)
         val highlightColor = requireContext().getColor(R.color.colorPrimary)
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.montserrat_regular)
 

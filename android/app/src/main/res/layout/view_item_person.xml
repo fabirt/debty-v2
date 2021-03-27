@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.App.Body1"
-        android:textColor="@color/colorCustom1"
+        android:textColor="@color/colorPositive"
         app:layout_constraintBottom_toTopOf="@id/tv_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

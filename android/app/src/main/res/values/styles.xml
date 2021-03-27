@@ -60,7 +60,7 @@
 
     <!--  Material SnackBar  -->
     <style name="ThemeOverlay.App.SnackBar" parent="">
-        <item name="colorPrimary">@color/colorCustom2</item>
+        <item name="colorPrimary">@color/colorNegative</item>
         <item name="colorOnSurface">@color/colorSurface</item>
         <item name="colorSurface">@color/colorSurface</item>
     </style>

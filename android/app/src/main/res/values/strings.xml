@@ -33,8 +33,6 @@
     <string name="description_error_text">Please enter a description</string>
     <string name="date_error_text">Please select date</string>
     <string name="movement_type_error_text">Please select movement type</string>
-    <string name="movement_incoming">Incoming</string>
-    <string name="movement_outgoing">Outgoing</string>
     <string name="movement_type">Movement type</string>
     <string name="history">History</string>
     <string name="empty_people">You have not registered any person yet.</string>
@@ -51,4 +49,8 @@
         <item quantity="one">%d deleted</item>
         <item quantity="other">%d deleted</item>
     </plurals>
+    <string name="i_lent">I lent</string>
+    <string name="i_paid">I paid</string>
+    <string name="lent_me">Lent me</string>
+    <string name="paid_me">Paid me</string>
 </resources>
