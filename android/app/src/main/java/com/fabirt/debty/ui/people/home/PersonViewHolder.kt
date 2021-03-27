@@ -10,7 +10,6 @@ import com.fabirt.debty.databinding.ViewItemPersonSimpleBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
 import com.fabirt.debty.util.toDateString
-import java.util.*
 
 class PersonViewHolder(
     private val binding: ViewItemPersonSimpleBinding,

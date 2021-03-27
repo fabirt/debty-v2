@@ -32,16 +32,34 @@ class PersonRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun requestOneTimePerson(personId: Int) = personDao.getPersonOneTime(personId)?.toDomainModel()
+    override suspend fun requestOneTimePerson(personId: Int): Person? {
+        val result = runCatching {
+            personDao.getPersonOneTime(personId)?.toDomainModel()
+        }
+        return result.getOrNull()
+    }
 
-    override suspend fun createPerson(person: Person) = personDao.insertPerson(DBPerson.from(person))
+    override suspend fun createPerson(person: Person): Long? {
+        val result = runCatching {
+            personDao.insertPerson(DBPerson.from(person))
+        }
+        return result.getOrNull()
+    }
 
-    override suspend fun updatePerson(person: Person) = personDao.updatePerson(DBPerson.from(person))
+    override suspend fun updatePerson(person: Person) {
+        runCatching {
+            personDao.updatePerson(DBPerson.from(person))
+        }
+    }
 
     override suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean): Int {
-        if (inclusive) {
-            personDao.deletePerson(id)
+        val result = runCatching {
+            if (inclusive) {
+                personDao.deletePerson(id)
+            }
+            movementDao.deleteAllPersonMovements(id)
         }
-        return movementDao.deleteAllPersonMovements(id)
+
+        return result.getOrDefault(0)
     }
 }

@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreatePersonBinding
+import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.util.clearFocusAndCloseKeyboard
 import com.fabirt.debty.util.requestKeyboardFocus
 import com.fabirt.debty.util.showGeneralDialog
@@ -92,10 +93,14 @@ class CreatePersonFragment : Fragment() {
                 viewModel.updatePerson(argPersonId)
             } else if (argPersonId != null && argPersonId < 0) {
                 val createdPersonId = viewModel.createPerson()
-                val action = CreatePersonFragmentDirections.actionCreatePersonToCreateMovement(
-                    createdPersonId.toString()
-                )
-                findNavController().navigate(action)
+                if (createdPersonId != null) {
+                    val action = CreatePersonFragmentDirections.actionCreatePersonToCreateMovement(
+                        createdPersonId.toString()
+                    )
+                    findNavController().navigate(action)
+                } else {
+                    showSnackBar(getString(R.string.unexpected_error_message))
+                }
                 return@launch
             } else {
                 viewModel.createPerson()

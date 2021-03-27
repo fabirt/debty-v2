@@ -31,7 +31,7 @@ interface PersonRepository {
      * Insert a new person in the database.
      * @return ID of the created person.
      */
-    suspend fun createPerson(person: Person): Long
+    suspend fun createPerson(person: Person): Long?
 
     /**
      * @param person The entity to update

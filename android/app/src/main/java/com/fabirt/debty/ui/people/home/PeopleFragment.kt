@@ -50,11 +50,8 @@ class PeopleFragment : Fragment() {
         })
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.people.collect { data ->
-                val isEmpty = data.isEmpty()
-                binding.rvPeople.isVisible = !isEmpty
-                binding.tvEmpty.isVisible = isEmpty
-                adapter.submitList(data)
+            runCatching {
+                renderPeople()
             }
         }
     }
@@ -62,6 +59,15 @@ class PeopleFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private suspend fun renderPeople() {
+        viewModel.people.collect { data ->
+            val isEmpty = data.isEmpty()
+            binding.rvPeople.isVisible = !isEmpty
+            binding.tvEmpty.isVisible = isEmpty
+            adapter.submitList(data)
+        }
     }
 
     private fun navigateToPersonDetail(person: Person) {

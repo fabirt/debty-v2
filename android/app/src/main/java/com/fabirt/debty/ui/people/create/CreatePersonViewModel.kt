@@ -31,9 +31,9 @@ class CreatePersonViewModel @Inject constructor(
     fun validate(): Boolean = name != null
 
     /**
-     * @return The created person ID.
+     * @return The created person ID or `null` if an error occurred.
      */
-    suspend fun createPerson(): Long {
+    suspend fun createPerson(): Long? {
         val person = Person(0, name!!, picture = _picture.value)
         return personRepository.createPerson(person)
     }

@@ -1,7 +1,6 @@
 package com.fabirt.debty.ui.summary
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,31 +47,8 @@ class SummaryFragment : Fragment() {
         binding.rvPeople.adapter = personSummaryAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.people.collect { data ->
-                val isEmpty = data.isEmpty()
-
-                binding.rvPeople.isVisible = !isEmpty
-                binding.tvEmpty.isVisible = isEmpty
-
-                if (isRecreatingFragment) {
-                    binding.rvPeople.itemAnimator = null
-                } else {
-                    binding.rvPeople.scheduleLayoutAnimation()
-                }
-                personSummaryAdapter.submitList(data)
-                val summaryData = viewModel.calculateSummaryData(data)
-                if (isRecreatingFragment) {
-                    binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
-                } else {
-                    binding.tvBalanceAmount.animateText(
-                        summaryData.balance.toCurrencyString(),
-                        "$",
-                        1
-                    )
-                }
-                binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
-                binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
-                isRecreatingFragment = true
+            runCatching {
+                renderPeople()
             }
         }
     }
@@ -80,6 +56,35 @@ class SummaryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private suspend fun renderPeople() {
+        viewModel.people.collect { data ->
+            val isEmpty = data.isEmpty()
+
+            binding.rvPeople.isVisible = !isEmpty
+            binding.tvEmpty.isVisible = isEmpty
+
+            if (isRecreatingFragment) {
+                binding.rvPeople.itemAnimator = null
+            } else {
+                binding.rvPeople.scheduleLayoutAnimation()
+            }
+            personSummaryAdapter.submitList(data)
+            val summaryData = viewModel.calculateSummaryData(data)
+            if (isRecreatingFragment) {
+                binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
+            } else {
+                binding.tvBalanceAmount.animateText(
+                    summaryData.balance.toCurrencyString(),
+                    "$",
+                    1
+                )
+            }
+            binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
+            binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
+            isRecreatingFragment = true
+        }
     }
 
     private fun navigateToPersonDetail(person: Person) {

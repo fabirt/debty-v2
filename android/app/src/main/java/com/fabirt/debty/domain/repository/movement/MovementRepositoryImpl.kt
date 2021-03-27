@@ -35,14 +35,28 @@ class MovementRepositoryImpl @Inject constructor(
 
     override fun requestPersonBalance(personId: Int): Flow<Double?> = dao.getPersonTotal(personId)
 
-    override suspend fun requestOneTimeMovement(id: Int) = dao.getMovement(id)?.toDomainModel()
+    override suspend fun requestOneTimeMovement(id: Int): Movement? {
+        val result = runCatching {
+            dao.getMovement(id)?.toDomainModel()
+        }
+        return result.getOrNull()
+    }
 
-    override suspend fun createMovement(movement: Movement) =
-        dao.insertMovement(DBMovement.from(movement))
+    override suspend fun createMovement(movement: Movement) {
+        runCatching {
+            dao.insertMovement(DBMovement.from(movement))
+        }
+    }
 
-    override suspend fun updateMovement(movement: Movement) =
-        dao.updateMovement(DBMovement.from(movement))
+    override suspend fun updateMovement(movement: Movement) {
+        runCatching {
+            dao.updateMovement(DBMovement.from(movement))
+        }
+    }
 
-    override suspend fun deleteMovement(movement: Movement) =
-        dao.deleteMovement(DBMovement.from(movement))
+    override suspend fun deleteMovement(movement: Movement) {
+        runCatching {
+            dao.deleteMovement(DBMovement.from(movement))
+        }
+    }
 }
