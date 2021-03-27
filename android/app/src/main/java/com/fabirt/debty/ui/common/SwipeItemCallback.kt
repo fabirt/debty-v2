@@ -1,7 +1,9 @@
 package com.fabirt.debty.ui.common
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.VibrationEffect
@@ -18,7 +20,7 @@ class SwipeItemCallback<T>(context: Context) :
     var delegate: SwipeToDeleteDelegate<T>? = null
 
     private val deleteIcon =
-        ContextCompat.getDrawable(context, R.drawable.ic_round_delete_24)!!
+        ContextCompat.getDrawable(context, R.drawable.animated_vector_delete)!! as AnimatedVectorDrawable
     private val intrinsicWidth = deleteIcon.intrinsicWidth
     private val intrinsicHeight = deleteIcon.intrinsicHeight
     private val background = ColorDrawable()
@@ -81,12 +83,14 @@ class SwipeItemCallback<T>(context: Context) :
         if (swipedRatio <= -0.5f && !feedbackOccurred) {
             feedbackOccurred = true
             vibrate(itemView.context)
+            deleteIcon.start()
 
         } else if (swipedRatio > -0.4f) {
             feedbackOccurred = false
         } else if (swipedRatio > -0.5f && feedbackOccurred) {
             feedbackOccurred = false
             vibrate(itemView.context)
+            deleteIcon.start()
         }
 
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
