@@ -1,7 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="summary">Resumen</string>
+    <string name="people">Personas</string>
+    <string name="chart">Gráfico</string>
+    <string name="balance">Balance</string>
+    <string name="person_image_content_description">Imagen de la persona</string>
+    <string name="i_owe">Debo</string>
+    <string name="owe_me">Me debe</string>
+    <string name="no_movements">Sin movimientos</string>
+    <string name="save">Guardar</string>
+    <string name="new_person">Nueva persona</string>
+    <string name="global_text_field_hint">Escribe aquí</string>
+    <string name="name">Nombre</string>
+    <string name="invalid_name_error">Ingresa el nombre.</string>
+    <string name="permission_alert_title">Permisos</string>
+    <string name="gallery_permission_reason">Por favor dános permiso si quieres seleccionar una imagen de la galería.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="chart_label">Movimientos</string>
+    <string name="new_movement">Nuevo movimiento</string>
+    <string name="empty_summary">Aún no has registrado ningún movimiento.</string>
+    <string name="created_at">Creado %1$s</string>
+    <string name="select_person">Escoge la persona</string>
+    <string name="shortcut_movement_long_label">Nuevo movimiento</string>
+    <string name="shortcut_movement_short_label">Movimiento</string>
+    <string name="shortcut_movement_disabled_message">Movimiento</string>
+    <string name="amount">Valor</string>
+    <string name="description">Descripción</string>
+    <string name="date">Fecha</string>
+    <string name="date_picker_title">Seleccionar fecha</string>
+    <string name="amount_error_text">Ingresa un valor.</string>
+    <string name="description_error_text">Ingresa una descripción.</string>
+    <string name="date_error_text">Selecciona una fecha.</string>
+    <string name="movement_type_error_text">Selecciona una opción.</string>
+    <string name="movement_type">Tipo de movimiento</string>
+    <string name="history">Historial</string>
+    <string name="empty_people">Aún no has registrado ninguna persona.</string>
+    <string name="share">Enviar</string>
+    <string name="delete">Borrar</string>
+    <string name="edit">Editar</string>
+    <string name="edit_person">Editar</string>
+    <string name="delete_person">¿Quieres borrar a %1$s y todo su historial? Esta acción no se puede deshacer.</string>
+    <string name="delete_all">Borrar todo</string>
+    <string name="delete_history_only">Borrar historial</string>
+    <string name="undo">Deshacer</string>
+    <string name="unexpected_error_message">Ocurrió un error inesperado, por favor intenta de nuevo.</string>
     <plurals name="items_deleted">
         <item quantity="one">%d eliminado</item>
         <item quantity="other">%d eliminados</item>
     </plurals>
+    <string name="i_lent">Le presté</string>
+    <string name="i_paid">Le pagué</string>
+    <string name="lent_me">Me prestó</string>
+    <string name="paid_me">Me pagó</string>
 </resources>
