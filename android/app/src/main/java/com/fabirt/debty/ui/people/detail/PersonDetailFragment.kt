@@ -25,8 +25,11 @@ import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.domain.model.Movement
+import com.fabirt.debty.domain.model.MovementType
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.SwipeItemCallback
+import com.fabirt.debty.ui.common.showSnackBar
+import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -34,6 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -94,6 +98,8 @@ class PersonDetailFragment : Fragment() {
         binding.iconButtonShare.setOnClickListener { shareSummary() }
 
         binding.iconButtonEdit.setOnClickListener { navigateToEditPerson() }
+
+        binding.iconButtonSettle.setOnClickListener { settleAccount() }
 
         // Observers
         uiListenersJob = viewLifecycleOwner.lifecycleScope.launch {
@@ -251,11 +257,39 @@ class PersonDetailFragment : Fragment() {
     }
 
     private fun navigateToEditMovement(movement: Movement) {
-        val action =
-            PersonDetailFragmentDirections.actionGlobalCreateMovementFragment(
-                args.personId.toString(),
-                movement.id.toString()
-            )
-        findNavController().navigate(action)
+        if (movement.type.multiplier == 0) {
+            showSnackBar(getString(R.string.can_not_edit))
+        } else {
+            val action =
+                PersonDetailFragmentDirections.actionGlobalCreateMovementFragment(
+                    args.personId.toString(),
+                    movement.id.toString()
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun settleAccount() {
+        lifecycleScope.launch {
+            viewModel.requestBalance(args.personId).first()?.let { balance ->
+                if (balance != 0.0) {
+                    showGeneralDialog(
+                        R.string.settle_account_title,
+                        getString(R.string.settle_account_confirm_message),
+                        R.string.settle_account_button,
+                        R.string.cancel,
+                        onConfirm = {
+                            viewModel.settleAccount(
+                                args.personId,
+                                balance,
+                                getString(R.string.settle_account_description)
+                            )
+                        }
+                    )
+                } else {
+                    showSnackBar(getString(R.string.nothing_to_settle))
+                }
+            }
+        }
     }
 }

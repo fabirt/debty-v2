@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fabirt.debty.domain.model.Movement
+import com.fabirt.debty.domain.model.MovementType
 import com.fabirt.debty.domain.repository.movement.MovementRepository
 import com.fabirt.debty.domain.repository.person.PersonRepository
 import com.fabirt.debty.ui.common.SwipeToDeleteDelegate
@@ -52,5 +53,21 @@ class PersonDetailViewModel @Inject constructor(
 
     fun clearLastRemovedItem() {
         _lastItemRemoved.value = null
+    }
+
+    fun settleAccount(personId: Int, amount: Double, description: String) {
+        val movementType = if (amount > 0) MovementType.OwedMeSettled else MovementType.IOwedSettled
+        val movement = Movement(
+            0,
+            personId,
+            amount * -1,
+            System.currentTimeMillis(),
+            description,
+            movementType
+        )
+
+        viewModelScope.launch {
+            movementRepository.createMovement(movement)
+        }
     }
 }

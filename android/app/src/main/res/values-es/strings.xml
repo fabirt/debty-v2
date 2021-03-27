@@ -7,6 +7,9 @@
     <string name="person_image_content_description">Imagen de la persona</string>
     <string name="i_owe">Debo</string>
     <string name="owe_me">Me debe</string>
+    <string name="owed_me">Me debía</string>
+    <string name="i_owed">Le debía</string>
+    <string name="they_owe_me">Me deben</string>
     <string name="no_movements">Sin movimientos</string>
     <string name="save">Guardar</string>
     <string name="new_person">Nueva persona</string>
@@ -53,4 +56,12 @@
     <string name="i_paid">Le pagué</string>
     <string name="lent_me">Me prestó</string>
     <string name="paid_me">Me pagó</string>
+    <string name="settle_account_button">Saldar</string>
+    <string name="settle_account_title">Saldar deuda</string>
+    <string name="settle_account_confirm_message">¿Quieres saldar la deuda actual?</string>
+    <string name="nothing_to_settle">No hay deuda para saldar</string>
+    <string name="settle_account_description">Deuda saldada</string>
+    <string name="can_not_edit">No se puede editar</string>
+    <string name="settled">Saldada</string>
+    <string name="no_pending_debts">No tienes ninguna deuda pendiente.</string>
 </resources>

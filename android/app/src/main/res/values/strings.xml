@@ -7,6 +7,9 @@
     <string name="person_image_content_description">Person picture</string>
     <string name="i_owe">I owe</string>
     <string name="owe_me">Owe me</string>
+    <string name="owed_me">Owed me</string>
+    <string name="i_owed">I owed</string>
+    <string name="they_owe_me">Owe me</string>
     <string name="no_movements">No movements</string>
     <string name="save">Save</string>
     <string name="new_person">New person</string>
@@ -53,4 +56,12 @@
     <string name="i_paid">I paid</string>
     <string name="lent_me">Lent me</string>
     <string name="paid_me">Paid me</string>
+    <string name="settle_account_button">Settle</string>
+    <string name="settle_account_title">Settle account</string>
+    <string name="settle_account_confirm_message">Are you sure you want to pay off the current debt?</string>
+    <string name="nothing_to_settle">Nothing to settle</string>
+    <string name="settle_account_description">Account settled</string>
+    <string name="can_not_edit">Can not edit</string>
+    <string name="settled">Settled</string>
+    <string name="no_pending_debts">You don\'t have any outstanding debt.</string>
 </resources>

@@ -96,7 +96,7 @@
                 app:layout_constraintEnd_toStartOf="@id/icon_button_edit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_total"
-                app:layout_constraintTop_toTopOf="@id/icon_button_share"
+                app:layout_constraintTop_toTopOf="@id/icon_button_settle"
                 app:text="@string/delete" />
 
             <com.fabirt.debty.ui.common.IconLabelButton
@@ -107,19 +107,30 @@
                 app:layout_constraintEnd_toStartOf="@id/icon_button_share"
                 app:layout_constraintStart_toEndOf="@id/icon_button_delete"
                 app:layout_constraintTop_toBottomOf="@id/tv_total"
-                app:layout_constraintTop_toTopOf="@id/icon_button_share"
+                app:layout_constraintTop_toTopOf="@id/icon_button_settle"
                 app:text="@string/edit" />
 
             <com.fabirt.debty.ui.common.IconLabelButton
                 android:id="@+id/icon_button_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:icon="@drawable/ic_round_ios_share_24"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/icon_button_settle"
                 app:layout_constraintStart_toEndOf="@id/icon_button_edit"
                 app:layout_constraintTop_toBottomOf="@id/tv_total"
+                app:layout_constraintTop_toTopOf="@id/icon_button_settle"
                 app:text="@string/share" />
+
+            <com.fabirt.debty.ui.common.IconLabelButton
+                android:id="@+id/icon_button_settle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:icon="@drawable/ic_round_done_outline_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icon_button_share"
+                app:layout_constraintTop_toBottomOf="@id/tv_total"
+                app:text="@string/settle_account_button" />
 
             <TextView
                 android:id="@+id/tv_history"

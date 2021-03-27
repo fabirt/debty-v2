@@ -28,7 +28,6 @@ class PersonSearchAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is NewPersonViewHolder -> {
-                val item = getItem(position) as SelectablePerson.New
                 holder.bind(onNewPersonClickListener)
             }
             is PersonViewHolder -> {

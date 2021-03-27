@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/empty_summary"
+        android:text="@string/no_pending_debts"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.App.Headline3"
         android:textColor="@color/low_emphasis_color"
