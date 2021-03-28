@@ -64,4 +64,8 @@
     <string name="can_not_edit">Can not edit</string>
     <string name="settled">Settled</string>
     <string name="no_pending_debts">You don\'t have any outstanding debt.</string>
+    <string name="in_app_update_notification_channel_name">In App Update</string>
+    <string name="app_update_downloading">Update downloading</string>
+    <string name="app_update_downloaded">Update downloaded</string>
+    <string name="app_update_canceled">Download canceled</string>
 </resources>
