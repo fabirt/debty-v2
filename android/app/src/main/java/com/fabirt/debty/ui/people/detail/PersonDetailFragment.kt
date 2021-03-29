@@ -25,7 +25,6 @@ import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.domain.model.Movement
-import com.fabirt.debty.domain.model.MovementType
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.ui.common.showSnackBar
@@ -51,12 +50,15 @@ class PersonDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: PersonDetailFragmentArgs by navArgs()
     private val viewModel: PersonDetailViewModel by viewModels()
-    private lateinit var adapter: MovementAdapter
+    private lateinit var movementAdapter: MovementAdapter
     private var uiListenersJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = MovementAdapter(::navigateToEditMovement)
+        movementAdapter = MovementAdapter().apply {
+            setOnClickListener(::navigateToEditMovement)
+            setOnLongClickListener(::confirmMovementCanBePaid)
+        }
     }
 
     override fun onCreateView(
@@ -74,18 +76,18 @@ class PersonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvMovements.adapter = adapter
+        binding.rvMovements.adapter = movementAdapter
 
         // Swipe to delete
         val itemCallback = SwipeItemCallback<Movement>(requireContext()).apply {
-            adapter = this@PersonDetailFragment.adapter
+            adapter = this@PersonDetailFragment.movementAdapter
             delegate = viewModel
         }
         val swipeTouchHelper = ItemTouchHelper(itemCallback)
         swipeTouchHelper.attachToRecyclerView(binding.rvMovements)
 
         // Scroll to top
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+        movementAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 super.onItemRangeInserted(positionStart, itemCount)
                 if (itemCount == 1) binding.rvMovements.scrollToPosition(0)
@@ -175,7 +177,7 @@ class PersonDetailFragment : Fragment() {
             val isEmpty = data.isEmpty()
             binding.rvMovements.isVisible = !isEmpty
             binding.tvEmpty.isVisible = isEmpty
-            adapter.submitList(data)
+            movementAdapter.submitList(data)
         }
     }
 
@@ -257,7 +259,7 @@ class PersonDetailFragment : Fragment() {
     }
 
     private fun navigateToEditMovement(movement: Movement) {
-        if (movement.type.multiplier == 0) {
+        if (movement.type.isSettled) {
             showSnackBar(getString(R.string.can_not_edit))
         } else {
             val action =
@@ -266,6 +268,21 @@ class PersonDetailFragment : Fragment() {
                     movement.id.toString()
                 )
             findNavController().navigate(action)
+        }
+    }
+
+    private fun confirmMovementCanBePaid(movement: Movement) {
+        if (movement.type.isLoan) {
+            showGeneralDialog(
+                R.string.pay_loan_title,
+                getString(R.string.pay_loan_confirm_message),
+                R.string.pay_loan,
+                onConfirm = {
+                    viewModel.payLoan(movement)
+                }
+            )
+        } else {
+            showSnackBar(getString(R.string.can_not_pay_loan))
         }
     }
 

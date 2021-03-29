@@ -70,4 +70,22 @@ class PersonDetailViewModel @Inject constructor(
             movementRepository.createMovement(movement)
         }
     }
+
+    fun payLoan(m: Movement) {
+        val movement = m.copy(
+            id = 0,
+            amount = m.amount * -1,
+            date = System.currentTimeMillis(),
+            description = "",
+            type = when (m.type) {
+                MovementType.ILent -> MovementType.PaidMe
+                MovementType.LentMe -> MovementType.IPaid
+                else -> m.type
+            }
+        )
+
+        viewModelScope.launch {
+            movementRepository.createMovement(movement)
+        }
+    }
 }

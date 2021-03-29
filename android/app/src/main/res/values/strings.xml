@@ -68,4 +68,8 @@
     <string name="app_update_downloading">Update downloading</string>
     <string name="app_update_downloaded">Update downloaded</string>
     <string name="app_update_canceled">Download canceled</string>
+    <string name="pay_loan_confirm_message">Do you want to pay off this loan?</string>
+    <string name="pay_loan_title">Pay loan</string>
+    <string name="pay_loan">Pay</string>
+    <string name="can_not_pay_loan">Can\'t pay, this move is not a loan</string>
 </resources>

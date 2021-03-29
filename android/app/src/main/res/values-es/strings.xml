@@ -68,4 +68,8 @@
     <string name="app_update_downloading">Descargando actualización</string>
     <string name="app_update_downloaded">Actualización descargada</string>
     <string name="app_update_canceled">Descarga cancelada</string>
+    <string name="pay_loan_confirm_message">¿Quieres pagar este préstamo?</string>
+    <string name="pay_loan_title">Pagar préstamo</string>
+    <string name="pay_loan">Pagar</string>
+    <string name="can_not_pay_loan">No se puede pagar, este movimiento no es un préstamo</string>
 </resources>

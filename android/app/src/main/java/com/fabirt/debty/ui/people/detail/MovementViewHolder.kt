@@ -24,15 +24,23 @@ class MovementViewHolder(
         }
     }
 
-    fun bind(movement: Movement, onClickListener: MovementClickListener) {
+    fun bind(movement: Movement) {
         val amountColor = ContextCompat.getColor(itemView.context, movement.type.color)
         binding.tvDate.text = movement.date.toDateString(SimpleDateFormat.SHORT)
         binding.tvAmount.text = movement.amount.absoluteValue.toCurrencyString()
         binding.tvAmount.setTextColor(amountColor)
         binding.tvDescription.text = movement.description
         binding.tvMovementType.text = itemView.context.getString(movement.type.name)
-        binding.container.setOnClickListener {
-            onClickListener(movement)
+    }
+
+    fun setOnClickListener(movement: Movement, l: MovementClickListener) {
+        binding.container.setOnClickListener { l(movement) }
+    }
+
+    fun setOnLongClickListener(movement: Movement, l: MovementClickListener) {
+        binding.container.setOnLongClickListener {
+            l(movement)
+            true
         }
     }
 }
