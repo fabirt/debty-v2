@@ -8,7 +8,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 fun Fragment.showGeneralDialog(
     @StringRes title: Int,
     message: String,
-    @StringRes positiveText: Int,
+    @StringRes positiveText: Int = R.string.ok,
     @StringRes negativeText: Int = R.string.cancel,
     onConfirm: (() -> Unit)? = null,
     onCancel: (() -> Unit)? = null

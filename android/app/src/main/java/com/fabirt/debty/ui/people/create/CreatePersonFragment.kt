@@ -1,26 +1,19 @@
 package com.fabirt.debty.ui.people.create
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentCreatePersonBinding
+import com.fabirt.debty.error.AppException
 import com.fabirt.debty.ui.common.showSnackBar
+import com.fabirt.debty.util.ImagePicker
 import com.fabirt.debty.util.clearFocusAndCloseKeyboard
 import com.fabirt.debty.util.requestKeyboardFocus
 import com.fabirt.debty.util.showGeneralDialog
@@ -33,15 +26,12 @@ class CreatePersonFragment : Fragment() {
     private var _binding: FragmentCreatePersonBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CreatePersonViewModel by viewModels()
-    private val readStoragePermission = Manifest.permission.READ_EXTERNAL_STORAGE
-    private val imageContent = "image/*"
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var requestContentLauncher: ActivityResultLauncher<String>
     private val args: CreatePersonFragmentArgs by navArgs()
+    private lateinit var imagePicker: ImagePicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registerForResults()
+        imagePicker = ImagePicker(this)
     }
 
     override fun onCreateView(
@@ -54,7 +44,7 @@ class CreatePersonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.imageCard.setOnClickListener { checkPermissions() }
+        binding.imageCard.setOnClickListener { pickImage() }
         binding.btnSave.setOnClickListener(::validate)
         binding.editTextName.requestKeyboardFocus()
         viewModel.picture.observe(viewLifecycleOwner) {
@@ -75,6 +65,34 @@ class CreatePersonFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun pickImage(requestPermissionRationale: Boolean = true) {
+        lifecycleScope.launch {
+            try {
+                val image = imagePicker.pickImage(requestPermissionRationale)
+                if (image != null) {
+                    viewModel.changePicture(image)
+                }
+            } catch (e: Exception) {
+                when (e) {
+                    AppException.ShouldRequestPermissionRationaleException -> {
+                        showGeneralDialog(
+                            R.string.permission_alert_title,
+                            getString(R.string.gallery_permission_reason),
+                            onConfirm = { pickImage(false) }
+                        )
+                    }
+                    else -> {
+                        showGeneralDialog(
+                            R.string.permission_alert_title,
+                            getString(R.string.gallery_permission_reason),
+                        )
+                    }
+                }
+
+            }
+        }
     }
 
     private fun validate(v: View) {
@@ -108,68 +126,6 @@ class CreatePersonFragment : Fragment() {
 
             v.clearFocusAndCloseKeyboard()
             findNavController().popBackStack()
-        }
-    }
-
-    private fun checkPermissions() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                readStoragePermission
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                requestContentLauncher.launch(imageContent)
-            }
-            shouldShowRequestPermissionRationale(readStoragePermission) -> {
-                showGeneralDialog(
-                    R.string.permission_alert_title,
-                    getString(R.string.gallery_permission_reason),
-                    R.string.ok,
-                    onConfirm = {
-                        requestStoragePermissions()
-                    }
-                )
-            }
-            else -> {
-                requestStoragePermissions()
-            }
-        }
-    }
-
-    private fun requestStoragePermissions() {
-        requestPermissionLauncher.launch(readStoragePermission)
-    }
-
-    private fun registerForResults() {
-        requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-                if (isGranted) {
-                    requestContentLauncher.launch(imageContent)
-                } else {
-                    showGeneralDialog(
-                        R.string.permission_alert_title,
-                        getString(R.string.gallery_permission_reason),
-                        R.string.ok,
-                    )
-                }
-            }
-
-        requestContentLauncher =
-            registerForActivityResult(ActivityResultContracts.GetContent(), ::handleImageUri)
-    }
-
-    private fun handleImageUri(uri: Uri?) {
-        if (uri != null) {
-            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.decodeBitmap(
-                    ImageDecoder.createSource(
-                        requireContext().contentResolver,
-                        uri
-                    )
-                )
-            } else {
-                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-            }
-            viewModel.changePicture(bitmap)
         }
     }
 }
