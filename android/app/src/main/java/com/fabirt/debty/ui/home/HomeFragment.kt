@@ -23,6 +23,7 @@ import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -130,11 +131,9 @@ class HomeFragment : Fragment() {
 
     private fun listenMovementChanges() {
         lifecycleScope.launch {
-            runCatching {
-                viewModel.movements.collect {
-                    sendUpdateAppWidgetBroadcast()
-                }
-            }
+            viewModel.movements
+                .catch { }
+                .collect { sendUpdateAppWidgetBroadcast() }
         }
     }
 }

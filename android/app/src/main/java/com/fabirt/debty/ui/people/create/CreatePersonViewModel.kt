@@ -35,7 +35,7 @@ class CreatePersonViewModel @Inject constructor(
      */
     suspend fun createPerson(): Long? {
         val person = Person(0, name!!, picture = _picture.value)
-        return personRepository.createPerson(person)
+        return personRepository.createPerson(person).getOrNull()
     }
 
     suspend fun requestInitialPerson(id: String?): Person? {

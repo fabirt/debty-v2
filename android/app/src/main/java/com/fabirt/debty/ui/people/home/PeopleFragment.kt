@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentPeopleBinding
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -50,9 +52,7 @@ class PeopleFragment : Fragment() {
         })
 
         viewLifecycleOwner.lifecycleScope.launch {
-            runCatching {
-                renderPeople()
-            }
+            renderPeople()
         }
     }
 
@@ -62,12 +62,14 @@ class PeopleFragment : Fragment() {
     }
 
     private suspend fun renderPeople() {
-        viewModel.people.collect { data ->
-            val isEmpty = data.isEmpty()
-            binding.rvPeople.isVisible = !isEmpty
-            binding.tvEmpty.isVisible = isEmpty
-            adapter.submitList(data)
-        }
+        viewModel.people
+            .catch { showUnexpectedFailureSnackBar() }
+            .collect { data ->
+                val isEmpty = data.isEmpty()
+                binding.rvPeople.isVisible = !isEmpty
+                binding.tvEmpty.isVisible = isEmpty
+                adapter.submitList(data)
+            }
     }
 
     private fun navigateToPersonDetail(person: Person) {

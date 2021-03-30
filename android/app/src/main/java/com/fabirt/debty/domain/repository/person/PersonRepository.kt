@@ -2,6 +2,8 @@ package com.fabirt.debty.domain.repository.person
 
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.domain.model.Movement
+import com.fabirt.debty.error.Failure
+import com.fabirt.debty.util.Either
 import kotlinx.coroutines.flow.Flow
 
 interface PersonRepository {
@@ -33,12 +35,12 @@ interface PersonRepository {
      * Insert a new person in the database.
      * @return ID of the created person.
      */
-    suspend fun createPerson(person: Person): Long?
+    suspend fun createPerson(person: Person): Either<Failure, Long>
 
     /**
      * @param person The entity to update
      */
-    suspend fun updatePerson(person: Person)
+    suspend fun updatePerson(person: Person): Either<Failure, Unit>
 
     /**
      * Deletes all data related to the [Person] with the given [id] from the database

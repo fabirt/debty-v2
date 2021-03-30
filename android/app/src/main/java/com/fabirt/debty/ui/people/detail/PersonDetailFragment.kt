@@ -116,9 +116,8 @@ class PersonDetailFragment : Fragment() {
             }
         }
 
-        viewModel.lastItemRemoved.observe(viewLifecycleOwner) { item ->
-            item?.let {
-                viewModel.clearLastRemovedItem()
+        viewModel.lastItemRemoved.observe(viewLifecycleOwner) { event ->
+            event.getContent()?.let { item ->
                 val contextView = binding.btnNewMovement
                 val message = resources.getQuantityString(R.plurals.items_deleted, 1, 1)
                 Snackbar.make(contextView, message, Snackbar.LENGTH_LONG)

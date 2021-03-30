@@ -9,6 +9,7 @@ import com.fabirt.debty.domain.model.MovementType
 import com.fabirt.debty.domain.repository.movement.MovementRepository
 import com.fabirt.debty.domain.repository.person.PersonRepository
 import com.fabirt.debty.ui.common.SwipeToDeleteDelegate
+import com.fabirt.debty.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -20,8 +21,8 @@ class PersonDetailViewModel @Inject constructor(
     private val movementRepository: MovementRepository
 ) : ViewModel(), SwipeToDeleteDelegate<Movement> {
 
-    private val _lastItemRemoved = MutableLiveData<Movement?>()
-    val lastItemRemoved: LiveData<Movement?> get() = _lastItemRemoved
+    private val _lastItemRemoved = MutableLiveData<Event<Movement>>()
+    val lastItemRemoved: LiveData<Event<Movement>> get() = _lastItemRemoved
 
     fun requestPerson(personId: Int) = personRepository.requestPerson(personId)
 
@@ -41,7 +42,7 @@ class PersonDetailViewModel @Inject constructor(
     override fun onSwiped(item: Movement) {
         viewModelScope.launch {
             movementRepository.deleteMovement(item)
-            _lastItemRemoved.value = item
+            _lastItemRemoved.value = Event(item)
         }
     }
 
@@ -49,10 +50,6 @@ class PersonDetailViewModel @Inject constructor(
         viewModelScope.launch {
             movementRepository.createMovement(item)
         }
-    }
-
-    fun clearLastRemovedItem() {
-        _lastItemRemoved.value = null
     }
 
     fun settleAccount(personId: Int, amount: Double, description: String) {
@@ -76,7 +73,6 @@ class PersonDetailViewModel @Inject constructor(
             id = 0,
             amount = m.amount * -1,
             date = System.currentTimeMillis(),
-            description = "",
             type = when (m.type) {
                 MovementType.ILent -> MovementType.PaidMe
                 MovementType.LentMe -> MovementType.IPaid

@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
 import com.fabirt.debty.util.calculateSummaryData
 import com.fabirt.debty.util.toCurrencyString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -48,9 +50,7 @@ class SummaryFragment : Fragment() {
         binding.rvPeople.adapter = personSummaryAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            runCatching {
-                renderPeople()
-            }
+            renderPeople()
         }
     }
 
@@ -60,32 +60,34 @@ class SummaryFragment : Fragment() {
     }
 
     private suspend fun renderPeople() {
-        viewModel.people.collect { data ->
-            val isEmpty = data.isEmpty()
+        viewModel.people
+            .catch { showUnexpectedFailureSnackBar() }
+            .collect { data ->
+                val isEmpty = data.isEmpty()
 
-            binding.rvPeople.isVisible = !isEmpty
-            binding.tvEmpty.isVisible = isEmpty
+                binding.rvPeople.isVisible = !isEmpty
+                binding.tvEmpty.isVisible = isEmpty
 
-            if (isRecreatingFragment) {
-                binding.rvPeople.itemAnimator = null
-            } else {
-                binding.rvPeople.scheduleLayoutAnimation()
+                if (isRecreatingFragment) {
+                    binding.rvPeople.itemAnimator = null
+                } else {
+                    binding.rvPeople.scheduleLayoutAnimation()
+                }
+                personSummaryAdapter.submitList(data)
+                val summaryData = calculateSummaryData(data)
+                if (isRecreatingFragment) {
+                    binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
+                } else {
+                    binding.tvBalanceAmount.animateText(
+                        summaryData.balance.toCurrencyString(),
+                        "$",
+                        1
+                    )
+                }
+                binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
+                binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
+                isRecreatingFragment = true
             }
-            personSummaryAdapter.submitList(data)
-            val summaryData = calculateSummaryData(data)
-            if (isRecreatingFragment) {
-                binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
-            } else {
-                binding.tvBalanceAmount.animateText(
-                    summaryData.balance.toCurrencyString(),
-                    "$",
-                    1
-                )
-            }
-            binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
-            binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
-            isRecreatingFragment = true
-        }
     }
 
     private fun navigateToPersonDetail(person: Person) {

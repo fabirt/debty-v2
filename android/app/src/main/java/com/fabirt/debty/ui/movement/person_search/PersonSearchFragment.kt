@@ -10,9 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.fabirt.debty.databinding.FragmentPersonSearchBinding
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
 import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.applyStatusBarTopInset
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -46,9 +48,11 @@ class PersonSearchFragment : Fragment() {
         binding.rvPeople.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.people.collect {
-                adapter.submitList(it)
-            }
+            viewModel.people
+                .catch { showUnexpectedFailureSnackBar() }
+                .collect {
+                    adapter.submitList(it)
+                }
         }
     }
 

@@ -5,6 +5,11 @@ import com.fabirt.debty.data.db.dao.PersonDao
 import com.fabirt.debty.data.db.entities.DBPerson
 import com.fabirt.debty.data.db.entities.toDomainModel
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.domain.repository.BaseRepository
+import com.fabirt.debty.error.Failure
+import com.fabirt.debty.util.Either
+import com.fabirt.debty.util.getOrElse
+import com.fabirt.debty.util.right
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -12,7 +17,7 @@ import javax.inject.Inject
 class PersonRepositoryImpl @Inject constructor(
     private val personDao: PersonDao,
     private val movementDao: MovementDao
-) : PersonRepository {
+) : BaseRepository(), PersonRepository {
 
     override fun requestAllPersons(): Flow<List<Person>> {
         return personDao.getAll().map { data ->
@@ -28,10 +33,11 @@ class PersonRepositoryImpl @Inject constructor(
 
     override suspend fun oneTimeRequestAllPersonsWithTotal(): List<Person> {
         val result = runCatching {
-            personDao.getAllPersonsWithTotalOneTime().map { it.toDomainModel() }
+            val data = personDao.getAllPersonsWithTotalOneTime().map { it.toDomainModel() }
+            right(data)
         }
 
-        return result.getOrDefault(listOf())
+        return result.getOrElse(listOf())
     }
 
     override fun requestPerson(personId: Int): Flow<Person?> {
@@ -42,21 +48,23 @@ class PersonRepositoryImpl @Inject constructor(
 
     override suspend fun requestOneTimePerson(personId: Int): Person? {
         val result = runCatching {
-            personDao.getPersonOneTime(personId)?.toDomainModel()
+            val person = personDao.getPersonOneTime(personId)?.toDomainModel()
+            right(person)
         }
         return result.getOrNull()
     }
 
-    override suspend fun createPerson(person: Person): Long? {
-        val result = runCatching {
-            personDao.insertPerson(DBPerson.from(person))
+    override suspend fun createPerson(person: Person): Either<Failure, Long> {
+        return runCatching {
+            val id = personDao.insertPerson(DBPerson.from(person))
+            right(id)
         }
-        return result.getOrNull()
     }
 
-    override suspend fun updatePerson(person: Person) {
-        runCatching {
+    override suspend fun updatePerson(person: Person): Either<Failure, Unit> {
+        return runCatching {
             personDao.updatePerson(DBPerson.from(person))
+            right(Unit)
         }
     }
 
@@ -65,9 +73,9 @@ class PersonRepositoryImpl @Inject constructor(
             if (inclusive) {
                 personDao.deletePerson(id)
             }
-            movementDao.deleteAllPersonMovements(id)
+            val count = movementDao.deleteAllPersonMovements(id)
+            right(count)
         }
-
-        return result.getOrDefault(0)
+        return result.getOrElse(0)
     }
 }
