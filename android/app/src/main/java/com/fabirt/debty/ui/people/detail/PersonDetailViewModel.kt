@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.MovementType
+import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.domain.repository.movement.MovementRepository
 import com.fabirt.debty.domain.repository.person.PersonRepository
 import com.fabirt.debty.ui.common.SwipeToDeleteDelegate
@@ -82,6 +83,12 @@ class PersonDetailViewModel @Inject constructor(
 
         viewModelScope.launch {
             movementRepository.createMovement(movement)
+        }
+    }
+
+    fun updatePerson(person: Person) {
+        viewModelScope.launch {
+            personRepository.updatePerson(person)
         }
     }
 }

@@ -26,8 +26,10 @@ import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.Person
+import com.fabirt.debty.error.AppException
 import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.ui.common.showSnackBar
+import com.fabirt.debty.util.ImagePicker
 import com.fabirt.debty.util.showGeneralDialog
 import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -52,6 +54,7 @@ class PersonDetailFragment : Fragment() {
     private val viewModel: PersonDetailViewModel by viewModels()
     private lateinit var movementAdapter: MovementAdapter
     private var uiListenersJob: Job? = null
+    private lateinit var imagePicker: ImagePicker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +62,7 @@ class PersonDetailFragment : Fragment() {
             setOnClickListener(::navigateToEditMovement)
             setOnLongClickListener(::confirmMovementCanBePaid)
         }
+        imagePicker = ImagePicker(this)
     }
 
     override fun onCreateView(
@@ -136,6 +140,7 @@ class PersonDetailFragment : Fragment() {
                 binding.iconButtonDelete.setOnClickListener {
                     showDeleteDialog(person)
                 }
+                binding.imageCard.setOnClickListener { changePersonImage(person) }
             }
 
             if (person?.picture != null) {
@@ -305,6 +310,36 @@ class PersonDetailFragment : Fragment() {
                 } else {
                     showSnackBar(getString(R.string.nothing_to_settle))
                 }
+            }
+        }
+    }
+
+    private fun changePersonImage(person: Person, requestPermissionRationale: Boolean = true) {
+        lifecycleScope.launch {
+            try {
+                val image = imagePicker.pickImage(requestPermissionRationale)
+                if (image != null) {
+                    viewModel.updatePerson(
+                        person.copy(picture = image)
+                    )
+                }
+            } catch (e: Exception) {
+                when (e) {
+                    AppException.ShouldRequestPermissionRationaleException -> {
+                        showGeneralDialog(
+                            R.string.permission_alert_title,
+                            getString(R.string.gallery_permission_reason),
+                            onConfirm = { changePersonImage(person, false) }
+                        )
+                    }
+                    else -> {
+                        showGeneralDialog(
+                            R.string.permission_alert_title,
+                            getString(R.string.gallery_permission_reason),
+                        )
+                    }
+                }
+
             }
         }
     }
