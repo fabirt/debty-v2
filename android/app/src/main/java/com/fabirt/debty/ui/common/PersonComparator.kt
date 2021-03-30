@@ -11,6 +11,7 @@ object PersonComparator : DiffUtil.ItemCallback<Person>() {
     override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
         return oldItem.id == newItem.id &&
                 oldItem.name == newItem.name &&
-                oldItem.total == newItem.total
+                oldItem.total == newItem.total &&
+                oldItem.picture?.byteCount == newItem.picture?.byteCount
     }
 }
