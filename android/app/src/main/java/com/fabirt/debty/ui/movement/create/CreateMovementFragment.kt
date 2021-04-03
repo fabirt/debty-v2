@@ -1,9 +1,7 @@
 package com.fabirt.debty.ui.movement.create
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,6 +39,18 @@ class CreateMovementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Window Insets animation
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            binding.btnSave.setWindowInsetsAnimationCallback(
+                TranslateDeferringInsetsAnimationCallback(
+                    view = binding.btnSave,
+                    persistentInsetTypes = WindowInsets.Type.systemBars(),
+                    deferredInsetTypes = WindowInsets.Type.ime(),
+                    dispatchMode = WindowInsetsAnimation.Callback.DISPATCH_MODE_CONTINUE_ON_SUBTREE
+                )
+            )
+        }
 
         val dropdownAdapter = ArrayAdapter(
             requireContext(),

@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowInsets
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
+import com.fabirt.debty.util.RootViewDeferringInsetsCallback
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -35,8 +37,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_App)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        // Android 11 Window insets animation
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            val rootView = window.decorView.rootView
+
+            val deferringInsetsListener = RootViewDeferringInsetsCallback(
+                persistentInsetTypes = WindowInsets.Type.systemBars(),
+                deferredInsetTypes = WindowInsets.Type.ime()
+            )
+
+            rootView.setWindowInsetsAnimationCallback(deferringInsetsListener)
+            rootView.setOnApplyWindowInsetsListener(deferringInsetsListener)
+        }
+
         appUpdateManager = AppUpdateManagerFactory.create(this)
         // Not recreating the activity.
         if (savedInstanceState == null) {
