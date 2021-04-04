@@ -3,6 +3,7 @@ package com.fabirt.debty.ui.movement.create
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -61,6 +62,7 @@ class CreateMovementFragment : Fragment() {
 
         binding.autoTextViewMovement.setOnItemClickListener { _, _, position, _ ->
             viewModel.changeMovementType(movementTypeOptions[position])
+            binding.inputLayoutMovement.error = null
         }
 
         binding.editTextDate.setOnClickListener {
@@ -70,6 +72,8 @@ class CreateMovementFragment : Fragment() {
         if (args.id == null) binding.editTextAmount.requestKeyboardFocus()
 
         binding.editTextAmount.addTextChangedListener(CurrencyTextWatcher(binding.editTextAmount))
+        binding.editTextAmount.addTextChangedListener { binding.inputLayoutAmount.error = null }
+        binding.editTextDescription.addTextChangedListener { binding.inputLayoutDescription.error = null }
 
         binding.btnSave.setOnClickListener {
             validateChanges(it)
@@ -109,6 +113,7 @@ class CreateMovementFragment : Fragment() {
 
         datePicker.addOnPositiveButtonClickListener { time ->
             time.utcTimeToLocaleTime()?.let {
+                binding.inputLayoutDate.error = null
                 viewModel.changeDate(it)
             }
         }

@@ -2,6 +2,7 @@ package com.fabirt.debty.ui.people.create
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -50,6 +51,10 @@ class CreatePersonFragment : Fragment() {
                     dispatchMode = WindowInsetsAnimation.Callback.DISPATCH_MODE_CONTINUE_ON_SUBTREE
                 )
             )
+        }
+
+        binding.editTextName.addTextChangedListener {
+            binding.inputLayoutName.error = null
         }
 
         binding.imageCard.setOnClickListener { pickImage() }
