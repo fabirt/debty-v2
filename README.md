@@ -1,6 +1,8 @@
 # Debty 2
 Android debts management app made with Kotlin.
 
+Download it on [Google Play Store](https://play.google.com/store/apps/details?id=com.fabirt.debty2).
+
 ## Features
 - Create/Edit/Delete people and movements
 - Data persistance with room
