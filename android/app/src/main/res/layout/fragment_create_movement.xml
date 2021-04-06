@@ -8,15 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.movement.create.CreateMovementFragment">
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/HeadlineTextStyle"
-        android:text="@string/new_movement"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="New movement" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -25,13 +16,23 @@
         android:paddingBottom="24dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/btn_save"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="16dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/new_movement"
+                android:textAppearance="@style/TextAppearance.App.Headline2"
+                android:textColor="?attr/colorOnBackground"
+                tools:text="New movement" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout_amount"
@@ -152,12 +153,11 @@
 
     <Button
         android:id="@+id/btn_save"
-        style="@style/FilledButtonStyle"
+        style="@style/Widget.App.Button"
+        android:layout_marginHorizontal="16dp"
         android:text="@string/save"
-        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.App.LargeComponent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

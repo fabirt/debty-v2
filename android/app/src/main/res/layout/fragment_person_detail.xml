@@ -181,18 +181,11 @@
 
     <Button
         android:id="@+id/btn_new_movement"
+        style="@style/Widget.App.Button"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:focusable="false"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
         android:text="@string/new_movement"
-        android:textAppearance="@style/TextAppearance.App.Button"
-        app:elevation="0dp"
-        app:layout_behavior="com.fabirt.debty.ui.common.FloatingActionButtonBehavior"
-        app:shapeAppearance="@style/ShapeAppearance.App.LargeComponent" />
+        app:layout_behavior="com.fabirt.debty.ui.common.FloatingActionButtonBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -21,6 +21,6 @@
 
     <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">48dp</item>
+        <item name="cornerSize">24dp</item>
     </style>
 </resources>
