@@ -1,4 +1,4 @@
-package com.fabirt.debty
+package com.fabirt.debty.util
 
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.util.calculateSummaryData
@@ -10,7 +10,7 @@ import org.junit.Before
 /**
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class CalculateSummaryDataTest {
+class SummaryTest {
     private lateinit var people: List<Person>
 
     @Before
