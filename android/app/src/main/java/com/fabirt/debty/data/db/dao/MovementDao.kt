@@ -26,13 +26,13 @@ interface MovementDao {
     suspend fun getMovement(id: Int): DBMovement?
 
     @Insert
-    suspend fun insertMovement(value: DBMovement)
+    suspend fun insertMovement(value: DBMovement): Long
 
     @Update
-    suspend fun updateMovement(value: DBMovement)
+    suspend fun updateMovement(value: DBMovement): Int
 
     @Delete
-    suspend fun deleteMovement(value: DBMovement)
+    suspend fun deleteMovement(value: DBMovement): Int
 
     @Query("DELETE FROM movements WHERE person_id = :personId")
     suspend fun deleteAllPersonMovements(personId: Int): Int
