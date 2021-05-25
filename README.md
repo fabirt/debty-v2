@@ -4,7 +4,13 @@
 
 <p align="center">
     <a href="https://circleci.com/gh/fabirt/debty-v2" target="_blank">
-        <img src="https://circleci.com/gh/fabirt/debty-v2.svg?style=svg" />
+        <img src="https://circleci.com/gh/fabirt/debty-v2.svg?style=shield" />
+    </a>
+    <a href="https://circleci.com/gh/fabirt/debty-v2" target="_blank">
+        <img src="https://img.shields.io/github/license/fabirt/debty-v2" />
+    </a>
+    <a href="https://circleci.com/gh/fabirt/debty-v2" target="_blank">
+        <img src="https://img.shields.io/github/stars/fabirt/debty-v2" />
     </a>
 </p>
 
@@ -27,6 +33,7 @@ Download it on
 - Image picker
 - In app updates
 - Unit/Instrumented Testing
+- CI using CircleCI
 
 ## Libraries Used
 - Android KTX
