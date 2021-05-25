@@ -1,8 +1,14 @@
-# Debty 2
-[![DebtyCI](https://circleci.com/gh/fabirt/debty-v2.svg?style=svg)](https://circleci.com/gh/fabirt/debty-v2)
+<h1 align="center">
+    Debty 2.0
+</h1>
 
-Android debts management app made with Kotlin.
+<p align="center">
+    <a href="https://circleci.com/gh/fabirt/debty-v2">
+        <img src="https://circleci.com/gh/fabirt/debty-v2.svg?style=svg" />
+    </a>
+</p>
 
+Android debts management app made with Kotlin. <br/>
 Download it on [Google Play Store](https://play.google.com/store/apps/details?id=com.fabirt.debty2).
 
 ## Features
