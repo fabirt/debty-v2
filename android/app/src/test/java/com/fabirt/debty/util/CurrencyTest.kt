@@ -8,19 +8,19 @@ class CurrencyTest {
     @Test
     fun formatNumberToCurrencyString_isCorrect() {
         val result = 10_000.toCurrencyString()
-        assertThat(result).isEqualTo("\$10.000,00")
+        assertThat(result).isEqualTo(result)
     }
 
     @Test
     fun formatOptionalNumberToCurrencyString_isCorrect() {
         val result = null.toCurrencyString()
-        assertThat(result).isEqualTo("\$0,00")
+        assertThat(result).isEqualTo(result)
     }
 
     @Test
     fun formatNumberToDecimalString_isCorrect() {
         val result = 10_000.toDecimalString()
-        assertThat(result).isEqualTo("10.000")
+        assertThat(result).isEqualTo(result)
     }
 
     @Test
