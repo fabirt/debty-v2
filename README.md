@@ -5,8 +5,7 @@ Download it on [Google Play Store](https://play.google.com/store/apps/details?id
 
 ## Features
 - Create/Edit/Delete people and movements
-- Data persistance with room
-- SQL queries with Room
+- Data persistance with Room
 - Theming (light/dark, material components)
 - App Shortcuts
 - App Widgets
@@ -15,8 +14,8 @@ Download it on [Google Play Store](https://play.google.com/store/apps/details?id
 - Animated vector drawables
 - Share content
 - Image picker
-- Notifications
 - In app updates
+- Unit/Instrumented Testing
 
 ## Libraries Used
 - Android KTX
