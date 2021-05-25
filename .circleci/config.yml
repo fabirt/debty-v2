@@ -16,7 +16,8 @@ jobs:
 
     steps:
       # Checkout the code as the first step.
-      - checkout
+      - checkout:
+        path: ~/project
 
       - run:
           name: chmod permissions
