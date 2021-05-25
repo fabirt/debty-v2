@@ -22,10 +22,22 @@ jobs:
       # Checkout the code as the first step.
       - checkout:
           path: ~/project
+      
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
+      
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
       # The next step will run the unit tests
       - android/run-tests:
@@ -41,8 +53,12 @@ jobs:
           name: Assemble release build
           command: ./gradlew assembleRelease
       
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      
       - store_test_results:
-          path: test-results
+          path: app/build/test-results
 
 
 workflows:
