@@ -6,63 +6,91 @@ orbs:
   android: circleci/android@1.0.3
 
 jobs:
-  build-and-test:  
+  unit-test:
     working_directory: ~/project/android
-
     environment:
       JVM_OPTS: -Xmx3200m
-
-    # These next lines define the Android machine image executor: https://circleci.com/docs/2.0/executor-types/
     executor:
       name: android/android-machine
-
     steps:
       - checkout:
           path: ~/project
-      
-      - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      - run:
-          name: chmod permissions
-          command: chmod +x ./gradlew
-      
-      - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-      
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      # Run the unit tests
+      - android/restore-gradle-cache
+      - android/restore-build-cache
       - android/run-tests:
-          test-command: ./gradlew lint testDebug --continue
-
-      # Run the Instrumentation tests
+          test-command: ./gradlew testDebug
+      - android/save-gradle-cache
+      - android/save-build-cache
+      - run:
+          name: Save test results
+          command: |
+              mkdir -p ~/test-results/junit/
+              find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
+  
+  android-test:
+    working_directory: ~/project/android
+    environment:
+      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android/android-machine
+    steps:
+      - checkout:
+          path: ~/project
       - android/start-emulator-and-run-tests:
           test-command: ./gradlew connectedDebugAndroidTest
           system-image: system-images;android-30;google_apis;x86
-
-      # Run the release build
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/outputs/androidTest-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
+  
+  release-build:
+    working_directory: ~/project/android
+    environment:
+      JVM_OPTS: -Xmx3200m
+    executor:
+      name: android/android-machine
+    steps:
+      - checkout:
+          path: ~/project
+      - android/restore-gradle-cache
+      - android/restore-build-cache
       - run:
           name: Assemble release build
-          command: ./gradlew assembleRelease
-      
+          command: |
+            ./gradlew assembleRelease
       - store_artifacts:
-          path: app/build/reports
-          destination: reports
-      
-      - store_test_results:
-          path: app/build/test-results
-
+          path: app/build/outputs/apk/release
 
 workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  build-deploy: 
+  build-release:
     jobs:
-      - build-and-test:
+      - unit-test:
+        filters:
+            branches:
+              only:
+                - release
+      - android-test:
+        filters:
+            branches:
+              only:
+                - release
+      - release-build:
+          requires:
+            - unit-test
+            - android-test
           filters:
             branches:
               only:
