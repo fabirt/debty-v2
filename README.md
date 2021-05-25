@@ -3,13 +3,16 @@
 </h1>
 
 <p align="center">
-    <a href="https://circleci.com/gh/fabirt/debty-v2">
+    <a href="https://circleci.com/gh/fabirt/debty-v2" target="_blank">
         <img src="https://circleci.com/gh/fabirt/debty-v2.svg?style=svg" />
     </a>
 </p>
 
 Android debts management app made with Kotlin. <br/>
-Download it on [Google Play Store](https://play.google.com/store/apps/details?id=com.fabirt.debty2).
+Download it on
+<a href="https://play.google.com/store/apps/details?id=com.fabirt.debty2" target="_blank">
+    Google Play Store.
+</a>
 
 ## Features
 - Create/Edit/Delete people and movements
