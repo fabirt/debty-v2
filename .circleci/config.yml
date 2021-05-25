@@ -10,6 +10,10 @@ jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
   build-and-test:  
     working_directory: ~/project/android
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+
     # These next lines define the Android machine image executor: https://circleci.com/docs/2.0/executor-types/
     executor:
       name: android/android-machine
@@ -38,10 +42,11 @@ jobs:
           command: ./gradlew assembleRelease    
 
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
-  sample: 
+  build-deploy: 
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            branches:
+              only:
+                - main
