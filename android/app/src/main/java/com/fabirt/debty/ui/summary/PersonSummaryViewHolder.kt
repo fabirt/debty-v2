@@ -11,7 +11,7 @@ import com.fabirt.debty.databinding.ViewItemPersonBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
 import com.fabirt.debty.util.getColorFromAttr
-import com.fabirt.debty.util.toCurrencyString
+import com.fabirt.debty.util.toCurrencyString2
 import kotlin.math.absoluteValue
 
 class PersonSummaryViewHolder(
@@ -32,7 +32,7 @@ class PersonSummaryViewHolder(
     fun bind(person: Person) {
         binding.tvName.text = person.name
         binding.tvAmount.text = if (person.total != null) {
-            person.total.absoluteValue.toCurrencyString()
+            person.total.absoluteValue.toCurrencyString2()
         } else context.getString(R.string.no_movements)
 
         if (person.picture != null) {

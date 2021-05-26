@@ -15,7 +15,7 @@ import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
 import com.fabirt.debty.util.calculateSummaryData
-import com.fabirt.debty.util.toCurrencyString
+import com.fabirt.debty.util.toCurrencyString2
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -76,16 +76,16 @@ class SummaryFragment : Fragment() {
                 personSummaryAdapter.submitList(data)
                 val summaryData = calculateSummaryData(data)
                 if (isRecreatingFragment) {
-                    binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString()
+                    binding.tvBalanceAmount.text = summaryData.balance.toCurrencyString2()
                 } else {
                     binding.tvBalanceAmount.animateText(
-                        summaryData.balance.toCurrencyString(),
+                        summaryData.balance.toCurrencyString2(),
                         "$",
                         1
                     )
                 }
-                binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString()
-                binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString()
+                binding.tvNegativeAmount.text = summaryData.negative.toCurrencyString2()
+                binding.tvPositiveAmount.text = summaryData.positive.toCurrencyString2()
                 isRecreatingFragment = true
             }
     }

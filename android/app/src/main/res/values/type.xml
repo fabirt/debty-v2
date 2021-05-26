@@ -3,12 +3,12 @@
 
     <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/montserrat_extra_bold</item>
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">38sp</item>
     </style>
 
     <style name="TextAppearance.App.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
         <item name="fontFamily">@font/montserrat_extra_bold</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">34sp</item>
     </style>
 
     <style name="TextAppearance.App.Headline3" parent="TextAppearance.MaterialComponents.Headline3">

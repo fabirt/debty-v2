@@ -31,7 +31,7 @@ import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.util.ImagePicker
 import com.fabirt.debty.util.showGeneralDialog
-import com.fabirt.debty.util.toCurrencyString
+import com.fabirt.debty.util.toCurrencyString2
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -159,7 +159,7 @@ class PersonDetailFragment : Fragment() {
 
     private suspend fun renderBalance() {
         viewModel.requestBalance(args.personId).collect { balance ->
-            binding.tvTotal.text = balance?.absoluteValue.toCurrencyString()
+            binding.tvTotal.text = balance?.absoluteValue.toCurrencyString2()
             if (balance != null) {
                 binding.tvTotalLabel.text = when {
                     balance > 0 -> {

@@ -7,7 +7,7 @@ import com.fabirt.debty.databinding.ViewItemMovementBinding
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.ui.common.MovementClickListener
 import com.fabirt.debty.util.getColorFromAttr
-import com.fabirt.debty.util.toCurrencyString
+import com.fabirt.debty.util.toCurrencyString2
 import com.fabirt.debty.util.toDateString
 import java.text.SimpleDateFormat
 import kotlin.math.absoluteValue
@@ -27,7 +27,7 @@ class MovementViewHolder(
     fun bind(movement: Movement) {
         val amountColor = itemView.context.getColorFromAttr(movement.type.colorAttrId)
         binding.tvDate.text = movement.date.toDateString(SimpleDateFormat.SHORT)
-        binding.tvAmount.text = movement.amount.absoluteValue.toCurrencyString()
+        binding.tvAmount.text = movement.amount.absoluteValue.toCurrencyString2()
         binding.tvAmount.setTextColor(amountColor)
         binding.tvDescription.text = movement.description
         binding.tvMovementType.text = itemView.context.getString(movement.type.name)
