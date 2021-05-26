@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -21,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/they_owe_me"
-            android:textColor="?attr/colorOnBackground"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_owe_me_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorTransactionPositive"
+            android:textColor="@color/green"
             android:textSize="16sp"
             tools:text="$20,000.00" />
 
@@ -38,32 +37,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/i_owe"
-            android:textColor="?attr/colorOnBackground"
+            android:textColor="@color/white"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_i_owe_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorTransactionNegative"
+            android:textColor="@color/red"
             android:textSize="16sp"
             tools:text="$20,000.00" />
 
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/btn_refresh_widget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_round_refresh_24"
-            app:tint="?attr/colorOnBackground" />
-    </FrameLayout>
 
 </LinearLayout>

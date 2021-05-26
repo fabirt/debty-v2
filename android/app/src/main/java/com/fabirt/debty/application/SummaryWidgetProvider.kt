@@ -51,7 +51,7 @@ class SummaryWidgetProvider : AppWidgetProvider() {
                         PendingIntent.FLAG_UPDATE_CURRENT
                     )
 
-                val pendingIntentUpdate = getUpdateSelfPendingIntent(context, appWidgetIds)
+                // val pendingIntentUpdate = getUpdateSelfPendingIntent(context, appWidgetIds)
 
                 // Get the layout for the App Widget and attach an on-click listener
                 // to the button
@@ -69,7 +69,7 @@ class SummaryWidgetProvider : AppWidgetProvider() {
                     )
 
                     setOnClickPendingIntent(R.id.container, pendingIntentActivity)
-                    setOnClickPendingIntent(R.id.btn_refresh_widget, pendingIntentUpdate)
+                    // setOnClickPendingIntent(R.id.btn_refresh_widget, pendingIntentUpdate)
                 }
 
                 // Tell the AppWidgetManager to perform an update on the current app widget
