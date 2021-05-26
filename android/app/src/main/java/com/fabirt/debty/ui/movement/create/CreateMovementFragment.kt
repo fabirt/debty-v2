@@ -187,6 +187,7 @@ class CreateMovementFragment : Fragment() {
                     )
                 }
                 v.clearFocusAndCloseKeyboard()
+                requireActivity().requestReview()
                 findNavController().popBackStack()
             }
         }

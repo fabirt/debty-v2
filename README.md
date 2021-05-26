@@ -23,7 +23,7 @@ Download it on
 ## Features
 - Create/Edit/Delete people and movements
 - Data persistance with Room
-- Theming (light/dark, material components)
+- Theming (Day/Night, MDC)
 - App Shortcuts
 - App Widgets
 - Swipe to delete
@@ -31,7 +31,7 @@ Download it on
 - Animated vector drawables
 - Share content
 - Image picker
-- In app updates
+- In app updates / In app reviews
 - Unit/Instrumented Testing
 - CI using CircleCI
 
