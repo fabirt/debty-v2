@@ -40,12 +40,12 @@
     </style>
 
     <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
-        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Subtitle2</item>
     </style>
 
     <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
-        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Body1</item>
     </style>
 
@@ -56,18 +56,12 @@
     </style>
 
     <style name="ThemeOverlay.App.Dialog.Button" parent="">
-        <item name="colorPrimary">@color/colorOnSurface</item>
+        <item name="colorPrimary">?attr/colorOnSurface</item>
     </style>
 
     <!--  Material SnackBar  -->
-    <style name="ThemeOverlay.App.SnackBar" parent="">
-        <item name="colorPrimary">@color/colorNegative</item>
-        <item name="colorOnSurface">@color/colorSurface</item>
-        <item name="colorSurface">@color/colorSurface</item>
-    </style>
-
     <style name="Widget.App.SnackBarText" parent="Widget.MaterialComponents.Snackbar.TextView">
-        <item name="android:textColor">@color/colorOnSurface</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Subtitle1</item>
     </style>

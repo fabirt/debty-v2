@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#E3DA00</color>
-    <color name="colorOnPrimary">#232323</color>
-    <color name="colorBackground">#322049</color>
-    <color name="colorOnBackground">#FFFFFF</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorOnSurface">#232323</color>
-    <color name="colorPositive">#39A844</color>
-    <color name="colorNegative">#D93C19</color>
-    <color name="colorRippleOnBackground">#1FFFFFFF</color>
-    <color name="colorSurfaceCustom">#392652</color>
-    <color name="colorNeutral">#19B7EA</color>
+    <color name="yellow">#E3DA00</color>
+    <color name="dark_grey">#232323</color>
+    <color name="dark_grey_900">#2D2D2D</color>
+    <color name="dark_purple">#322049</color>
+    <color name="dark_purple_900">#392652</color>
+    <color name="green">#39A844</color>
+    <color name="red">#D93C19</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_12">#1FFFFFFF</color>
+    <color name="light_blue">#19B7EA</color>
 </resources>

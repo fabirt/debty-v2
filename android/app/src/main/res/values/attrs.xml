@@ -4,4 +4,8 @@
         <attr name="text" format="reference" />
         <attr name="icon" format="reference" />
     </declare-styleable>
+
+    <attr name="colorTransactionPositive" format="color"/>
+    <attr name="colorTransactionNegative" format="color"/>
+    <attr name="colorTransactionNeutral" format="color"/>
 </resources>

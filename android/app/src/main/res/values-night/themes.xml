@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="backgroundColor">@color/colorBackground</item>
-        <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorOnPrimary">@color/dark_grey</item>
+        <item name="backgroundColor">@color/dark_grey</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:colorBackground">@color/dark_grey</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -16,20 +16,48 @@
         <item name="snackbarStyle">@style/Widget.App.SnackBar</item>
         <item name="snackbarButtonStyle">@style/Widget.App.SnackBarButton</item>
         <item name="snackbarTextViewStyle">@style/Widget.App.SnackBarText</item>
+        <item name="colorTransactionPositive">@color/green</item>
+        <item name="colorTransactionNegative">@color/red</item>
+        <item name="colorTransactionNeutral">@color/light_blue</item>
     </style>
 
     <!--  Material DatePicker  -->
     <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorOnPrimary">@color/dark_grey</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.PickerSmallComponent</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.PickerMediumComponent</item>
         <item name="fontFamily">@font/montserrat_semi_bold</item>
     </style>
 
+    <!--  Material Alert Dialog  -->
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/dark_grey_900</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Dialog.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Dialog.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Dialog.Button</item>
+    </style>
+
     <!--  Material SnackBar  -->
+    <style name="Widget.App.SnackBar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.SnackBar</item>
+        <item name="actionTextColorAlpha">1</item>
+        <item name="animationMode">fade</item>
+    </style>
+
+    <style name="ThemeOverlay.App.SnackBar" parent="">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorOnSurface">@color/dark_grey_900</item>
+        <item name="colorSurface">@color/dark_grey_900</item>
+    </style>
+
     <style name="Widget.App.SnackBarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/yellow</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
 </resources>

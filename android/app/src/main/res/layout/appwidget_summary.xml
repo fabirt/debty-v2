@@ -21,14 +21,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/they_owe_me"
-            android:textColor="@color/colorOnBackground"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_owe_me_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPositive"
+            android:textColor="?attr/colorTransactionPositive"
             android:textSize="16sp"
             tools:text="$20,000.00" />
 
@@ -38,14 +38,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/i_owe"
-            android:textColor="@color/colorOnBackground"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_i_owe_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorNegative"
+            android:textColor="?attr/colorTransactionNegative"
             android:textSize="16sp"
             tools:text="$20,000.00" />
 
@@ -63,7 +63,7 @@
             android:layout_gravity="center"
             android:contentDescription="@null"
             android:src="@drawable/ic_round_refresh_24"
-            app:tint="@color/colorOnBackground" />
+            app:tint="?attr/colorOnBackground" />
     </FrameLayout>
 
 </LinearLayout>

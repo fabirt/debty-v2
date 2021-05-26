@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentChartBinding
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
+import com.fabirt.debty.util.getColorFromAttr
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -41,9 +42,9 @@ class ChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val colorOnBackground = requireContext().getColor(R.color.colorOnBackground)
-        val lineColor = requireContext().getColor(R.color.colorPositive)
-        val highlightColor = requireContext().getColor(R.color.colorPrimary)
+        val colorOnBackground = requireContext().getColorFromAttr(R.attr.colorOnBackground)
+        val lineColor = requireContext().getColorFromAttr(R.attr.colorTransactionPositive)
+        val highlightColor = requireContext().getColorFromAttr(R.attr.colorTransactionNegative)
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.montserrat_regular)
 
         binding.chart.apply {

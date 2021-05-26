@@ -2,11 +2,11 @@ package com.fabirt.debty.ui.people.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.fabirt.debty.databinding.ViewItemMovementBinding
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.ui.common.MovementClickListener
+import com.fabirt.debty.util.getColorFromAttr
 import com.fabirt.debty.util.toCurrencyString
 import com.fabirt.debty.util.toDateString
 import java.text.SimpleDateFormat
@@ -25,7 +25,7 @@ class MovementViewHolder(
     }
 
     fun bind(movement: Movement) {
-        val amountColor = ContextCompat.getColor(itemView.context, movement.type.color)
+        val amountColor = itemView.context.getColorFromAttr(movement.type.colorAttrId)
         binding.tvDate.text = movement.date.toDateString(SimpleDateFormat.SHORT)
         binding.tvAmount.text = movement.amount.absoluteValue.toCurrencyString()
         binding.tvAmount.setTextColor(amountColor)

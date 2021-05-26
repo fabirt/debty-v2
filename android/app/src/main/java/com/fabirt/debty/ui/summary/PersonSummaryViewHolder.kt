@@ -10,6 +10,7 @@ import com.fabirt.debty.R
 import com.fabirt.debty.databinding.ViewItemPersonBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.PersonClickListener
+import com.fabirt.debty.util.getColorFromAttr
 import com.fabirt.debty.util.toCurrencyString
 import kotlin.math.absoluteValue
 
@@ -44,7 +45,7 @@ class PersonSummaryViewHolder(
 
         binding.tvIndicator.isVisible = person.total != null
         val indicator = person.indicator
-        binding.tvAmount.setTextColor(context.getColor(indicator.colorId))
+        binding.tvAmount.setTextColor(context.getColorFromAttr(indicator.colorAttrId))
         binding.tvIndicator.text = context.getString(indicator.stringId)
 
         binding.container.setOnClickListener {
