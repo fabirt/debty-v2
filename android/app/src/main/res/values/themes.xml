@@ -1,16 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorOnPrimary">@color/dark_grey</item>
-        <item name="backgroundColor">@color/dark_purple</item>
-        <item name="colorOnBackground">@color/white</item>
+        <item name="colorPrimary">@color/dark_purple</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorOnBackground">@color/dark_grey</item>
         <item name="colorError">@color/red</item>
-        <item name="android:colorBackground">@color/dark_purple</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="tabStyle">@style/Widget.App.TabLayout</item>
         <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
@@ -24,6 +24,9 @@
 
     <style name="Theme.App.Launch" parent="Theme.App">
         <item name="android:windowBackground">@drawable/launch_image</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+
     </style>
 
     <!--  Material TabLayout  -->
@@ -61,13 +64,13 @@
     </style>
 
     <style name="ThemeOverlay.App.SnackBar" parent="">
-        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
-        <item name="colorSurface">@color/white</item>
+        <item name="colorSurface">@color/dark_purple</item>
     </style>
 
     <style name="Widget.App.SnackBarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:textColor">@color/dark_purple</item>
+        <item name="android:textColor">@color/dark_purple_900</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
     </style>
 </resources>
