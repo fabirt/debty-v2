@@ -3,12 +3,14 @@ package com.fabirt.debty.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowInsets
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
+import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.util.RootViewDeferringInsetsCallback
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -22,11 +24,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     companion object {
-        const val TAG = "MainActivity"
-        const val APP_UPDATE_REQUEST_CODE = 12
+        private const val TAG = "MainActivity"
+        private const val APP_UPDATE_REQUEST_CODE = 12
     }
 
     private lateinit var appUpdateManager: AppUpdateManager
+    private val assistantViewModel: AssistantViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                 K.SHORTCUT_DATA_MOVEMENT_ASSISTANT -> triggerNewMovementDeepLink()
             }
         }
-        createMoneyTransfer()
+        assistantViewModel.receiveMoneyTransferIntent(intent.extras)
     }
 
     private fun triggerNewMovementDeepLink() {
@@ -118,13 +121,5 @@ class MainActivity : AppCompatActivity() {
             this,
             APP_UPDATE_REQUEST_CODE
         )
-    }
-
-    private fun createMoneyTransfer() {
-        val transferAmount = intent.extras?.getString("transferAmount")
-        val transferOriginName = intent.extras?.getString("moneyTransferOriginName")
-        val transferDestinationName = intent.extras?.getString("moneyTransferDestinationName")
-        val transferMode = intent.extras?.getString("transferMode")
-        Log.i(TAG, "Amount: $transferAmount | Origin: $transferOriginName | Destination: $transferDestinationName | Mode: $transferMode")
     }
 }

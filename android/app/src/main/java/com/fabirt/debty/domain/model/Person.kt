@@ -3,8 +3,8 @@ package com.fabirt.debty.domain.model
 import android.graphics.Bitmap
 
 data class Person(
-    val id: Int,
     val name: String,
+    val id: Int = 0,
     val createdAt: Long = System.currentTimeMillis(),
     val picture: Bitmap? = null,
     val total: Double? = null,

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
+import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.ui.chart.ChartFragment
+import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
@@ -35,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var pagerAdapter: HomePagerAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private val viewModel: HomeViewModel by viewModels()
+    private val assistantViewModel: AssistantViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +116,16 @@ class HomeFragment : Fragment() {
                 binding.fab.setOnClickListener { fabClickAction() }
             }
         })
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            assistantViewModel.eventFlow.collect { event ->
+                when(event) {
+                    is AssistantViewModel.Event.AssistantEvent -> {
+                        showSnackBar(event.message, binding.contextView, binding.fab)
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

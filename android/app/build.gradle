@@ -12,8 +12,8 @@ android {
         applicationId "com.fabirt.debty2"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 12
-        versionName "1.0.6"
+        versionCode 13
+        versionName "1.1.0-alpha01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

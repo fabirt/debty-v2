@@ -24,7 +24,7 @@ data class DBPersonWithTotal(
     val total: Double?
 )
 
-fun DBPerson.toDomainModel() = Person(id, name, createdAt, picture)
+fun DBPerson.toDomainModel() = Person(name, id, createdAt, picture)
 
 fun DBPersonWithTotal.toDomainModel() =
-    Person(person.id, person.name, person.createdAt, person.picture, total)
+    Person(person.name, person.id, person.createdAt, person.picture, total)

@@ -48,4 +48,11 @@ interface PersonRepository {
      * @return The number of [Movement] deleted.
      */
     suspend fun deleteAllPersonRelatedData(id: Int, inclusive: Boolean = true): Int
+
+    /**
+     * Search a person by its name.
+     * @param name of the person to search
+     * @return list of persons that matches [name]
+     */
+    suspend fun searchPerson(name: String): List<Person>
 }

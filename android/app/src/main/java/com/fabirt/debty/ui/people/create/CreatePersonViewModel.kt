@@ -34,7 +34,7 @@ class CreatePersonViewModel @Inject constructor(
      * @return The created person ID or `null` if an error occurred.
      */
     suspend fun createPerson(): Long? {
-        val person = Person(0, name!!, picture = _picture.value)
+        val person = Person(name!!, picture = _picture.value)
         return personRepository.createPerson(person).getOrNull()
     }
 
@@ -45,7 +45,7 @@ class CreatePersonViewModel @Inject constructor(
     }
 
     suspend fun updatePerson(id: Int) {
-        val person = Person(id, name!!, picture = _picture.value)
+        val person = Person(name!!, id = id, picture = _picture.value)
         personRepository.updatePerson(person)
     }
 }

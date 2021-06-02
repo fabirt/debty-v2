@@ -11,6 +11,7 @@ import com.fabirt.debty.util.Either
 import com.fabirt.debty.util.getOrElse
 import com.fabirt.debty.util.right
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -77,5 +78,12 @@ class PersonRepositoryImpl @Inject constructor(
             right(count)
         }
         return result.getOrElse(0)
+    }
+
+    override suspend fun searchPerson(name: String): List<Person> {
+        return personDao
+            .searchPerson("%$name%")
+            .first()
+            .map { it.toDomainModel() }
     }
 }

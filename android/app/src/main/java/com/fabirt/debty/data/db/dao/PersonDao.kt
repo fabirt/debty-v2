@@ -38,6 +38,7 @@ interface PersonDao {
 
     @Query("DELETE FROM persons WHERE id = :id")
     suspend fun deletePerson(id: Int): Int
-}
 
-// "SELECT p.id, p.name, p.picture, SUM(m.amount) AS total FROM persons p INNER JOIN movements m ON p.id = m.person_id GROUP BY p.id, p.name, p.picture UNION SELECT id, name, picture, NULL AS total FROM persons WHERE id NOT IN (SELECT person_id FROM movements GROUP BY person_id) ORDER BY total DESC"
+    @Query("SELECT * FROM persons WHERE name LIKE :name")
+    fun searchPerson(name: String): Flow<List<DBPerson>>
+}
