@@ -15,4 +15,24 @@
 
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
+
+    <capability android:name="actions.intent.CREATE_MONEY_TRANSFER">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.fabirt.debty.ui.MainActivity"
+            android:targetPackage="com.fabirt.debty2">
+            <parameter
+                android:name="moneyTransfer.amount.value"
+                android:key="transferAmount" />
+            <parameter
+                android:name="moneyTransfer.moneyTransferOrigin.name"
+                android:key="moneyTransferOriginName"/>
+            <parameter
+                android:name="moneyTransfer.moneyTransferDestination.name"
+                android:key="moneyTransferDestinationName"/>
+            <parameter
+                android:name="moneyTransfer.transferMode"
+                android:key="transferMode"/>
+        </intent>
+    </capability>
 </shortcuts>

@@ -80,13 +80,13 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-
     private fun handleIntent() {
         intent?.dataString?.let { data ->
             when (data) {
                 K.SHORTCUT_DATA_MOVEMENT_ASSISTANT -> triggerNewMovementDeepLink()
             }
         }
+        createMoneyTransfer()
     }
 
     private fun triggerNewMovementDeepLink() {
@@ -118,5 +118,13 @@ class MainActivity : AppCompatActivity() {
             this,
             APP_UPDATE_REQUEST_CODE
         )
+    }
+
+    private fun createMoneyTransfer() {
+        val transferAmount = intent.extras?.getString("transferAmount")
+        val transferOriginName = intent.extras?.getString("moneyTransferOriginName")
+        val transferDestinationName = intent.extras?.getString("moneyTransferDestinationName")
+        val transferMode = intent.extras?.getString("transferMode")
+        Log.i(TAG, "Amount: $transferAmount | Origin: $transferOriginName | Destination: $transferDestinationName | Mode: $transferMode")
     }
 }
