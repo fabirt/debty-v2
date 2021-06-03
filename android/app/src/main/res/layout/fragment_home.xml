@@ -40,5 +40,4 @@
         app:srcCompat="@drawable/ic_round_attach_money_24"
         app:tint="?attr/backgroundColor" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

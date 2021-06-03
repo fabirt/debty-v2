@@ -72,4 +72,7 @@
     <string name="pay_loan_title">Pagar préstamo</string>
     <string name="pay_loan">Pagar</string>
     <string name="can_not_pay_loan">No se puede pagar, este movimiento no es un préstamo</string>
+    <string name="money_transfer_action_send">Pagaste %1$s a %2$s.</string>
+    <string name="money_transfer_action_receive">Prestaste %1$s a %2$s.</string>
+    <string name="money_transfer_action_add">Prestaste %1$s a %2$s.</string>
 </resources>

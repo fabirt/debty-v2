@@ -18,12 +18,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentHomeBinding
+import com.fabirt.debty.domain.model.FinancialTransferMode
 import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.ui.chart.ChartFragment
 import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
+import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
@@ -117,15 +119,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            assistantViewModel.eventFlow.collect { event ->
-                when(event) {
-                    is AssistantViewModel.Event.AssistantEvent -> {
-                        showSnackBar(event.message, binding.contextView, binding.fab)
-                    }
-                }
-            }
-        }
+        listenToAssistantEvents()
     }
 
     override fun onDestroyView() {
@@ -148,6 +142,23 @@ class HomeFragment : Fragment() {
             viewModel.movements
                 .catch { }
                 .collect { sendUpdateAppWidgetBroadcast() }
+        }
+    }
+
+    private fun listenToAssistantEvents() {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            assistantViewModel.eventFlow.collect { event ->
+                when(event) {
+                    is AssistantViewModel.Event.AssistantEvent -> {
+                        val message = when(event.transferMode) {
+                            FinancialTransferMode.ReceiveMoney -> getString(R.string.money_transfer_action_receive, event.transferAmount.toCurrencyString(), event.transferDestinationName)
+                            FinancialTransferMode.SendMoney -> getString(R.string.money_transfer_action_send, event.transferAmount.toCurrencyString(), event.transferDestinationName)
+                            FinancialTransferMode.AddMoney -> getString(R.string.money_transfer_action_add, event.transferAmount.toCurrencyString(), event.transferDestinationName)
+                        }
+                        showSnackBar(message, binding.contextView, binding.fab)
+                    }
+                }
+            }
         }
     }
 }

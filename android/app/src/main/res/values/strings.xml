@@ -72,4 +72,7 @@
     <string name="pay_loan_title">Pay loan</string>
     <string name="pay_loan">Pay</string>
     <string name="can_not_pay_loan">Can\'t pay, this move is not a loan</string>
+    <string name="money_transfer_action_send">You paid %1$s to %2$s.</string>
+    <string name="money_transfer_action_receive">You lent %1$s to %2$s.</string>
+    <string name="money_transfer_action_add">You lent %1$s to %2$s.</string>
 </resources>
