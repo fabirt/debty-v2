@@ -75,4 +75,6 @@
     <string name="money_transfer_action_send">You paid %1$s to %2$s.</string>
     <string name="money_transfer_action_receive">You lent %1$s to %2$s.</string>
     <string name="money_transfer_action_add">You lent %1$s to %2$s.</string>
+    <string name="export_data_title">Export Data</string>
+    <string name="import_data_title">Import Data</string>
 </resources>

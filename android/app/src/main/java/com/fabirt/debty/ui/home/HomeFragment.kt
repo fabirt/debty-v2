@@ -83,6 +83,15 @@ class HomeFragment : Fragment() {
             }
         }.attach()
 
+        binding.toolbar.setNavigationOnClickListener {
+            binding.drawerLayout.open()
+        }
+
+        binding.navigationView.setNavigationItemSelectedListener {
+            binding.drawerLayout.close()
+            false
+        }
+
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

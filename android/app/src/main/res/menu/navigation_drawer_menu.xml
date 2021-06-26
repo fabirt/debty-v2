@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_export"
+            android:icon="@drawable/ic_archive_24"
+            android:title="@string/export_data_title" />
+        <item
+            android:id="@+id/item_import"
+            android:icon="@drawable/ic_unarchive_24"
+            android:title="@string/import_data_title" />
+    </group>
+</menu>
