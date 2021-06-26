@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,10 +38,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -55,6 +50,7 @@ class HomeFragment : Fragment() {
     private lateinit var openFileLauncher: ActivityResultLauncher<Array<String>>
     private val viewModel: HomeViewModel by viewModels()
     private val assistantViewModel: AssistantViewModel by activityViewModels()
+    private val backupViewModel: BackupViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +60,7 @@ class HomeFragment : Fragment() {
 
         onBackPressedCallback.isEnabled = false
         listenMovementChanges()
+        listenBackupEvents()
 
         createFileLauncher =
             registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
@@ -224,34 +221,20 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun exportDatabase(uri: Uri) {
-        val databasePath = requireContext().getDatabasePath(K.DATABASE_NAME).path
-        val databaseFile = File(databasePath)
-        if (databaseFile.exists()) {
-            try {
-                FileInputStream(databaseFile).use { inputStream ->
-                    requireContext().contentResolver.openOutputStream(uri).use { outputStream ->
-                        inputStream.copyTo(outputStream!!)
-                        showSnackBar(
+    private fun listenBackupEvents() {
+        lifecycleScope.launch {
+            backupViewModel.eventFlow.collect { event ->
+                when (event) {
+                    BackupEvent.DatabaseExported -> {
+                        showSnackBarWithAction(
                             getString(R.string.save_to_storage_success),
-                            binding.contextView
-                        )
+                            binding.contextView,
+                            getString(R.string.restart)
+                        ) {
+                            restartActivity()
+                        }
                     }
-                }
-            } catch (e: IOException) {
-                Log.e("Export DB", e.stackTraceToString())
-            }
-        }
-    }
-
-    private fun importDatabase(uri: Uri) {
-        val databasePath = requireContext().getDatabasePath(K.DATABASE_NAME).path
-        val databaseFile = File(databasePath)
-        if (databaseFile.exists()) {
-            try {
-                requireContext().contentResolver.openInputStream(uri).use { inputStream ->
-                    FileOutputStream(databaseFile).use { outputStream ->
-                        inputStream!!.copyTo(outputStream)
+                    BackupEvent.DatabaseImported -> {
                         showSnackBarWithAction(
                             getString(R.string.import_success),
                             binding.contextView,
@@ -261,10 +244,24 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
-            } catch (e: IOException) {
-                Log.e("Import DB", e.stackTraceToString())
             }
         }
+    }
+
+    private fun exportDatabase(uri: Uri) {
+        backupViewModel.exportDatabase(
+            requireContext().getDatabasePath(K.DATABASE_NAME),
+            uri,
+            requireContext().contentResolver
+        )
+    }
+
+    private fun importDatabase(uri: Uri) {
+        backupViewModel.importDatabase(
+            requireContext().getDatabasePath(K.DATABASE_NAME),
+            uri,
+            requireContext().contentResolver
+        )
     }
 
     private fun restartActivity() {
