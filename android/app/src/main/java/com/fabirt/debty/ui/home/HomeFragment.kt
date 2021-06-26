@@ -148,12 +148,24 @@ class HomeFragment : Fragment() {
     private fun listenToAssistantEvents() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             assistantViewModel.eventFlow.collect { event ->
-                when(event) {
+                when (event) {
                     is AssistantViewModel.Event.AssistantEvent -> {
-                        val message = when(event.transferMode) {
-                            FinancialTransferMode.ReceiveMoney -> getString(R.string.money_transfer_action_receive, event.transferAmount.toCurrencyString(), event.transferDestinationName)
-                            FinancialTransferMode.SendMoney -> getString(R.string.money_transfer_action_send, event.transferAmount.toCurrencyString(), event.transferDestinationName)
-                            FinancialTransferMode.AddMoney -> getString(R.string.money_transfer_action_add, event.transferAmount.toCurrencyString(), event.transferDestinationName)
+                        val message = when (event.transferMode) {
+                            FinancialTransferMode.ReceiveMoney -> getString(
+                                R.string.money_transfer_action_receive,
+                                event.transferAmount.toCurrencyString(),
+                                event.transferDestinationName
+                            )
+                            FinancialTransferMode.SendMoney -> getString(
+                                R.string.money_transfer_action_send,
+                                event.transferAmount.toCurrencyString(),
+                                event.transferDestinationName
+                            )
+                            FinancialTransferMode.AddMoney -> getString(
+                                R.string.money_transfer_action_add,
+                                event.transferAmount.toCurrencyString(),
+                                event.transferDestinationName
+                            )
                         }
                         showSnackBar(message, binding.contextView, binding.fab)
                     }
