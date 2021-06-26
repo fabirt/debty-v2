@@ -75,6 +75,7 @@
     <string name="money_transfer_action_send">Pagaste %1$s a %2$s.</string>
     <string name="money_transfer_action_receive">Prestaste %1$s a %2$s.</string>
     <string name="money_transfer_action_add">Prestaste %1$s a %2$s.</string>
-    <string name="export_data_title">Archivar</string>
+    <string name="export_data_title">Exportar</string>
     <string name="import_data_title">Importar</string>
+    <string name="save_to_storage_success">Guardado en almacenamiento compartido con éxito.</string>
 </resources>

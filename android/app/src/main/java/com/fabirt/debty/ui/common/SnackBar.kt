@@ -9,7 +9,13 @@ fun Fragment.showSnackBar(text: String) {
     Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
 }
 
-fun Fragment.showSnackBar(text: String, contextView: View, anchorView: View) {
+fun showSnackBar(text: String, contextView: View) {
+    Snackbar
+        .make(contextView, text, Snackbar.LENGTH_LONG)
+        .show()
+}
+
+fun showSnackBar(text: String, contextView: View, anchorView: View) {
     Snackbar
         .make(contextView, text, Snackbar.LENGTH_LONG)
         .setAnchorView(anchorView)

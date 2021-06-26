@@ -1,14 +1,18 @@
 package com.fabirt.debty.ui.home
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
+import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.domain.model.FinancialTransferMode
 import com.fabirt.debty.ui.assistant.AssistantViewModel
@@ -31,6 +36,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -39,6 +47,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var pagerAdapter: HomePagerAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
+    private lateinit var createFileLauncher: ActivityResultLauncher<String>
     private val viewModel: HomeViewModel by viewModels()
     private val assistantViewModel: AssistantViewModel by activityViewModels()
 
@@ -50,6 +59,11 @@ class HomeFragment : Fragment() {
 
         onBackPressedCallback.isEnabled = false
         listenMovementChanges()
+
+        createFileLauncher =
+            registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
+                uri?.let { exportDatabase(it) }
+            }
     }
 
     override fun onCreateView(
@@ -87,8 +101,19 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.open()
         }
 
-        binding.navigationView.setNavigationItemSelectedListener {
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.close()
+
+            when (menuItem.itemId) {
+                R.id.item_export -> {
+                    createFileLauncher.launch(K.DATABASE_NAME)
+                }
+                R.id.item_import -> {
+
+                }
+                else -> Unit
+            }
+
             false
         }
 
@@ -179,6 +204,26 @@ class HomeFragment : Fragment() {
                         showSnackBar(message, binding.contextView, binding.fab)
                     }
                 }
+            }
+        }
+    }
+
+    private fun exportDatabase(uri: Uri) {
+        val databasePath = requireContext().getDatabasePath(K.DATABASE_NAME).path
+        val databaseFile = File(databasePath)
+        if (databaseFile.exists()) {
+            try {
+                FileInputStream(databaseFile).use { inputStream ->
+                    requireContext().contentResolver.openOutputStream(uri).use { outputStream ->
+                        inputStream.copyTo(outputStream!!)
+                        showSnackBar(
+                            getString(R.string.save_to_storage_success),
+                            binding.contextView
+                        )
+                    }
+                }
+            } catch (e: IOException) {
+                Log.e("Export DB", e.stackTraceToString())
             }
         }
     }
