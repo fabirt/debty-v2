@@ -13,9 +13,8 @@ import com.fabirt.debty.util.right
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class PersonRepositoryImpl @Inject constructor(
+class PersonRepositoryImpl(
     private val personDao: PersonDao,
     private val movementDao: MovementDao
 ) : BaseRepository(), PersonRepository {

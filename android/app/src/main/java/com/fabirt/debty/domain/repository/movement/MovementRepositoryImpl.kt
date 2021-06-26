@@ -6,9 +6,8 @@ import com.fabirt.debty.data.db.entities.toDomainModel
 import com.fabirt.debty.domain.model.Movement
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class MovementRepositoryImpl @Inject constructor(
+class MovementRepositoryImpl(
     private val dao: MovementDao
 ) : MovementRepository {
 
