@@ -12,7 +12,7 @@ import com.fabirt.debty.data.db.entities.DBPerson
 
 @Database(
     version = 1,
-    exportSchema = false,
+    exportSchema = true,
     entities = [DBPerson::class, DBMovement::class],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -26,6 +26,8 @@ abstract class AppDatabase : RoomDatabase() {
             context,
             AppDatabase::class.java,
             K.DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

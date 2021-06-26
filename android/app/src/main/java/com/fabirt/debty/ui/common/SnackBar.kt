@@ -22,6 +22,19 @@ fun showSnackBar(text: String, contextView: View, anchorView: View) {
         .show()
 }
 
+fun showSnackBarWithAction(
+    text: String,
+    contextView: View,
+    actionText: String,
+    onPressed: View.OnClickListener
+) {
+    Snackbar
+        .make(contextView, text, Snackbar.LENGTH_INDEFINITE)
+        .setAction(actionText, onPressed)
+        .show()
+}
+
+
 fun Fragment.showUnexpectedFailureSnackBar() {
     showSnackBar(getString(R.string.unexpected_error_message))
 }

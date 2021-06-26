@@ -78,4 +78,6 @@
     <string name="export_data_title">Exportar</string>
     <string name="import_data_title">Importar</string>
     <string name="save_to_storage_success">Guardado en almacenamiento compartido con éxito.</string>
+    <string name="import_success">Datos importados con éxito.</string>
+    <string name="restart">Reiniciar</string>
 </resources>

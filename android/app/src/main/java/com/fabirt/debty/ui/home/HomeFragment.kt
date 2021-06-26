@@ -1,5 +1,6 @@
 package com.fabirt.debty.ui.home
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -24,9 +25,11 @@ import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.domain.model.FinancialTransferMode
+import com.fabirt.debty.ui.MainActivity
 import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.ui.chart.ChartFragment
 import com.fabirt.debty.ui.common.showSnackBar
+import com.fabirt.debty.ui.common.showSnackBarWithAction
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
@@ -38,6 +41,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.io.IOException
 
 @AndroidEntryPoint
@@ -48,6 +52,7 @@ class HomeFragment : Fragment() {
     private lateinit var pagerAdapter: HomePagerAdapter
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private lateinit var createFileLauncher: ActivityResultLauncher<String>
+    private lateinit var openFileLauncher: ActivityResultLauncher<Array<String>>
     private val viewModel: HomeViewModel by viewModels()
     private val assistantViewModel: AssistantViewModel by activityViewModels()
 
@@ -63,6 +68,11 @@ class HomeFragment : Fragment() {
         createFileLauncher =
             registerForActivityResult(ActivityResultContracts.CreateDocument()) { uri ->
                 uri?.let { exportDatabase(it) }
+            }
+
+        openFileLauncher =
+            registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+                uri?.let { importDatabase(it) }
             }
     }
 
@@ -109,7 +119,13 @@ class HomeFragment : Fragment() {
                     createFileLauncher.launch(K.DATABASE_NAME)
                 }
                 R.id.item_import -> {
-
+                    val mimeTypes = arrayOf(
+                        "application/x-sqlite3",
+                        "application/vnd.sqlite3",
+                        "application/octet-stream",
+                        "application/x-trash"
+                    )
+                    openFileLauncher.launch(mimeTypes)
                 }
                 else -> Unit
             }
@@ -226,6 +242,38 @@ class HomeFragment : Fragment() {
                 Log.e("Export DB", e.stackTraceToString())
             }
         }
+    }
+
+    private fun importDatabase(uri: Uri) {
+        val databasePath = requireContext().getDatabasePath(K.DATABASE_NAME).path
+        val databaseFile = File(databasePath)
+        if (databaseFile.exists()) {
+            try {
+                requireContext().contentResolver.openInputStream(uri).use { inputStream ->
+                    FileOutputStream(databaseFile).use { outputStream ->
+                        inputStream!!.copyTo(outputStream)
+                        showSnackBarWithAction(
+                            getString(R.string.import_success),
+                            binding.contextView,
+                            getString(R.string.restart)
+                        ) {
+                            restartActivity()
+                        }
+                    }
+                }
+            } catch (e: IOException) {
+                Log.e("Import DB", e.stackTraceToString())
+            }
+        }
+    }
+
+    private fun restartActivity() {
+        val activity = requireActivity()
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        activity.finish()
+        startActivity(intent)
     }
 }
 
