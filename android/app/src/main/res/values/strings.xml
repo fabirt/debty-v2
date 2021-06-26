@@ -80,4 +80,5 @@
     <string name="save_to_storage_success">Saved to shared storage successfully.</string>
     <string name="import_success">Import success.</string>
     <string name="restart">Restart</string>
+    <string name="version_name">Version %1$s</string>
 </resources>

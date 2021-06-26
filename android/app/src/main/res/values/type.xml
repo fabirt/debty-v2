@@ -36,4 +36,8 @@
         <item name="android:textSize">13sp</item>
         <item name="textAllCaps">true</item>
     </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/montserrat_medium</item>
+    </style>
 </resources>

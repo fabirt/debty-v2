@@ -166,6 +166,8 @@ class HomeFragment : Fragment() {
             }
         })
 
+        binding.drawerFooterTextView.text = getString(R.string.version_name, getPackageVersionName())
+
         listenToAssistantEvents()
     }
 
@@ -271,6 +273,13 @@ class HomeFragment : Fragment() {
         }
         activity.finish()
         startActivity(intent)
+    }
+
+    private fun getPackageVersionName(): String {
+        val packageName = requireContext().packageName
+        val packageManager = requireContext().packageManager
+        val info = packageManager.getPackageInfo(packageName, 0)
+        return info.versionName
     }
 }
 

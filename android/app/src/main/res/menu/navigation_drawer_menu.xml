@@ -5,11 +5,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/item_export"
-            android:icon="@drawable/ic_archive_24"
+            android:icon="@drawable/ic_outline_unarchive_24"
             android:title="@string/export_data_title" />
         <item
             android:id="@+id/item_import"
-            android:icon="@drawable/ic_unarchive_24"
+            android:icon="@drawable/ic_outline_archive_24"
             android:title="@string/import_data_title" />
     </group>
 </menu>
