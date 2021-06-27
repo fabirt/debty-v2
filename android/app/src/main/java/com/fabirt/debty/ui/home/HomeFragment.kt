@@ -1,6 +1,5 @@
 package com.fabirt.debty.ui.home
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -24,7 +23,6 @@ import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentHomeBinding
 import com.fabirt.debty.domain.model.FinancialTransferMode
-import com.fabirt.debty.ui.MainActivity
 import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.ui.chart.ChartFragment
 import com.fabirt.debty.ui.common.showSnackBar
@@ -38,6 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -233,7 +232,7 @@ class HomeFragment : Fragment() {
                             binding.contextView,
                             getString(R.string.restart)
                         ) {
-                            restartActivity()
+                            finishApp()
                         }
                     }
                     BackupEvent.DatabaseImported -> {
@@ -242,7 +241,7 @@ class HomeFragment : Fragment() {
                             binding.contextView,
                             getString(R.string.restart)
                         ) {
-                            restartActivity()
+                            finishApp()
                         }
                     }
                 }
@@ -266,13 +265,9 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun restartActivity() {
-        val activity = requireActivity()
-        val intent = Intent(requireContext(), MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        activity.finish()
-        startActivity(intent)
+    private fun finishApp() {
+        requireActivity().finishAffinity()
+        exitProcess(0)
     }
 
     private fun getPackageVersionName(): String {
