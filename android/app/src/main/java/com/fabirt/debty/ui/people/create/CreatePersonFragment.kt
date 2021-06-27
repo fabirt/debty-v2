@@ -57,9 +57,7 @@ class CreatePersonFragment : Fragment() {
             binding.inputLayoutName.error = null
         }
 
-        binding.includeBackButton.btnBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        binding.includeBackButton.btnBack.setOnClickListener { it.pop() }
 
         binding.imageCard.setOnClickListener { pickImage() }
         binding.btnSave.setOnClickListener(::validate)

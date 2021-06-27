@@ -3,6 +3,7 @@ package com.fabirt.debty.util
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 
 fun View.clearFocusAndCloseKeyboard() {
     val inputMethodManager = ContextCompat.getSystemService(
@@ -18,4 +19,9 @@ fun View.requestKeyboardFocus() {
     )
     this.requestFocus()
     inputMethodManager?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun View.pop() {
+    clearFocusAndCloseKeyboard()
+    findNavController().popBackStack()
 }

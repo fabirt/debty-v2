@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
+    android:fitsSystemWindows="true"
     tools:context=".ui.movement.person_search.PersonSearchFragment">
 
     <include

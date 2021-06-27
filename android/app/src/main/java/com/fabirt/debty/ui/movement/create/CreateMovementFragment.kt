@@ -70,7 +70,7 @@ class CreateMovementFragment : Fragment() {
         }
 
         binding.includeBackButton.btnBack.setOnClickListener {
-            findNavController().popBackStack()
+            it.pop()
         }
 
         if (args.id == null) binding.editTextAmount.requestKeyboardFocus()
