@@ -4,9 +4,9 @@
     <style name="HeadlineTextStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/padding_horizontal</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Headline2</item>
         <item name="android:textColor">?attr/colorOnBackground</item>
     </style>
@@ -14,9 +14,9 @@
     <style name="SubtitleTextStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/padding_horizontal</item>
         <item name="android:textAppearance">@style/TextAppearance.App.Subtitle2</item>
         <item name="android:textColor">@color/low_emphasis_color</item>
     </style>
@@ -24,7 +24,9 @@
     <style name="Widget.App.Button" parent="">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginStart">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/padding_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/padding_horizontal</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:focusable">false</item>
         <item name="android:insetTop">0dp</item>

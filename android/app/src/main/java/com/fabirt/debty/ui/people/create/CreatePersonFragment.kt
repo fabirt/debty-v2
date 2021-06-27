@@ -57,6 +57,10 @@ class CreatePersonFragment : Fragment() {
             binding.inputLayoutName.error = null
         }
 
+        binding.includeBackButton.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.imageCard.setOnClickListener { pickImage() }
         binding.btnSave.setOnClickListener(::validate)
         binding.editTextName.requestKeyboardFocus()

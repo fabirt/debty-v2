@@ -107,6 +107,10 @@ class PersonDetailFragment : Fragment() {
 
         binding.iconButtonSettle.setOnClickListener { settleAccount() }
 
+        binding.includeBackButton.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         // Observers
         uiListenersJob = viewLifecycleOwner.lifecycleScope.launch {
             launch {

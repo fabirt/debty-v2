@@ -81,4 +81,5 @@
     <string name="import_success">Import success.</string>
     <string name="restart">Restart</string>
     <string name="version_name">Version %1$s</string>
+    <string name="go_back">go back</string>
 </resources>

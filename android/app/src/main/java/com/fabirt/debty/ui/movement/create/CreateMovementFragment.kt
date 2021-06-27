@@ -69,6 +69,10 @@ class CreateMovementFragment : Fragment() {
             openDatePicker()
         }
 
+        binding.includeBackButton.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         if (args.id == null) binding.editTextAmount.requestKeyboardFocus()
 
         binding.editTextAmount.addTextChangedListener(CurrencyTextWatcher(binding.editTextAmount))

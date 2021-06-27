@@ -4,28 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="16dp"
     android:background="?attr/backgroundColor"
     android:fitsSystemWindows="true"
     tools:context=".ui.people.create.CreatePersonFragment">
 
+    <include
+        android:id="@+id/include_back_button"
+        layout="@layout/layout_back_button" />
+
     <TextView
         android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        style="@style/HeadlineTextStyle"
         android:text="@string/new_person"
-        android:textAppearance="@style/TextAppearance.App.Headline2"
-        android:textColor="?attr/colorOnBackground"
         app:layout_constraintEnd_toStartOf="@id/image_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_back_button"
         tools:text="New person" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/image_card"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/padding_horizontal"
         android:contentDescription="@string/person_image_content_description"
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/padding_horizontal"
         android:layout_marginTop="16dp"
         android:hint="@string/name"
         android:textColorHint="?attr/colorOnBackground"

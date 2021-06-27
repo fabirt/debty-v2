@@ -47,6 +47,10 @@ class PersonSearchFragment : Fragment() {
         applyWindowInsets()
         binding.rvPeople.adapter = adapter
 
+        binding.includeBackButton.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.people
                 .catch { showUnexpectedFailureSnackBar() }

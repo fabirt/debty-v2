@@ -23,6 +23,10 @@
             android:background="?attr/backgroundColor"
             android:clipChildren="false">
 
+            <include
+                android:id="@+id/include_back_button"
+                layout="@layout/layout_back_button" />
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
@@ -35,7 +39,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tv_total_label"
                 app:layout_constraintEnd_toStartOf="@id/image_card"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include_back_button"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
