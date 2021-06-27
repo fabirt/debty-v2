@@ -16,10 +16,10 @@ class SummaryTest {
     @Before
     fun setup() {
         people = listOf(
-            Person(1, "A", 0, null, 50_000.0),
-            Person(2, "B", 0, null, 40_000.0),
-            Person(3, "C", 0, null, -20_000.0),
-            Person(3, "D", 0, null, -10_000.0),
+            Person("A", 1, 0, null, 50_000.0),
+            Person("B", 2, 0, null, 40_000.0),
+            Person("C", 3, 0, null, -20_000.0),
+            Person("D", 3, 0, null, -10_000.0),
         )
     }
 
