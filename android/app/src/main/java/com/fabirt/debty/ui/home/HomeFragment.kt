@@ -29,6 +29,7 @@ import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.ui.common.showSnackBarWithAction
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
+import com.fabirt.debty.util.applySystemBarsPadding
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
 import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.tabs.TabLayoutMediator
@@ -167,6 +168,8 @@ class HomeFragment : Fragment() {
 
         binding.drawerFooterTextView.text = getString(R.string.version_name, getPackageVersionName())
 
+        binding.navigationView.applySystemBarsPadding()
+
         listenToAssistantEvents()
     }
 
@@ -277,6 +280,3 @@ class HomeFragment : Fragment() {
         return info.versionName
     }
 }
-
-
-

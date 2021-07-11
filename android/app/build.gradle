@@ -12,8 +12,8 @@ android {
         applicationId "com.fabirt.debty2"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 16
-        versionName "1.2.0-alpha02"
+        versionCode 17
+        versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -27,6 +27,21 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationIdSuffix ".dev"
+            versionCode = 10000  + android.defaultConfig.versionCode
+            versionNameSuffix "-dev"
+        }
+
+        prod {
+            // Uses default config.
+            dimension "app"
         }
     }
 

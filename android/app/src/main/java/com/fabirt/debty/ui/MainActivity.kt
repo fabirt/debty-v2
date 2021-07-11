@@ -1,5 +1,6 @@
 package com.fabirt.debty.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowInsets
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // Android 11 Window insets animation
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val rootView = window.decorView.rootView
 
             val deferringInsetsListener = RootViewDeferringInsetsCallback(
