@@ -1,9 +1,7 @@
 package com.fabirt.debty.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -12,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.ui.assistant.AssistantViewModel
-import com.fabirt.debty.util.RootViewDeferringInsetsCallback
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -38,19 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // Android 11 Window insets animation
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val rootView = window.decorView.rootView
-
-            val deferringInsetsListener = RootViewDeferringInsetsCallback(
-                persistentInsetTypes = WindowInsets.Type.systemBars(),
-                deferredInsetTypes = WindowInsets.Type.ime()
-            )
-
-            rootView.setWindowInsetsAnimationCallback(deferringInsetsListener)
-            rootView.setOnApplyWindowInsetsListener(deferringInsetsListener)
-        }
 
         appUpdateManager = AppUpdateManagerFactory.create(this)
 

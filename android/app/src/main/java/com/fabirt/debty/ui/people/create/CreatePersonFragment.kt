@@ -43,6 +43,12 @@ class CreatePersonFragment : Fragment() {
 
         // Window Insets animation
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            val deferringInsetsListener = RootViewDeferringInsetsCallback(
+                persistentInsetTypes = WindowInsets.Type.systemBars(),
+                deferredInsetTypes = WindowInsets.Type.ime()
+            )
+            binding.root.setOnApplyWindowInsetsListener(deferringInsetsListener)
+            binding.root.setWindowInsetsAnimationCallback(deferringInsetsListener)
             binding.btnSave.setWindowInsetsAnimationCallback(
                 TranslateDeferringInsetsAnimationCallback(
                     view = binding.btnSave,
