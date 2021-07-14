@@ -31,6 +31,7 @@ import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.applySystemBarsPadding
 import com.fabirt.debty.util.sendUpdateAppWidgetBroadcast
+import com.fabirt.debty.util.showSingleTapTargetView
 import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -166,11 +167,14 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.drawerFooterTextView.text = getString(R.string.version_name, getPackageVersionName())
+        binding.drawerFooterTextView.text =
+            getString(R.string.version_name, getPackageVersionName())
 
         binding.navigationView.applySystemBarsPadding()
 
         listenToAssistantEvents()
+
+        discoverFeatures()
     }
 
     override fun onDestroyView() {
@@ -278,5 +282,16 @@ class HomeFragment : Fragment() {
         val packageManager = requireContext().packageManager
         val info = packageManager.getPackageInfo(packageName, 0)
         return info.versionName
+    }
+
+    private fun discoverFeatures() {
+        requireActivity().showSingleTapTargetView(
+            view = binding.fab,
+            title=getString(R.string.feature_discovery_new_movement_title),
+            description = getString(R.string.feature_discovery_new_movement_description),
+            onTargetClick = {
+                navigateToCreateMovement()
+            }
+        )
     }
 }

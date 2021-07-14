@@ -82,4 +82,6 @@
     <string name="restart">Restart</string>
     <string name="version_name">Version %1$s</string>
     <string name="go_back">go back</string>
+    <string name="feature_discovery_new_movement_title">Welcome!</string>
+    <string name="feature_discovery_new_movement_description">Let\'s start creating your first movement</string>
 </resources>

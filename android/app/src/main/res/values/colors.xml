@@ -10,4 +10,5 @@
     <color name="white">#FFFFFF</color>
     <color name="white_12">#1FFFFFFF</color>
     <color name="light_blue">#19B7EA</color>
+    <color name="black">#000000</color>
 </resources>
