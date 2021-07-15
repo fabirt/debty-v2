@@ -22,11 +22,13 @@ import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.constant.K
 import com.fabirt.debty.databinding.FragmentHomeBinding
+import com.fabirt.debty.domain.model.FeatureToDiscover
 import com.fabirt.debty.domain.model.FinancialTransferMode
 import com.fabirt.debty.ui.assistant.AssistantViewModel
 import com.fabirt.debty.ui.chart.ChartFragment
 import com.fabirt.debty.ui.common.showSnackBar
 import com.fabirt.debty.ui.common.showSnackBarWithAction
+import com.fabirt.debty.ui.featurediscovery.FeatureDiscoveryViewModel
 import com.fabirt.debty.ui.people.home.PeopleFragment
 import com.fabirt.debty.ui.summary.SummaryFragment
 import com.fabirt.debty.util.applySystemBarsPadding
@@ -51,6 +53,7 @@ class HomeFragment : Fragment() {
     private lateinit var openFileLauncher: ActivityResultLauncher<Array<String>>
     private val viewModel: HomeViewModel by viewModels()
     private val assistantViewModel: AssistantViewModel by activityViewModels()
+    private val featureDiscoveryViewModel: FeatureDiscoveryViewModel by activityViewModels()
     private val backupViewModel: BackupViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -285,13 +288,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun discoverFeatures() {
-        requireActivity().showSingleTapTargetView(
-            view = binding.fab,
-            title=getString(R.string.feature_discovery_new_movement_title),
-            description = getString(R.string.feature_discovery_new_movement_description),
-            onTargetClick = {
-                navigateToCreateMovement()
+        lifecycleScope.launch {
+            val isCreateMovementDiscovered =
+                featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.CreateMovement)
+            if (!isCreateMovementDiscovered) {
+                requireActivity().showSingleTapTargetView(
+                    view = binding.fab,
+                    title = getString(R.string.feature_discovery_new_movement_title),
+                    description = getString(R.string.feature_discovery_new_movement_description),
+                    onTargetClick = {
+                        featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.CreateMovement)
+                        navigateToCreateMovement()
+                    }
+                )
             }
-        )
+        }
     }
 }
