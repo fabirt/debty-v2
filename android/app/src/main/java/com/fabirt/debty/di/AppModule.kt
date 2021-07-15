@@ -1,6 +1,8 @@
 package com.fabirt.debty.di
 
 import android.content.Context
+import com.fabirt.debty.data.datastore.FeatureDiscoveryDataStore
+import com.fabirt.debty.data.datastore.FeatureDiscoveryDataStoreImpl
 import com.fabirt.debty.data.db.AppDatabase
 import com.fabirt.debty.data.db.dao.MovementDao
 import com.fabirt.debty.data.db.dao.PersonDao
@@ -32,6 +34,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMovementDao(database: AppDatabase) = database.movementDao()
+
+    @Provides
+    @Singleton
+    fun provideFeatureDiscoveryDataStore(
+        @ApplicationContext context: Context
+    ): FeatureDiscoveryDataStore = FeatureDiscoveryDataStoreImpl(context)
 
     @Provides
     @Singleton
