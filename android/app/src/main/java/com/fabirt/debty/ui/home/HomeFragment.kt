@@ -289,9 +289,9 @@ class HomeFragment : Fragment() {
 
     private fun discoverFeatures() {
         lifecycleScope.launch {
-            val isCreateMovementDiscovered =
+            val isFeatureDiscovered =
                 featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.CreateMovement)
-            if (!isCreateMovementDiscovered) {
+            if (!isFeatureDiscovered) {
                 requireActivity().showSingleTapTargetView(
                     view = binding.fab,
                     title = getString(R.string.feature_discovery_new_movement_title),

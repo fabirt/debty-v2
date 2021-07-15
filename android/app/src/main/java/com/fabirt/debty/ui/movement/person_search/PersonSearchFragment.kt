@@ -5,15 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonSearchBinding
+import com.fabirt.debty.domain.model.FeatureToDiscover
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
+import com.fabirt.debty.ui.featurediscovery.FeatureDiscoveryViewModel
 import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.applyStatusBarTopInset
+import com.fabirt.debty.util.showSingleTapTargetView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,6 +31,7 @@ class PersonSearchFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: PersonSearchAdapter
     private val viewModel: PersonSearchViewModel by viewModels()
+    private val featureDiscoveryViewModel: FeatureDiscoveryViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +61,14 @@ class PersonSearchFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.people
                 .catch { showUnexpectedFailureSnackBar() }
-                .collect {
-                    adapter.submitList(it)
+                .collect { selectablePersons ->
+                    adapter.submitList(selectablePersons)
+
+                    // Only show feature discovery if there is only 1 selectable person
+                    if (selectablePersons.count() > 1) return@collect
+
+                    delay(400)
+                    discoverFeatures()
                 }
         }
     }
@@ -79,5 +92,28 @@ class PersonSearchFragment : Fragment() {
     private fun applyWindowInsets() {
         binding.title.applyStatusBarTopInset()
         binding.rvPeople.applyNavigationBarBottomInset()
+    }
+
+    private fun discoverFeatures() {
+        lifecycleScope.launch {
+            val isFeatureDiscovered =
+                featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.CreatePerson)
+            if (!isFeatureDiscovered) {
+                val targetView = binding.rvPeople
+                    .findViewHolderForAdapterPosition(0)
+                    ?.itemView
+                    ?.findViewById<View>(R.id.image_card) ?: return@launch
+
+                requireActivity().showSingleTapTargetView(
+                    view = targetView,
+                    title = getString(R.string.feature_discovery_create_person_title),
+                    description = getString(R.string.feature_discovery_create_person_description),
+                    onTargetClick = {
+                        featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.CreatePerson)
+                        selectNewPerson()
+                    }
+                )
+            }
+        }
     }
 }

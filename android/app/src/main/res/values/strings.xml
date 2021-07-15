@@ -84,4 +84,6 @@
     <string name="go_back">go back</string>
     <string name="feature_discovery_new_movement_title">Welcome!</string>
     <string name="feature_discovery_new_movement_description">Let\'s start creating your first movement</string>
+    <string name="feature_discovery_create_person_title">Create a person</string>
+    <string name="feature_discovery_create_person_description">You can name it whatever you want it and choose a picture</string>
 </resources>
