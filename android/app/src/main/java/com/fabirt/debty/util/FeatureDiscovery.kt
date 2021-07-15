@@ -12,7 +12,9 @@ fun Activity.showSingleTapTargetView(
     view: View,
     title: String,
     description: String,
-    onTargetClick: () -> Unit
+    cancelable: Boolean = false,
+    onTargetClick: (() -> Unit)? = null,
+    onTargetCancel: (() -> Unit)? = null
 ) {
     val typeface = ResourcesCompat.getFont(applicationContext, R.font.montserrat_medium)
 
@@ -20,12 +22,17 @@ fun Activity.showSingleTapTargetView(
         .forView(view, title, description)
         .textTypeface(typeface)
         .tintTarget(false)
-        .cancelable(false)
+        .cancelable(cancelable)
 
     val listener = object : TapTargetView.Listener() {
         override fun onTargetClick(view: TapTargetView?) {
             super.onTargetClick(view)
-            onTargetClick()
+            onTargetClick?.invoke()
+        }
+
+        override fun onTargetCancel(view: TapTargetView?) {
+            super.onTargetCancel(view)
+            onTargetCancel?.invoke()
         }
     }
 

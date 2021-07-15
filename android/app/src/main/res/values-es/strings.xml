@@ -86,4 +86,6 @@
     <string name="feature_discovery_new_movement_description">Empecemos creando tu primer movimiento</string>
     <string name="feature_discovery_create_person_title">Agrega una persona</string>
     <string name="feature_discovery_create_person_description">Puedes nombrarla como quieras y ponerle una foto</string>
+    <string name="feature_discovery_drawer_menu_title">Encuentra más</string>
+    <string name="feature_discovery_drawer_menu_description">Aquí encontrarás más acciones como exportar o importar tus deudas</string>
 </resources>

@@ -17,6 +17,7 @@ class FeatureDiscoveryDataStoreImpl(
     private val keyCreateMovementDiscovered = booleanPreferencesKey("create_movement_discovered")
     private val keyCreatePersonDiscovered = booleanPreferencesKey("create_person_discovered")
     private val keyPersonDetailDiscovered = booleanPreferencesKey("person_detail_discovered")
+    private val keyDrawerMenuDiscovered = booleanPreferencesKey("drawer_menu_discovered")
 
     override suspend fun isFeatureDiscovered(featureToDiscover: FeatureToDiscover): Boolean {
         return context.fdDataStore.data.map { preferences ->
@@ -24,6 +25,7 @@ class FeatureDiscoveryDataStoreImpl(
                 FeatureToDiscover.CreateMovement -> keyCreateMovementDiscovered
                 FeatureToDiscover.CreatePerson -> keyCreatePersonDiscovered
                 FeatureToDiscover.PersonDetail -> keyPersonDetailDiscovered
+                FeatureToDiscover.DrawerMenu -> keyDrawerMenuDiscovered
             }
             preferences[featureKey] ?: false
         }.first()
@@ -35,6 +37,7 @@ class FeatureDiscoveryDataStoreImpl(
                 FeatureToDiscover.CreateMovement -> keyCreateMovementDiscovered
                 FeatureToDiscover.CreatePerson -> keyCreatePersonDiscovered
                 FeatureToDiscover.PersonDetail -> keyPersonDetailDiscovered
+                FeatureToDiscover.DrawerMenu -> keyDrawerMenuDiscovered
             }
 
             preferences[featureKey] = true

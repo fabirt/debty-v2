@@ -289,19 +289,51 @@ class HomeFragment : Fragment() {
 
     private fun discoverFeatures() {
         lifecycleScope.launch {
-            val isFeatureDiscovered =
+            val isCreateMovementDiscovered =
                 featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.CreateMovement)
-            if (!isFeatureDiscovered) {
+            if (!isCreateMovementDiscovered) {
                 requireActivity().showSingleTapTargetView(
                     view = binding.fab,
                     title = getString(R.string.feature_discovery_new_movement_title),
                     description = getString(R.string.feature_discovery_new_movement_description),
+                    cancelable = true,
                     onTargetClick = {
                         featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.CreateMovement)
                         navigateToCreateMovement()
+                    },
+                    onTargetCancel = {
+                        featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.CreateMovement)
+                        lifecycleScope.launch {
+                            discoverDrawerMenu()
+                        }
                     }
                 )
+
+                return@launch
             }
+
+            discoverDrawerMenu()
+        }
+    }
+
+    private suspend fun discoverDrawerMenu() {
+        val isDrawerMenuDiscovered =
+            featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.DrawerMenu)
+
+        if (!isDrawerMenuDiscovered) {
+            requireActivity().showSingleTapTargetView(
+                view = binding.toolbar.getChildAt(0), // targets toolbar navigation icon
+                title = getString(R.string.feature_discovery_drawer_menu_title),
+                description = getString(R.string.feature_discovery_drawer_menu_description),
+                cancelable = true,
+                onTargetClick = {
+                    featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.DrawerMenu)
+                    binding.drawerLayout.open()
+                },
+                onTargetCancel = {
+                    featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.DrawerMenu)
+                }
+            )
         }
     }
 }
