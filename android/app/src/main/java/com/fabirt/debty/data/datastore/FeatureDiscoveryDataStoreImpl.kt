@@ -29,7 +29,7 @@ class FeatureDiscoveryDataStoreImpl(
         }.first()
     }
 
-    override suspend fun setFeatureAsDiscovered(featureToDiscover: FeatureToDiscover) {
+    override suspend fun storeFeatureAsDiscovered(featureToDiscover: FeatureToDiscover) {
         context.fdDataStore.edit { preferences ->
             val featureKey = when(featureToDiscover) {
                 FeatureToDiscover.CreateMovement -> keyCreateMovementDiscovered

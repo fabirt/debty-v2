@@ -6,6 +6,8 @@ import com.fabirt.debty.data.datastore.FeatureDiscoveryDataStoreImpl
 import com.fabirt.debty.data.db.AppDatabase
 import com.fabirt.debty.data.db.dao.MovementDao
 import com.fabirt.debty.data.db.dao.PersonDao
+import com.fabirt.debty.domain.repository.featurediscovery.FeatureDiscoveryRepository
+import com.fabirt.debty.domain.repository.featurediscovery.FeatureDiscoveryRepositoryImpl
 import com.fabirt.debty.domain.repository.movement.MovementRepository
 import com.fabirt.debty.domain.repository.movement.MovementRepositoryImpl
 import com.fabirt.debty.domain.repository.person.PersonRepository
@@ -53,4 +55,10 @@ object AppModule {
     fun provideMovementRepository(
         movementDao: MovementDao
     ): MovementRepository = MovementRepositoryImpl(movementDao)
+
+    @Provides
+    @Singleton
+    fun provideFeatureDiscoveryRepository(
+        dataStore: FeatureDiscoveryDataStore
+    ): FeatureDiscoveryRepository = FeatureDiscoveryRepositoryImpl(dataStore)
 }
