@@ -15,7 +15,7 @@ fun Activity.showSingleTapTargetView(
     cancelable: Boolean = false,
     onTargetClick: (() -> Unit)? = null,
     onTargetCancel: (() -> Unit)? = null
-) {
+): TapTargetView {
     val typeface = ResourcesCompat.getFont(applicationContext, R.font.montserrat_medium)
 
     val target = TapTarget
@@ -36,7 +36,7 @@ fun Activity.showSingleTapTargetView(
         }
     }
 
-    TapTargetView.showFor(this, target, listener)
+    return TapTargetView.showFor(this, target, listener)
 }
 
 fun Activity.showMultiTapTargetView(
