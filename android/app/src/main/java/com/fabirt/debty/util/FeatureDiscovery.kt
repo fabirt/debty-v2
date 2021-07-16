@@ -54,6 +54,7 @@ fun Activity.showMultiTapTargetView(
             .cancelable(cancelable)
             .textTypeface(typeface)
             .targetCircleColorInt(colorBackground)
+            .tintTarget(false)
     }
 
     TapTargetSequence(this)

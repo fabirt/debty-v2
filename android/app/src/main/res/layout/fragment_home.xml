@@ -67,8 +67,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:overScrollMode="never"
         app:headerLayout="@layout/header_navigation_drawer"
-        app:itemTextAppearance="@style/TextAppearance.App.Subtitle2"
+        app:itemIconTint="@color/low_emphasis_color"
+        app:itemTextAppearance="@style/TextAppearance.App.Subtitle1"
         app:menu="@menu/navigation_drawer_menu">
 
         <LinearLayout
