@@ -88,4 +88,12 @@
     <string name="feature_discovery_create_person_description">Puedes nombrarla como quieras y ponerle una foto</string>
     <string name="feature_discovery_drawer_menu_title">Encuentra más</string>
     <string name="feature_discovery_drawer_menu_description">Aquí encontrarás más acciones como exportar o importar tus deudas</string>
+    <string name="feature_discovery_delete_person_title">Borra el historial</string>
+    <string name="feature_discovery_delete_person_description">Borra tu historial de movimientos con esta persona</string>
+    <string name="feature_discovery_edit_person_title">Edita</string>
+    <string name="feature_discovery_edit_person_description">Aquí puedes cambiar el nombre y foto de la persona</string>
+    <string name="feature_discovery_share_history_title">Comparte tu historial</string>
+    <string name="feature_discovery_share_history_description">Comparte tu historial de movimientos con esta persona</string>
+    <string name="feature_discovery_settle_account_title">Salda la deuda</string>
+    <string name="feature_discovery_settle_account_description">Puedes crear un movimiento para saldar las cuentas con esta persona</string>
 </resources>

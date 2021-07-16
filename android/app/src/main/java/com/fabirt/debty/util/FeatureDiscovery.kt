@@ -23,6 +23,7 @@ fun Activity.showSingleTapTargetView(
         .textTypeface(typeface)
         .tintTarget(false)
         .cancelable(cancelable)
+        .targetCircleColorInt(getColorFromAttr(R.attr.backgroundColor))
 
     val listener = object : TapTargetView.Listener() {
         override fun onTargetClick(view: TapTargetView?) {
@@ -40,9 +41,33 @@ fun Activity.showSingleTapTargetView(
 }
 
 fun Activity.showMultiTapTargetView(
-    vararg targets: TapTarget
+    targets: Array<TapTarget>,
+    cancelable: Boolean = false,
+    onSequenceFinish: (() -> Unit)? = null,
+    onSequenceCanceled: (() -> Unit)? = null
 ) {
+    val typeface = ResourcesCompat.getFont(applicationContext, R.font.montserrat_medium)
+    val colorBackground = getColorFromAttr(R.attr.backgroundColor)
+
+    val mappedTargets = targets.map { tapTarget ->
+        tapTarget
+            .cancelable(cancelable)
+            .textTypeface(typeface)
+            .targetCircleColorInt(colorBackground)
+    }
+
     TapTargetSequence(this)
-        .targets(*targets)
+        .targets(mappedTargets)
+        .listener(object : TapTargetSequence.Listener {
+            override fun onSequenceFinish() {
+                onSequenceFinish?.invoke()
+            }
+
+            override fun onSequenceCanceled(lastTarget: TapTarget?) {
+                onSequenceCanceled?.invoke()
+            }
+
+            override fun onSequenceStep(lastTarget: TapTarget?, targetClicked: Boolean) = Unit
+        })
         .start()
 }

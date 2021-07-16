@@ -9,11 +9,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.drawToBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,14 +27,18 @@ import com.fabirt.debty.BuildConfig
 import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentPersonDetailBinding
+import com.fabirt.debty.domain.model.FeatureToDiscover
 import com.fabirt.debty.domain.model.Movement
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.error.AppException
 import com.fabirt.debty.ui.common.SwipeItemCallback
 import com.fabirt.debty.ui.common.showSnackBar
+import com.fabirt.debty.ui.featurediscovery.FeatureDiscoveryViewModel
 import com.fabirt.debty.util.ImagePicker
 import com.fabirt.debty.util.showGeneralDialog
+import com.fabirt.debty.util.showMultiTapTargetView
 import com.fabirt.debty.util.toCurrencyString2
+import com.getkeepsafe.taptargetview.TapTarget
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,12 +59,19 @@ class PersonDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: PersonDetailFragmentArgs by navArgs()
     private val viewModel: PersonDetailViewModel by viewModels()
+    private val featureDiscoveryViewModel: FeatureDiscoveryViewModel by activityViewModels()
     private lateinit var movementAdapter: MovementAdapter
     private var uiListenersJob: Job? = null
     private lateinit var imagePicker: ImagePicker
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onBackPressedCallback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            // prevent from navigate up with feature discovery active.
+        }
+        onBackPressedCallback.isEnabled = false
+
         movementAdapter = MovementAdapter().apply {
             setOnClickListener(::navigateToEditMovement)
             setOnLongClickListener(::confirmMovementCanBePaid)
@@ -135,6 +149,8 @@ class PersonDetailFragment : Fragment() {
                     .show()
             }
         }
+
+        discoverFeatures()
     }
 
     private suspend fun renderPerson() {
@@ -347,5 +363,45 @@ class PersonDetailFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun discoverFeatures() {
+        lifecycleScope.launch {
+            val isPersonDetailDiscovered =
+                featureDiscoveryViewModel.isFeatureDiscovered(FeatureToDiscover.PersonDetail)
+            if (!isPersonDetailDiscovered) {
+                onBackPressedCallback.isEnabled = true
+                val targets = arrayOf(
+                    TapTarget.forView(
+                        binding.iconButtonDelete,
+                        getString(R.string.feature_discovery_delete_person_title),
+                        getString(R.string.feature_discovery_delete_person_description)
+                    ),
+                    TapTarget.forView(
+                        binding.iconButtonEdit,
+                        getString(R.string.feature_discovery_edit_person_title),
+                        getString(R.string.feature_discovery_edit_person_description)
+                    ),
+                    TapTarget.forView(
+                        binding.iconButtonShare,
+                        getString(R.string.feature_discovery_share_history_title),
+                        getString(R.string.feature_discovery_share_history_description)
+                    ),
+                    TapTarget.forView(
+                        binding.iconButtonSettle,
+                        getString(R.string.feature_discovery_settle_account_title),
+                        getString(R.string.feature_discovery_settle_account_description)
+                    ),
+                )
+                requireActivity().showMultiTapTargetView(
+                    targets = targets,
+                    onSequenceFinish = {
+                        onBackPressedCallback.isEnabled = false
+                        featureDiscoveryViewModel.storeFeatureAsDiscovered(FeatureToDiscover.PersonDetail)
+                    }
+                )
+            }
+        }
+
     }
 }

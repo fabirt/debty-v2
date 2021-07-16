@@ -88,4 +88,12 @@
     <string name="feature_discovery_create_person_description">You can name it whatever you want it and choose a picture</string>
     <string name="feature_discovery_drawer_menu_title">More</string>
     <string name="feature_discovery_drawer_menu_description">Here you can find more actions</string>
+    <string name="feature_discovery_delete_person_title">Delete history</string>
+    <string name="feature_discovery_delete_person_description">Delete your movement history with this person</string>
+    <string name="feature_discovery_edit_person_title">Edit person</string>
+    <string name="feature_discovery_edit_person_description">Here you can change the name and picture of this person</string>
+    <string name="feature_discovery_share_history_title">Share history</string>
+    <string name="feature_discovery_share_history_description">Share your movement history with this person</string>
+    <string name="feature_discovery_settle_account_title">Settle account</string>
+    <string name="feature_discovery_settle_account_description">You can create a movement to settle the accounts with this person</string>
 </resources>
