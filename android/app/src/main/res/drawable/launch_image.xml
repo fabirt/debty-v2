@@ -7,4 +7,10 @@
     <item
         android:drawable="@drawable/welcome_bg"
         android:gravity="fill" />
+
+  <item
+      android:width="100dp"
+      android:height="50dp"
+      android:drawable="@drawable/launch_logo"
+      android:gravity="center" />
 </layer-list>
