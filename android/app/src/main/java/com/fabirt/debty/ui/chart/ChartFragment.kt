@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.fabirt.debty.R
 import com.fabirt.debty.databinding.FragmentChartBinding
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
+import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.getColorFromAttr
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
@@ -41,6 +42,7 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.container.applyNavigationBarBottomInset()
 
         val colorOnBackground = requireContext().getColorFromAttr(R.attr.colorOnBackground)
         val lineColor = requireContext().getColorFromAttr(R.attr.colorTransactionPositive)

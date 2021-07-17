@@ -91,6 +91,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.contextView.applySystemBarsPadding()
+
         binding.fab.setOnClickListener { navigateToCreateMovement() }
 
         binding.pager.apply {

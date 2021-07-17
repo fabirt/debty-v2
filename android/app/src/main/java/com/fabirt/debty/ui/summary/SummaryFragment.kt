@@ -14,6 +14,7 @@ import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentSummaryBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
+import com.fabirt.debty.util.applyNavigationBarBottomInset
 import com.fabirt.debty.util.calculateSummaryData
 import com.fabirt.debty.util.toCurrencyString2
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +46,8 @@ class SummaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.applyNavigationBarBottomInset()
+
         binding.rvPeople.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvPeople.adapter = personSummaryAdapter

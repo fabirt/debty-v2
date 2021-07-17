@@ -14,6 +14,7 @@ import com.fabirt.debty.NavGraphDirections
 import com.fabirt.debty.databinding.FragmentPeopleBinding
 import com.fabirt.debty.domain.model.Person
 import com.fabirt.debty.ui.common.showUnexpectedFailureSnackBar
+import com.fabirt.debty.util.applyNavigationBarBottomInset
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -42,6 +43,8 @@ class PeopleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.applyNavigationBarBottomInset()
+
         binding.rvPeople.adapter = adapter
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
