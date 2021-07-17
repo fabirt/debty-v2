@@ -2,8 +2,10 @@ package com.fabirt.debty.ui.home
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +13,7 @@ import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -114,9 +117,23 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.open()
         }
 
+        // Set drawer menu items tooltip
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            binding.navigationView.menu.forEach { item: MenuItem ->
+                when (item.itemId) {
+                    R.id.item_export -> {
+                        item.tooltipText = getString(R.string.export_tooltip)
+                    }
+                    R.id.item_import -> {
+                        item.tooltipText = getString(R.string.import_tooltip)
+                    }
+                }
+            }
+        }
+
+
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.close()
-
             when (menuItem.itemId) {
                 R.id.item_export -> {
                     createFileLauncher.launch(K.DATABASE_NAME)
@@ -171,6 +188,7 @@ class HomeFragment : Fragment() {
                 binding.fab.setOnClickListener { fabClickAction() }
             }
         })
+
 
         binding.drawerFooterTextView.text =
             getString(R.string.version_name, getPackageVersionName())

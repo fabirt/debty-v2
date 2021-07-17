@@ -96,4 +96,6 @@
     <string name="feature_discovery_share_history_description">Share your movement history with this person</string>
     <string name="feature_discovery_settle_account_title">Settle account</string>
     <string name="feature_discovery_settle_account_description">You can create a movement to settle the accounts with this person</string>
+    <string name="export_tooltip">Export your data into a single file and save it on your device</string>
+    <string name="import_tooltip">Import your data from an external file</string>
 </resources>

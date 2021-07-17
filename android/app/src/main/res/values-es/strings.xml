@@ -96,4 +96,6 @@
     <string name="feature_discovery_share_history_description">Comparte tu historial de movimientos con esta persona</string>
     <string name="feature_discovery_settle_account_title">Salda la deuda</string>
     <string name="feature_discovery_settle_account_description">Puedes crear un movimiento para saldar las cuentas con esta persona</string>
+    <string name="export_tooltip">Exporta tus datos en un solo archivo y guárdalo en tu dispositivo</string>
+    <string name="import_tooltip">Importa tus datos de un archivo externo</string>
 </resources>
