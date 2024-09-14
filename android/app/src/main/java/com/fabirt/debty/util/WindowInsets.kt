@@ -84,7 +84,7 @@ class RootViewDeferringInsetsCallback(
         return insets
     }
 
-    override fun onApplyWindowInsets(v: View?, windowInsets: WindowInsets?): WindowInsets {
+    override fun onApplyWindowInsets(v: View, windowInsets: WindowInsets): WindowInsets {
         view = v
         lastWindowInsets = windowInsets
         val types = when {
@@ -92,8 +92,8 @@ class RootViewDeferringInsetsCallback(
             else -> persistentInsetTypes or deferredInsetTypes
         }
 
-        val typeInsets = windowInsets!!.getInsets(types)
-        v?.setPadding(typeInsets.left, typeInsets.top, typeInsets.right, typeInsets.bottom)
+        val typeInsets = windowInsets.getInsets(types)
+        v.setPadding(typeInsets.left, typeInsets.top, typeInsets.right, typeInsets.bottom)
 
         return WindowInsets.CONSUMED
     }

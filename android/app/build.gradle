@@ -5,15 +5,14 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.fabirt.debty2"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdk 23
+        targetSdk 33
         versionCode 18
-        versionName "1.2.1"
+        versionName "1.2.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
