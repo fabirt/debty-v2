@@ -41,7 +41,6 @@ import com.fabirt.debty.util.toCurrencyString
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
 
