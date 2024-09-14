@@ -6,8 +6,8 @@
         <item name="backgroundColor">@color/dark_grey</item>
         <item name="colorOnBackground">@color/white</item>
         <item name="android:colorBackground">@color/dark_grey</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="tabStyle">@style/Widget.App.TabLayout</item>

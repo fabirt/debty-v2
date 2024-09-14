@@ -148,7 +148,7 @@ class CreateMovementFragment : Fragment() {
     }
 
     private fun validateChanges(v: View) {
-        val amount = binding.editTextAmount.text.toString().replace(",", "")
+        val amount = binding.editTextAmount.text.toString().removeGroupingSeparator()
         val description = binding.editTextDescription.text?.toString()
         var isValid = true
         if (!viewModel.validateAmount(amount)) {

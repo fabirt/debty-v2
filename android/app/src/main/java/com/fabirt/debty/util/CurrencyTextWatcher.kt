@@ -3,7 +3,6 @@ package com.fabirt.debty.util
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import java.text.DecimalFormat
 
 class CurrencyTextWatcher(
     private val editText: EditText
@@ -19,8 +18,7 @@ class CurrencyTextWatcher(
 
         if (stringText != current) {
             editText.removeTextChangedListener(this)
-
-            val cleanString = stringText.replace(",", "")
+            val cleanString = stringText.removeGroupingSeparator()
             val parsed = cleanString.toDoubleOrNull()
             if (parsed != null) {
                 val formatted = parsed.toDecimalString()

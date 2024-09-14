@@ -17,11 +17,14 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -88,6 +91,13 @@ class ChartFragment : Fragment() {
 
                     val lineData = LineData(dataSet)
 
+                    val amountAxisValueFormatter = object : DefaultAxisValueFormatter(0) {
+                        init {
+                            val symbols = DecimalFormatSymbols.getInstance(Locale.US)
+                            mFormat = DecimalFormat("#,##0", symbols)
+                        }
+                    }
+
                     binding.chart.apply {
                         data = lineData
                         axisLeft.textColor = colorOnBackground
@@ -100,6 +110,8 @@ class ChartFragment : Fragment() {
                         legend.textColor = colorOnBackground
                         legend.typeface = typeface
                         description.text = ""
+                        axisLeft.valueFormatter = amountAxisValueFormatter
+                        axisRight.valueFormatter = amountAxisValueFormatter
                         xAxis.granularity = 1f
                         xAxis.valueFormatter = object : ValueFormatter() {
                             override fun getAxisLabel(value: Float, axis: AxisBase?): String {
