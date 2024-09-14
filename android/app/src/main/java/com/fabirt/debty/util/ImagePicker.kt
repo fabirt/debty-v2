@@ -19,7 +19,12 @@ class ImagePicker(private val fragment: Fragment) {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var requestContentLauncher: ActivityResultLauncher<String>
 
-    private val readStoragePermission = Manifest.permission.READ_EXTERNAL_STORAGE
+    private val readStoragePermission: String
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
     private val imageContent = "image/*"
 
     private var deferred = CompletableDeferred<Bitmap?>()
